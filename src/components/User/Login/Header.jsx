@@ -8,7 +8,7 @@ const Header = () => {
         {/* <img src={'../../assets/logout.png'} /> */}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
