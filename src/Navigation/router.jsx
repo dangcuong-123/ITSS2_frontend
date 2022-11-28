@@ -4,6 +4,7 @@ import LoginScreen from "../Screen/User/Login/LoginScreen";
 import RegisterScreen from "../Screen/User/Login/RegisterScreen";
 import RegisterUserInfoScreen from "../Screen/User/Login/RegisterUserInfoScreen";
 import PasswordForgotScreen from "../Screen/User/Login/PasswordForgotScreen";
+import HomePageScreen from "../Screen/User/HomePageScreen";
 
 const Router = () => {
   return (
@@ -14,6 +15,7 @@ const Router = () => {
         <Route path="register" element={<RegisterScreen />} />
         <Route path="register_user_info" element={<RegisterUserInfoScreen />} />
         <Route path="password_forgot" element={<PasswordForgotScreen />} />
+        <Route path="home" element={<HomePageScreen />} />
       </Routes>
     </BrowserRouter>
   );
