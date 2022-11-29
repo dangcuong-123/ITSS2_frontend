@@ -5,6 +5,7 @@ import RegisterScreen from "../Screen/User/Login/RegisterScreen";
 import RegisterUserInfoScreen from "../Screen/User/Login/RegisterUserInfoScreen";
 import PasswordForgotScreen from "../Screen/User/Login/PasswordForgotScreen";
 
+
 const Router = () => {
   return (
     <BrowserRouter>
@@ -14,6 +15,7 @@ const Router = () => {
         <Route path="register" element={<RegisterScreen />} />
         <Route path="register_user_info" element={<RegisterUserInfoScreen />} />
         <Route path="password_forgot" element={<PasswordForgotScreen />} />
+       
       </Routes>
     </BrowserRouter>
   );

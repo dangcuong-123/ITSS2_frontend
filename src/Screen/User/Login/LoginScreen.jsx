@@ -11,36 +11,37 @@ const LoginScreen = () => {
     <div className="flex flex-col justify-center items-center">
       <Card>
         <div className="w-4/5 flex flex-col justify-center">
-          <Button>
+          {/* <Button>
             <img src={TwitterIcon} alt="Twitter" />
             <span className="text-white font-semibold text-base">
-              Twitterにてログイン
+            Login with Twitter
             </span>
-          </Button>
-          <div className="flex items-center my-3">
+          </Button> */}
+          {/* <div className="flex items-center my-3">
             <div className="flex-grow h-px bg-[#2286C3]"></div>
             <span className="text-[#2286C3] text-sm font-medium px-4">
-              または
+            Or
             </span>
             <div className="flex-grow h-px bg-[#2286C3]"></div>
-          </div>
-          <Input leftIcon={EmailIcon} placeholder="メールアドレス" />
+          </div> */}
+          <Input leftIcon={EmailIcon} placeholder="Email Address" />
           <Input
             leftIcon={PasswordIcon}
-            rightIcon={ShowPassword}
-            placeholder="パスワード"
+            // rightIcon={ShowPassword}
+            placeholder="Password"
           />
           <button className="bg-gradient-to-r from-[#64B5F6] to-[#2286C3] py-3 text-white shadow-lg">
-            ログイン
+            Login
           </button>
-          <span className="text-center text-[#64B5F6] mt-5 text-lg font-medium">
-            パスワードをお忘れ方
-          </span>
+        
+          <button className="text-center text-[#64B5F6] mt-5 text-lg font-medium">
+            Forgot Password
+          </button>
         </div>
       </Card>
-      <span className="text-center text-[#64B5F6] mt-6 text-lg font-medium">
-        新しくアカウントを作成する
-      </span>
+      <button className="text-center text-[#64B5F6] mt-6 text-lg font-medium">
+      Create a new account
+      </button>
     </div>
   );
 };
