@@ -26,7 +26,7 @@ const LoginScreen = () => {
             <div className="flex-grow h-px bg-[#2286C3]"></div>
           </div>
           <label className="text-[#2286C3]">E-mail</label>
-          <Input leftIcon={EmailIcon} placeholder="Please enter e-mail"/>
+          <Input leftIcon={EmailIcon} placeholder="Please enter e-mail" />
           <label className="text-[#2286C3]">Password</label>
           <Input
             leftIcon={PasswordIcon}
@@ -34,8 +34,18 @@ const LoginScreen = () => {
             placeholder="Please enter password"
           />
           <div>
-            <Link to="/password_forgot" className="text-center text-[#64B5F6] mt-5 text-lg font-medium"><u>Forgot password ?</u></Link>
-            <button style={{float: 'right'}} className="bg-gradient-to-r px-5 from-[#64B5F6] to-[#2286C3] py-3 text-white shadow-lg">Login</button>
+            <Link
+              to="/password_forgot"
+              className="text-center text-[#64B5F6] mt-5 text-lg font-medium"
+            >
+              <u>Forgot password ?</u>
+            </Link>
+            <button
+              style={{ float: "right" }}
+              className="bg-gradient-to-r px-5 from-[#64B5F6] to-[#2286C3] py-3 text-white shadow-lg"
+            >
+              Login
+            </button>
           </div>
           {/* <span className="text-center text-[#64B5F6] mt-5 text-lg font-medium">
             Forgot password ?
