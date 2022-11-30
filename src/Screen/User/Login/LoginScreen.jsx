@@ -1,6 +1,4 @@
 import Card from "../../../components/User/Login/Card";
-import Button from "../../../components/User/Login/Button";
-import TwitterIcon from "../../../assets/User/Login/TwitterIcon.svg";
 import EmailIcon from "../../../assets/User/Login/EmailIcon.svg";
 import PasswordIcon from "../../../assets/User/Login/Password.svg";
 import ShowPassword from "../../../assets/User/Login/show.svg";
@@ -12,12 +10,6 @@ const LoginScreen = () => {
     <div className="flex flex-col justify-center items-center">
       <Card>
         <div className="w-4/5 flex flex-col justify-center">
-          {/* <Button>
-            <img src={TwitterIcon} alt="Twitter" />
-            <span className="text-white font-semibold text-base">
-              Twitterにてログイン
-            </span>
-          </Button> */}
           <div className="flex items-center my-3">
             <div className="flex-grow h-px bg-[#2286C3]"></div>
             <span className="text-[#2286C3] text-sm font-medium px-4">
@@ -40,21 +32,23 @@ const LoginScreen = () => {
             >
               <u>Forgot password ?</u>
             </Link>
-            <button
-              style={{ float: "right" }}
-              className="bg-gradient-to-r px-5 from-[#64B5F6] to-[#2286C3] py-3 text-white shadow-lg"
-            >
-              Login
-            </button>
           </div>
-          {/* <span className="text-center text-[#64B5F6] mt-5 text-lg font-medium">
-            Forgot password ?
-          </span> */}
+          <Link
+            to="/home"
+            style={{ float: "right" }}
+            className="bg-gradient-to-r p-5 m-5 from-[#64B5F6] to-[#2286C3] py-3 text-white shadow-lg text-center"
+          >
+            Login
+          </Link>
         </div>
       </Card>
-      {/* <span className="text-center text-[#64B5F6] mt-6 text-lg font-medium">
-        新しくアカウントを作成する
-      </span> */}
+
+      <Link
+        to="/register"
+        className="text-center text-[#64B5F6] mt-6 text-lg font-medium"
+      >
+        Create a new account
+      </Link>
     </div>
   );
 };

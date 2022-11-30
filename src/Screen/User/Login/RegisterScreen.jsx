@@ -3,34 +3,33 @@ import Input from "../../../components/User/Login/Input";
 import EmailIcon from "../../../assets/User/Login/EmailIcon.svg";
 import PasswordIcon from "../../../assets/User/Login/Password.svg";
 import ShowPassword from "../../../assets/User/Login/show.svg";
+import { Link } from "react-router-dom";
 
 const RegisterScreen = () => {
   return (
     <div className="flex flex-col justify-center items-center">
       <Card>
-        <span className="text-sm text-[#2286C3] mb-4">
-          メールアドレス・パスワードを入力して下さい。
-        </span>
+        <span className="text-sm text-[#2286C3] mb-4">Register</span>
         <div className="w-4/5 flex flex-col justify-center">
-          <Input leftIcon={EmailIcon} placeholder="メールアドレス" />
+          <Input leftIcon={EmailIcon} placeholder="Email Address" />
           <Input
             leftIcon={PasswordIcon}
             rightIcon={ShowPassword}
-            placeholder="パスワード"
+            placeholder="Password"
           />
           <Input
             leftIcon={PasswordIcon}
             rightIcon={ShowPassword}
-            placeholder="パスワード確認"
+            placeholder="Password confirmation"
           />
-          <button className="bg-gradient-to-r from-[#64B5F6] to-[#2286C3] py-3 text-white shadow-lg">
-            次へ
-          </button>
         </div>
       </Card>
-      <span className="text-center text-[#64B5F6] mt-6 text-lg font-medium">
-        ログインはこちらから
-      </span>
+      <Link
+        to="/login"
+        className="text-center text-[#64B5F6] mt-6 text-lg font-medium"
+      >
+        Login here
+      </Link>
     </div>
   );
 };
