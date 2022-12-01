@@ -3,10 +3,10 @@ import "../../style/search.css";
 
 const Search = ({ search, onSearchChange }) => (
   <div>
-    <div className="searchBox pa2">
-      <span className="text-2xl font-bold mb-3"> Where you want to go?</span>
+    <div className="searchBox p2">
+      <div className="text-2xl font-bold mb-3"> Where you want to go?</div>
 
-      <form>
+      <form className=" mb-10">
         <input
           id="userInput"
           className="search tc bg-lightest-purple placeholder-white"
