@@ -5,7 +5,7 @@ const SidebarFirstContent = ({ link, icon, children }) => {
         href={link}
         className="text-white no-underline pl-[10px] flex flex-row"
       >
-        <img src={icon} alt="" />
+        <img className="w-5" src={icon} alt="" />
         <span className="pl-4">{children}</span>
       </a>
     </li>
