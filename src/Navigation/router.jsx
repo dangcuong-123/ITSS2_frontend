@@ -4,6 +4,7 @@ import LoginScreen from "../Screen/User/Login/LoginScreen";
 import RegisterScreen from "../Screen/User/Login/RegisterScreen";
 import PasswordForgotScreen from "../Screen/User/Login/PasswordForgotScreen";
 import HomePageScreen from "../Screen/HomePage/HomePageScreen";
+import SimpleDialogDemo from "../Screen/SimpleDialogDemo";
 import Sidebar from "../components/Sidebar/Sidebar";
 
 const HomeSidebar = () => {
@@ -12,6 +13,7 @@ const HomeSidebar = () => {
       <Sidebar />
       <Routes>
         <Route path="home" element={<HomePageScreen />} />
+        <Route path="test" element={<SimpleDialogDemo />} />
       </Routes>
     </div>
   );
