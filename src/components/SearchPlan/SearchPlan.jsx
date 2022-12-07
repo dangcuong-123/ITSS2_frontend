@@ -16,6 +16,7 @@ import Checkbox from '@mui/material/Checkbox';
 import CardHomeTick from "../HomePage/CardHomeTick";
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
+import { Link } from 'react-router-dom'
 
 const SearchPlan = () => {
     const handleSearch = () => { };
@@ -95,7 +96,7 @@ const SearchPlan = () => {
                         }}>
                             you have chosen hotel!
                         </span>
-                        <Button variant="contained" color="success">
+                        <Button variant="contained" color="success" component={Link} to={"/search-plan-restaurant"}>
                             Next
                         </Button>
                     </div>

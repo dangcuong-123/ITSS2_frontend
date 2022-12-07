@@ -13,9 +13,10 @@ import "../../style/search_plan.css";
 import "../../style/search.css";
 import CardHome from "../HomePage/CardHomePage";
 import Checkbox from '@mui/material/Checkbox';
-import CardHomeTick from "../HomePage/CardHomeTick";
+import CardRestaurentTick from "../HomePage/CardRestaurantTick";
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
+import { Link } from 'react-router-dom'
 
 const SearchPlanRestaurant = () => {
     const handleSearch = () => { };
@@ -76,10 +77,10 @@ const SearchPlanRestaurant = () => {
                         </Box>
                     </div>
                     <div>
-                        <CardHomeTick />
+                        <CardRestaurentTick />
                     </div>
                     <div className="footer">
-                        <Button variant="contained" color="error">
+                        <Button variant="contained" color="error" component={Link} to={"/search-plan"}>
                             Back
                         </Button>
                         <span className="text-2xl font-bold mb-5" style={{
