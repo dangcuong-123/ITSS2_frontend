@@ -9,6 +9,8 @@ import AddRestaurant from "../Screen/Restaurant/Add1"
 import EditRestaurant from "../Screen/Restaurant/Edit"
 import AddHotel from "../Screen/Hotel/Add"
 import EditHotel from "../Screen/Hotel/Edit";
+import SearchPlan from "../components/SearchPlan/SearchPlan";
+import SearchPlanRestaurant from "../components/SearchPlan/SearchPlanRestaurant";
 
 const HomeSidebar = () => {
   return (
@@ -16,6 +18,9 @@ const HomeSidebar = () => {
       <Sidebar />
       <Routes>
         <Route path="home" element={<HomePageScreen />} />
+        <Route path="search-plan" element={<SearchPlan />} />
+        <Route path="search-plan-restaurant" element={<SearchPlanRestaurant />} />
+
       </Routes>
     </div>
   );
