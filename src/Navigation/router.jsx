@@ -11,6 +11,7 @@ import AddHotel from "../Screen/Hotel/Add"
 import EditHotel from "../Screen/Hotel/Edit";
 import SearchPlan from "../components/SearchPlan/SearchPlan";
 import SearchPlanRestaurant from "../components/SearchPlan/SearchPlanRestaurant";
+
 const HomeSidebar = () => {
   return (
     <div className="relative">
