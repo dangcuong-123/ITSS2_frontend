@@ -5,6 +5,7 @@ import Card from "../../../components/User/Login/Card";
 import Input from "../../../components/User/Login/Input";
 import EmailIcon from "../../../assets/User/Login/EmailIcon.svg";
 import PasswordIcon from "../../../assets/User/Login/Password.svg";
+import user from "../../../assets/User/Login/user.svg";
 // import ShowPassword from "../../../assets/User/Login/show.svg";
 import { Link } from "react-router-dom";
 
@@ -13,6 +14,7 @@ const RegisterScreen = () => {
 
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const [userName, setUserName] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
 
 	// handle email change
@@ -23,6 +25,11 @@ const RegisterScreen = () => {
 	// handle password change
 	const handlePasswordChange = (e) => {
 		setPassword(e.target.value);
+	};
+
+	// handle user name change
+	const handleUserNameChange = (e) => {
+		setUserName(e.target.value);
 	};
 
 	// handle confirm password change
@@ -36,21 +43,24 @@ const RegisterScreen = () => {
 		const data = {
 			email,
 			password,
-			confirmPassword,
+			userName,
 		};
-		console.log(data);
 		axios
 			.post(`${baseURL}/authenticate/signup`, data)
 			.then((res) => {
 				if (res.status === 200) {
-					// TODO
+					alert("Register Success");
+					// <Snackbar autoHideDuration={6000}>
+					// 	<Alert severity="success">{res?.data}</Alert>
+					// </Snackbar>;
 				}
 			})
 			.catch((err) => {
 				if (err) {
-					<Snackbar autoHideDuration={6000}>
-						<Alert severity="error">{err?.response?.data?.message}</Alert>
-					</Snackbar>;
+					alert("Register Fail");
+					// <Snackbar autoHideDuration={6000}>
+					// 	<Alert severity="error">{err?.response?.data?.message}</Alert>
+					// </Snackbar>;
 				}
 			});
 	};
@@ -60,6 +70,11 @@ const RegisterScreen = () => {
 			<Card>
 				<span className="text-sm text-[#2286C3] mb-4">Register</span>
 				<div className="w-4/5 flex flex-col justify-center">
+					<Input
+						leftIcon={user}
+						placeholder="User Name"
+						onChange={handleUserNameChange}
+					/>
 					<Input
 						leftIcon={EmailIcon}
 						placeholder="Email Address"
