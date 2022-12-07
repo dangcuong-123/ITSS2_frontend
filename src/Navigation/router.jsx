@@ -5,13 +5,17 @@ import RegisterScreen from "../Screen/User/Login/RegisterScreen";
 import PasswordForgotScreen from "../Screen/User/Login/PasswordForgotScreen";
 import HomePageScreen from "../Screen/HomePage/HomePageScreen";
 import Sidebar from "../components/Sidebar/Sidebar";
-
+import SearchPlan from "../components/SearchPlan/SearchPlan";
+import SearchPlanRestaurant from "../components/SearchPlan/SearchPlanRestaurant";
 const HomeSidebar = () => {
   return (
     <div className="relative">
       <Sidebar />
       <Routes>
         <Route path="home" element={<HomePageScreen />} />
+        <Route path="search-plan" element={<SearchPlan />} />
+        <Route path="search-plan-restaurant" element={<SearchPlanRestaurant />} />
+
       </Routes>
     </div>
   );
