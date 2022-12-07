@@ -5,6 +5,12 @@ import RegisterScreen from "../Screen/User/Login/RegisterScreen";
 import PasswordForgotScreen from "../Screen/User/Login/PasswordForgotScreen";
 import HomePageScreen from "../Screen/HomePage/HomePageScreen";
 import Sidebar from "../components/Sidebar/Sidebar";
+import AddRestaurant from "../Screen/Restaurant/Add1"
+import EditRestaurant from "../Screen/Restaurant/Edit"
+import AddHotel from "../Screen/Hotel/Add"
+import EditHotel from "../Screen/Hotel/Edit";
+import SearchPlan from "../components/SearchPlan/SearchPlan";
+import SearchPlanRestaurant from "../components/SearchPlan/SearchPlanRestaurant";
 
 const HomeSidebar = () => {
   return (
@@ -12,6 +18,9 @@ const HomeSidebar = () => {
       <Sidebar />
       <Routes>
         <Route path="home" element={<HomePageScreen />} />
+        <Route path="search-plan" element={<SearchPlan />} />
+        <Route path="search-plan-restaurant" element={<SearchPlanRestaurant />} />
+
       </Routes>
     </div>
   );
@@ -25,6 +34,10 @@ const Router = () => {
         <Route path="login" element={<LoginScreen />} />
         <Route path="register" element={<RegisterScreen />} />
         <Route path="password_forgot" element={<PasswordForgotScreen />} />
+        <Route path="addRes" element={<AddRestaurant></AddRestaurant>}/>
+        <Route path="editRes" element={<EditRestaurant></EditRestaurant>}/>
+        <Route path="addHotel" element={<AddHotel></AddHotel>}></Route>
+        <Route path="editHotel" element={<EditHotel></EditHotel>}></Route>
         <Route path="/*" element={<HomeSidebar />} />
       </Routes>
     </BrowserRouter>
