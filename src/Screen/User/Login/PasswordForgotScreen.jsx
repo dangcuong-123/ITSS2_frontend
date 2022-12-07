@@ -1,6 +1,7 @@
 import Card from "../../../components/User/Login/Card";
 import Input from "../../../components/User/Login/Input";
 import EmailIcon from "../../../assets/User/Login/EmailIcon.svg";
+import { Link } from "react-router-dom";
 
 const PasswordForgotScreen = () => {
   return (
@@ -16,9 +17,12 @@ const PasswordForgotScreen = () => {
           </button>
         </div>
       </Card>
-      <button className="text-center text-[#64B5F6] mt-6 text-lg font-medium">
+      <Link
+        to="/login"
+        className="text-center text-[#64B5F6] mt-6 text-lg font-medium"
+      >
         Login here
-      </button>
+      </Link>
     </div>
   );
 };
