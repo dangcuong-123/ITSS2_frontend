@@ -20,6 +20,7 @@ const HomeSidebar = () => {
         <Route path="home" element={<HomePageScreen />} />
         <Route path="search-plan" element={<SearchPlan />} />
         <Route path="search-plan-restaurant" element={<SearchPlanRestaurant />} />
+        <Route path="addRes" element={<AddRestaurant/>}/>
 
       </Routes>
     </div>
@@ -34,7 +35,6 @@ const Router = () => {
         <Route path="login" element={<LoginScreen />} />
         <Route path="register" element={<RegisterScreen />} />
         <Route path="password_forgot" element={<PasswordForgotScreen />} />
-        <Route path="addRes" element={<AddRestaurant></AddRestaurant>}/>
         <Route path="editRes" element={<EditRestaurant></EditRestaurant>}/>
         <Route path="addHotel" element={<AddHotel></AddHotel>}></Route>
         <Route path="editHotel" element={<EditHotel></EditHotel>}></Route>

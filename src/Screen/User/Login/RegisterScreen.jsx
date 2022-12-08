@@ -6,10 +6,13 @@ import Input from "../../../components/User/Login/Input";
 import EmailIcon from "../../../assets/User/Login/EmailIcon.svg";
 import PasswordIcon from "../../../assets/User/Login/Password.svg";
 import user from "../../../assets/User/Login/user.svg";
+import { useNavigate } from "react-router-dom";
+
 // import ShowPassword from "../../../assets/User/Login/show.svg";
 import { Link } from "react-router-dom";
 
 const RegisterScreen = () => {
+	const navigate = useNavigate();
 	const baseURL = process.env.REACT_APP_BASE_URL;
 
 	const [email, setEmail] = useState("");
@@ -46,10 +49,11 @@ const RegisterScreen = () => {
 			userName,
 		};
 		axios
-			.post(`${baseURL}/authenticate/signup`, data)
+			.post(`http://35.78.85.107:8080/authenticate/signup`, data)
 			.then((res) => {
 				if (res.status === 200) {
 					alert("Register Success");
+					navigate('/login');
 					// <Snackbar autoHideDuration={6000}>
 					// 	<Alert severity="success">{res?.data}</Alert>
 					// </Snackbar>;

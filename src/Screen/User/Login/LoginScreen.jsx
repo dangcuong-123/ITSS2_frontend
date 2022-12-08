@@ -6,9 +6,10 @@ import EmailIcon from "../../../assets/User/Login/EmailIcon.svg";
 import PasswordIcon from "../../../assets/User/Login/Password.svg";
 // import ShowPassword from "../../../assets/User/Login/show.svg";
 import Input from "../../../components/User/Login/Input";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginScreen = () => {
+	const navigate = useNavigate();
 	const baseURL = process.env.REACT_APP_BASE_URL;
 
 	const [email, setEmail] = useState("");
@@ -32,9 +33,12 @@ const LoginScreen = () => {
 			password,
 		};
 		axios
-			.post(`${baseURL}/authenticate/login`, data)
+			.post(`http://35.78.85.107:8080/authenticate/login`, data)
 			.then((res) => {
 				console.log(res);
+				if (res.status === 200) {
+					navigate('/search-plan');
+				}
 			})
 			.catch((err) => {
 				if (err) {

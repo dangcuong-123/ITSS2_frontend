@@ -31,9 +31,9 @@ const SearchPlan = () => {
             <Container fixed>
                 <LayoutAdmin>
                     <AdminTitle>Search Plan</AdminTitle>
-                    <div>
+                    {/* <div>
                         <Search onSearchChange={handleSearch} />
-                    </div>
+                    </div> */}
                     <div>
                         <span className="text-2xl font-bold mb-5">Recommend hotel</span>
                         <div className="m-5">
