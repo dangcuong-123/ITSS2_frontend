@@ -2,8 +2,10 @@ import { Routes, Route } from "react-router-dom";
 
 import HomePageScreen from "../Screen/HomePage/HomePageScreen";
 import AdminSidebar from "../components/Sidebar/AdminSidebar";
+import ListRestaurant from "../Screen/Restaurant/ListRestaurant";
 import AddRestaurant from "../Screen/Restaurant/AddRestaurant"
 import EditRestaurant from "../Screen/Restaurant/EditRestaurant"
+import ListHotel from "../Screen/Hotel/ListHotel";
 import AddHotel from "../Screen/Hotel/AddHotel"
 import EditHotel from "../Screen/Hotel/EditHotel";
 import SearchPlan from "../components/SearchPlan/SearchPlan";
@@ -17,8 +19,10 @@ const Admin = () => {
         <Route path="home" element={<HomePageScreen />} />
         <Route path="search-plan" element={<SearchPlan />} />
         <Route path="search-plan-restaurant" element={<SearchPlanRestaurant />} />
+        <Route path="list-restaurant" element={<ListRestaurant></ListRestaurant>}></Route>
         <Route path="add-restaurant" element={<AddRestaurant/>}/>
         <Route path="edit-restaurant" element={<EditRestaurant></EditRestaurant>}/>
+        <Route path="list-hotel" element={<ListHotel></ListHotel>}></Route>
         <Route path="add-hotel" element={<AddHotel></AddHotel>}></Route>
         <Route path="edit-hotel" element={<EditHotel></EditHotel>}></Route>
       </Routes>

@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "../Button";
 
 const Header = () => {
   return (
@@ -7,7 +8,7 @@ const Header = () => {
         <p className="text-black font-bold text-xl ml-5">Happy Travel</p>
       </div>
 
-      <div class="flex items-center space-x-4 w-1/6">
+      {/* <div class="flex items-center space-x-4 w-1/6">
         <img
           class="w-10 h-10 rounded-full"
           src="https://flowbite.com/docs/images/people/profile-picture-2.jpg"
@@ -19,6 +20,9 @@ const Header = () => {
             Joined in August 2014
           </div>
         </div>
+      </div> */}
+      <div className="w-4/5 flex mr-4 justify-end">
+        <Button color="font-bold mr-0 px-2 py-2">Login</Button>
       </div>
     </div>
   );

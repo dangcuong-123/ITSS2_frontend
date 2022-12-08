@@ -146,7 +146,7 @@ const EditRestaurant = ({ handleAddMenu }) => {
           </div>
         </div>
       </div>
-      <div className="w-4/5 flex ml-4" style={{ justifyContent: "end" }}>
+      <div className="w-4/5 flex ml-4 justify-end">
         <Button color="from-[#961919] to-[#f6646e] font-bold">Cancel</Button>
         <Button color="font-bold mr-0">Saved Edit</Button>
       </div>
