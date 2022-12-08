@@ -81,80 +81,6 @@ const Edit = ({ handleAddMenu }) => {
     <LayoutAdmin>
       <div>
         <AdminTitle>Add/Edit Restaurant</AdminTitle>
-        {/* <Card>
-          <div>
-            <span>Name * </span>
-            <input
-              type="text"
-              placeholder="name restaurant"
-              value={editRes.name}
-              onChange={handleEditRes}
-            />
-          </div>
-          <div>
-            <span>Address * </span>
-            <input
-              type="text"
-              placeholder="address"
-              value={editRes.address}
-              onChange={handleEditRes}
-            />
-            <select
-              name="Address"
-              id=""
-              placeholder=""
-              onChange={handleEditRes}
-            ></select>
-          </div>
-          <div>
-            <span>Introduce * </span>
-            <input
-              type="text"
-              placeholder="introduce"
-              value={editRes.intro}
-              onChange={handleEditRes}
-            />
-          </div>
-          <div>
-            <span>Menu Introduce * </span>
-            <input
-              type="text"
-              placeholder="menu introduce"
-              value={editRes.menuIntro}
-              onChange={handleEditRes}
-            />
-          </div>
-          <div>
-            <span>Menu List </span>
-            <button
-              className="bg-gradient-to-r from-[#64B5F6] to-[#2286C3] py-1.5 text-white shadow-lg"
-              onClick={handleAddMenu}
-            >
-              Add menu
-            </button>
-          </div>
-          <div>
-            <button
-              className="bg-gradient-to-r from-[#6E6E6E] to-[#D8D8D8] py-1.5 text-white shadow-lg"
-              onClick={handleCancelClick}
-            >
-              Cancel
-            </button>
-
-            <button
-              className="bg-gradient-to-r from-[#F7FE2E] to-[#F3F781] py-1.5 text-white shadow-lg"
-              onClick={handleEditResSubmit}
-            >
-              Edit Restaurant
-            </button>
-            <button
-              className="bg-gradient-to-r from-[#FE2E2E] to-[#FA5858] py-1.5 text-white shadow-lg"
-              onClick={handleDeleteClick}
-            >
-              Delete Restaurant
-            </button>
-          </div>
-        </Card> */}
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
             <label className="text-black font-bold">Name*</label>
@@ -216,11 +142,15 @@ const Edit = ({ handleAddMenu }) => {
             <label className="text-black font-bold">Menu list*</label>
           </div>
           <div className="w-3/5">
-            <Button>
+            <Button color="color-green font-bold">
                 Add Menu
             </Button>
           </div>
         </div>
+      </div>
+      <div className="w-4/5 flex ml-4" style={{ justifyContent: "end" }}>
+        <Button color="from-[#961919] to-[#f6646e] font-bold">Cancel</Button>
+        <Button color="font-bold mr-0">Add Hotel</Button>
       </div>
     </LayoutAdmin>
   );
