@@ -20,8 +20,10 @@ const HomeSidebar = () => {
         <Route path="home" element={<HomePageScreen />} />
         <Route path="search-plan" element={<SearchPlan />} />
         <Route path="search-plan-restaurant" element={<SearchPlanRestaurant />} />
-        <Route path="addRes" element={<AddRestaurant/>}/>
-
+        <Route path="add-restaurant" element={<AddRestaurant/>}/>
+        <Route path="edit-restaurant" element={<EditRestaurant></EditRestaurant>}/>
+        <Route path="add-hotel" element={<AddHotel></AddHotel>}></Route>
+        <Route path="edit-hotel" element={<EditHotel></EditHotel>}></Route>
       </Routes>
     </div>
   );
@@ -35,9 +37,6 @@ const Router = () => {
         <Route path="login" element={<LoginScreen />} />
         <Route path="register" element={<RegisterScreen />} />
         <Route path="password_forgot" element={<PasswordForgotScreen />} />
-        <Route path="editRes" element={<EditRestaurant></EditRestaurant>}/>
-        <Route path="addHotel" element={<AddHotel></AddHotel>}></Route>
-        <Route path="editHotel" element={<EditHotel></EditHotel>}></Route>
         <Route path="/*" element={<HomeSidebar />} />
       </Routes>
     </BrowserRouter>

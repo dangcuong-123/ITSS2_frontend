@@ -1,6 +1,6 @@
 const Input = ({ leftIcon, rightIcon, placeholder, onChange, value }) => {
 	return (
-		<div className="relative flex w-full flex-wrap items-stretch mb-3 border-1 border-[#2286C3]">
+		<div className="relative flex w-full flex-wrap items-center mb-3 border-1 border-[#2286C3]">
 			<span className="z-10 h-full leading-snug font-normal text-center text-slate-300 absolute bg-transparent text-base items-center justify-center w-8 pl-3 py-3">
 				<img src={leftIcon} alt="Email" />
 			</span>
