@@ -3,7 +3,7 @@ import SearchIcon from "../../assets/HomePage/Search.svg";
 import HomeIcon from "../../assets/HomePage/Home.svg";
 import DownloadIcon from "../../assets/HomePage/Download.svg";
 
-const Sidebar = () => {
+const AdminSidebar = () => {
   return (
     <div className="fixed overflow-y-hidden min-h-screen bg-cyan-900 w-[15%] pt-[70px] left-0 bottom-0 flex flex-col justify-between">
       <div>
@@ -18,7 +18,7 @@ const Sidebar = () => {
             Search plan
           </SidebarFirstContent>
           <SidebarFirstContent icon={DownloadIcon} link="/soved">
-            Soved
+            Saved
           </SidebarFirstContent>
         </ul>
       </div>
@@ -26,4 +26,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default AdminSidebar;

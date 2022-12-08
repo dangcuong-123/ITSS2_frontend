@@ -1,43 +1,21 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "../components/Header/Header";
+import User from './user'
+import Admin from './admin'
 import LoginScreen from "../Screen/User/Login/LoginScreen";
 import RegisterScreen from "../Screen/User/Login/RegisterScreen";
 import PasswordForgotScreen from "../Screen/User/Login/PasswordForgotScreen";
-import HomePageScreen from "../Screen/HomePage/HomePageScreen";
-import Sidebar from "../components/Sidebar/Sidebar";
-import AddRestaurant from "../Screen/Restaurant/Add1"
-import EditRestaurant from "../Screen/Restaurant/Edit"
-import AddHotel from "../Screen/Hotel/Add"
-import EditHotel from "../Screen/Hotel/Edit";
-import SearchPlan from "../components/SearchPlan/SearchPlan";
-import SearchPlanRestaurant from "../components/SearchPlan/SearchPlanRestaurant";
-
-const HomeSidebar = () => {
-  return (
-    <div className="relative">
-      <Sidebar />
-      <Routes>
-        <Route path="home" element={<HomePageScreen />} />
-        <Route path="search-plan" element={<SearchPlan />} />
-        <Route path="search-plan-restaurant" element={<SearchPlanRestaurant />} />
-        <Route path="add-restaurant" element={<AddRestaurant/>}/>
-        <Route path="edit-restaurant" element={<EditRestaurant></EditRestaurant>}/>
-        <Route path="add-hotel" element={<AddHotel></AddHotel>}></Route>
-        <Route path="edit-hotel" element={<EditHotel></EditHotel>}></Route>
-      </Routes>
-    </div>
-  );
-};
 
 const Router = () => {
   return (
     <BrowserRouter>
-      <Header />
+    <Header />
       <Routes>
-        <Route path="login" element={<LoginScreen />} />
+      <Route path="login" element={<LoginScreen />} />
         <Route path="register" element={<RegisterScreen />} />
         <Route path="password_forgot" element={<PasswordForgotScreen />} />
-        <Route path="/*" element={<HomeSidebar />} />
+        <Route path="*" element={<User />} />
+        <Route path="/admin/*" element={<Admin />} />
       </Routes>
     </BrowserRouter>
   );

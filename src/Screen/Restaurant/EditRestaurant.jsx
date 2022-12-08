@@ -1,8 +1,6 @@
 import { useState } from "react";
 import React from "react";
-import Add from "./Add1";
-import Card from "../../components/User/Login/Card";
-import data from "../Restaurant/mock-data.json";
+import data from "./mock-data.json";
 import LayoutAdmin from "../../components/Sidebar/AdminContainer";
 import { AdminTitle } from "../../style";
 import Input from "../../components/Input";
@@ -10,7 +8,7 @@ import Button from "../../components/Button";
 
 import { Link, useNavigate } from "react-router-dom";
 
-const Edit = ({ handleAddMenu }) => {
+const EditRestaurant = ({ handleAddMenu }) => {
   const [editContactId, setEditContactId] = useState(null);
   const [contacts, setContacts] = useState(data);
 
@@ -150,10 +148,10 @@ const Edit = ({ handleAddMenu }) => {
       </div>
       <div className="w-4/5 flex ml-4" style={{ justifyContent: "end" }}>
         <Button color="from-[#961919] to-[#f6646e] font-bold">Cancel</Button>
-        <Button color="font-bold mr-0">Add Hotel</Button>
+        <Button color="font-bold mr-0">Saved Edit</Button>
       </div>
     </LayoutAdmin>
   );
 };
 
-export default Edit;
+export default EditRestaurant;
