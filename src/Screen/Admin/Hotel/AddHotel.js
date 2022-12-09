@@ -1,15 +1,14 @@
-import { useState, React } from "react";
-import LayoutAdmin from "../../components/Sidebar/AdminContainer";
+import React, { useState } from "react";
 import data1 from "./mock-data.json";
-import { AdminTitle } from "../../style";
-import Input from "../../components/Input";
-import Button from "../../components/Button";
+import { nanoid } from "nanoid";
+import LayoutAdmin from "../../../components/Sidebar/AdminContainer";
+import { AdminTitle } from "../../../style";
+import Input from "../../../components/Input";
+import Button from "../../../components/Button";
 
-const EditHotel = () => {
-  const [editContactId1, setEditContactId1] = useState(null);
+const AddHotel = () => {
   const [contacts1, setContacts1] = useState(data1);
-
-  const [editHotel, setEditHotel] = useState({
+  const [addHotel, setAddHotel] = useState({
     name: "",
     address: "",
     intro: "",
@@ -17,62 +16,26 @@ const EditHotel = () => {
     price: "",
   });
 
-  const handleEditHotel = (e) => {
+  const handleAddHotel = (e) => {
     e.preventDefault();
-    const fieldName = e.target.getAttribute("name");
-    const fieldValue = e.target.value;
-
-    const newEditHotel1 = { ...editHotel };
-    newEditHotel1[fieldName] = fieldValue;
-    setEditHotel(newEditHotel1);
+    const fielName = e.target.getAttribute("name");
+    const fielValue = e.target.value;
+    const newAddHotel = { ...addHotel };
+    newAddHotel[fielName] = fielValue;
+    setAddHotel(newAddHotel);
   };
 
-  const handleEditHotelSubmit = (e) => {
+  const handleAddHotelSubmit = (e) => {
     e.preventDefault();
-    const editedContact1 = {
-      id: editContactId1,
-      name: editHotel.name,
-      address: editHotel.address,
-      intro: editHotel.intro,
-      roomInfo: editHotel.roomInfo,
-      price: editHotel.price,
+    const newContact1 = {
+      id: nanoid(),
+      name: addHotel.name,
+      address: addHotel.address,
+      intro: addHotel.intro,
+      roomInfo: addHotel.roomInfo,
+      price: addHotel.price,
     };
-
-    const newContacts1 = [...contacts1];
-    const index1 = contacts1.findIndex(
-      (contact1) => contact1.id === editContactId1
-    );
-    newContacts1[index1] = editContactId1;
-    setContacts1(newContacts1);
-    setEditContactId1(null);
-  };
-
-  const handleEditClick1 = (e, contact1) => {
-    e.preventDefault();
-    setEditContactId1(contact1.id);
-
-    const editValue1 = {
-      name: contact1.name,
-      address: contact1.address,
-      intro: contact1.intro,
-      roomInfo: contact1.roomInfo,
-      price: contact1.price,
-    };
-    setEditHotel(editValue1);
-  };
-
-  const handleCancelClick1 = () => {
-    setEditContactId1(null);
-    alert("1");
-  };
-
-  const handleDeleteClick1 = (contactId1) => {
-    const newContacts1 = [...contacts1];
-
-    const index = contacts1.findIndex((contact1) => contact1.id === contactId1);
-
-    newContacts1.splice(index, 1);
-
+    const newContacts1 = [...contacts1, newContact1];
     setContacts1(newContacts1);
     alert("1");
   };
@@ -92,7 +55,7 @@ const EditHotel = () => {
             <Input
               type="text"
               placeholder="Name restaurant"
-              value={editHotel.name}
+              value={addHotel.name}
               onChange={() => {}}
             />
           </div>
@@ -109,7 +72,7 @@ const EditHotel = () => {
             <Input
               type="text"
               placeholder="Name restaurant"
-              value={editHotel.name}
+              value={addHotel.name}
               onChange={() => {}}
             />
           </div>
@@ -126,7 +89,7 @@ const EditHotel = () => {
             <Input
               type="text"
               placeholder="Name restaurant"
-              value={editHotel.name}
+              value={addHotel.name}
               onChange={() => {}}
             />
           </div>
@@ -143,7 +106,7 @@ const EditHotel = () => {
             <Input
               type="text"
               placeholder="Name restaurant"
-              value={editHotel.name}
+              value={addHotel.name}
               onChange={() => {}}
             />
           </div>
@@ -160,13 +123,13 @@ const EditHotel = () => {
             <Input
               type="text"
               placeholder="Name restaurant"
-              value={editHotel.name}
+              value={addHotel.name}
               onChange={() => {}}
             />
           </div>
         </div>
       </div>
-      <div className="w-4/5 flex ml-4" style={{ justifyContent: "end" }}>
+      <div className="w-4/5 flex ml-4 justify-end">
         <Button color="from-[#961919] to-[#f6646e] font-bold">Cancel</Button>
         <Button color="font-bold mr-0">Add Hotel</Button>
       </div>
@@ -174,4 +137,4 @@ const EditHotel = () => {
   );
 };
 
-export default EditHotel;
+export default AddHotel;

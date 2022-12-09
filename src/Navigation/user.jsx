@@ -4,10 +4,10 @@ import HomePageScreen from "../Screen/HomePage/HomePageScreen";
 import UserSidebar from "../components/Sidebar/UserSidebar";
 import SearchPlan from "../components/SearchPlan/SearchPlan";
 import SearchPlanRestaurant from "../components/SearchPlan/SearchPlanRestaurant";
-import ListHotel from "../Screen/Hotel/ListHotel";
-import ListRestaurant from "../Screen/Restaurant/ListRestaurant";
-import DetailRestaurant from "../Screen/Restaurant/DetailRestaurant";
-import DetailHotel from "../Screen/Hotel/DetailHotel";
+import ListHotel from "../Screen/Admin/Hotel/ListHotel";
+import ListRestaurant from "../Screen/Admin/Restaurant/ListRestaurant";
+import DetailRestaurant from "../Screen/Admin/Restaurant/DetailRestaurant";
+import DetailHotel from "../Screen/Admin/Hotel/DetailHotel";
 
 const User = () => {
   return (

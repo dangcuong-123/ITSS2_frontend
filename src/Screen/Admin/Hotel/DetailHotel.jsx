@@ -1,9 +1,9 @@
 import React from "react";
 import { useState } from "react";
-import LayoutAdmin from "../../components/Sidebar/AdminContainer";
-import { AdminTitle } from "../../style";
-import Input from "../../components/Input";
-import Button from "../../components/Button";
+import LayoutAdmin from "../../../components/Sidebar/AdminContainer";
+import { AdminTitle } from "../../../style";
+import Input from "../../../components/Input";
+import Button from "../../../components/Button";
 
 const DetailHotel = () => {
   const listCardHome = {

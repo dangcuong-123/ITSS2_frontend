@@ -1,11 +1,11 @@
 import React from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
-import LayoutAdmin from "../../components/Sidebar/AdminContainer";
-import { AdminTitle } from "../../style";
-import Card from "../../components/Card/Card";
-import Button from "../../components/Button";
-import Input from "../../components/Input";
+import LayoutAdmin from "../../../components/Sidebar/AdminContainer";
+import { AdminTitle } from "../../../style";
+import Card from "../../../components/Card/Card";
+import Button from "../../../components/Button";
+import Input from "../../../components/Input";
 
 const ListRestaurant = () => {
   const handleSearch = () => {};

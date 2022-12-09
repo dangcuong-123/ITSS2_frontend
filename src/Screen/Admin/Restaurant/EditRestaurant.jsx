@@ -1,10 +1,9 @@
-import { useState } from "react";
-import React from "react";
+import React, { useState } from "react";
 import data from "./mock-data.json";
-import LayoutAdmin from "../../components/Sidebar/AdminContainer";
-import { AdminTitle } from "../../style";
-import Input from "../../components/Input";
-import Button from "../../components/Button";
+import LayoutAdmin from "../../../components/Sidebar/AdminContainer";
+import { AdminTitle } from "../../../style";
+import Input from "../../../components/Input";
+import Button from "../../../components/Button";
 
 import { Link, useNavigate } from "react-router-dom";
 
@@ -140,9 +139,7 @@ const EditRestaurant = ({ handleAddMenu }) => {
             <label className="text-black font-bold">Menu list*</label>
           </div>
           <div className="w-3/5">
-            <Button color="color-green font-bold">
-                Add Menu
-            </Button>
+            <Button color="color-green font-bold">Add Menu</Button>
           </div>
         </div>
       </div>
