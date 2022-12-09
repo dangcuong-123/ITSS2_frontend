@@ -14,7 +14,7 @@ const Router = () => {
       <Route path="login" element={<LoginScreen />} />
         <Route path="register" element={<RegisterScreen />} />
         <Route path="password_forgot" element={<PasswordForgotScreen />} />
-        <Route path="*" element={<User />} />
+        <Route path="/*" element={<User />} />
         <Route path="/admin/*" element={<Admin />} />
       </Routes>
     </BrowserRouter>

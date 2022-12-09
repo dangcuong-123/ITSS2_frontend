@@ -15,16 +15,16 @@ const AdminSidebar = () => {
           <SidebarFirstContent icon={SearchIcon} link="/search-plan">
             Search plan
           </SidebarFirstContent>
-          <SidebarFirstContent icon={DownloadIcon} link="/soved">
+          <SidebarFirstContent icon={DownloadIcon} link="/admin/list-hotel">
             Hotel List
           </SidebarFirstContent>
-          <SidebarFirstContent icon={DownloadIcon} link="/soved">
+          <SidebarFirstContent icon={DownloadIcon} link="/admin/list-restaurant">
             Restaurant List
           </SidebarFirstContent>
-          <SidebarFirstContent icon={DownloadIcon} link="/soved">
+          <SidebarFirstContent icon={DownloadIcon} link="/admin/saved">
             Saved
           </SidebarFirstContent>
-          <SidebarFirstContent icon={DownloadIcon} link="/soved">
+          <SidebarFirstContent icon={DownloadIcon} link="/admin/account">
             Account
           </SidebarFirstContent>
         </ul>
