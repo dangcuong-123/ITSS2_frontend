@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { Snackbar, Alert } from "@mui/material";
 import Card from "../../../components/User/Login/Card";
 import EmailIcon from "../../../assets/User/Login/EmailIcon.svg";
@@ -8,6 +7,7 @@ import PasswordIcon from "../../../assets/User/Login/Password.svg";
 import Input from "../../../components/Input";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../services/UserServices";
+import accountStore from "../../../store/AccountInfoStore";
 
 const LoginScreen = () => {
   const navigate = useNavigate();
@@ -36,6 +36,7 @@ const LoginScreen = () => {
       .then((res) => {
         console.log(res);
         if (res.status === 200) {
+          accountStore.setIsAuthenticated();
           navigate("/home");
         }
       })

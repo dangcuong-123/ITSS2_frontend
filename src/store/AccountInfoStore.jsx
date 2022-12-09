@@ -9,7 +9,7 @@ class AccountStore {
       "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg",
   };
 
-  isAuthenticated = true;
+  isAuthenticated = false;
 
   constructor() {
     makeObservable(this, {
@@ -27,8 +27,8 @@ class AccountStore {
     return this.AccountInfo;
   }
 
-  setIsAuthenticated(isAuthenticated) {
-    this.isAuthenticated = isAuthenticated;
+  setIsAuthenticated() {
+    this.isAuthenticated = !this.isAuthenticated;
   }
 }
 
