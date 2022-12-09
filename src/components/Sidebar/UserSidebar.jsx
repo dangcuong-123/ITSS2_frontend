@@ -17,12 +17,6 @@ const UserSidebar = () => {
           <SidebarFirstContent icon={SearchIcon} link="/search-plan">
             Search plan
           </SidebarFirstContent>
-          <SidebarFirstContent icon={DownloadIcon} link="/list-hotel">
-            Hotel List
-          </SidebarFirstContent>
-          <SidebarFirstContent icon={DownloadIcon} link="/list-restaurant">
-            Restaurant List
-          </SidebarFirstContent>
           <SidebarFirstContent icon={DownloadIcon} link="/saved">
             Saved
           </SidebarFirstContent>
