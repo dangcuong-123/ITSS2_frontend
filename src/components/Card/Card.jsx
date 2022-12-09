@@ -1,8 +1,9 @@
 import React from "react";
 import "../../style/search.css";
 import Button from "../Button";
+import { Link } from "react-router-dom";
 
-const Card = ({NameCard}) => {
+const Card = ({ NameCard }) => {
   const listCardHome = [
     {
       tag: "Highlight",
@@ -75,9 +76,18 @@ const Card = ({NameCard}) => {
                     </div>
                   </div>
                   <div className="flex justify-end">
-                    <Button color="from-[#7CFC00] to-[#008000] font-bold mx-1 px-1 py-1">Detail</Button>
+                    <Button color="from-[#7CFC00] to-[#008000] font-bold mx-1 px-1 py-1">
+                      {NameCard === "Hotel" && (
+                        <Link to="/admin/detail-hotel">Detail</Link>
+                      )}
+                      {NameCard === "Restaurant" && (
+                        <Link to="/admin/detail-restaurant">Detail</Link>
+                      )}
+                    </Button>
                     <Button color="font-bold mx-1 px-1 py-1">Edit</Button>
-                    <Button color="from-[#f6646e] to-[#961919] mx-1 font-bold px-1 py-1">Delete</Button>
+                    <Button color="from-[#f6646e] to-[#961919] mx-1 font-bold px-1 py-1">
+                      Delete
+                    </Button>
                   </div>
                 </a>
               </div>
