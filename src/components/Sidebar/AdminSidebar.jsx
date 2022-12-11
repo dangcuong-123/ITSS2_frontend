@@ -2,6 +2,9 @@ import SidebarFirstContent from "./SidebarFirstContent";
 import SearchIcon from "../../assets/HomePage/Search.svg";
 import HomeIcon from "../../assets/HomePage/Home.svg";
 import DownloadIcon from "../../assets/HomePage/Download.svg";
+import HotelListIcon from "../../assets/HomePage/hotel_list.svg";
+import RestaurantIcon from "../../assets/HomePage/restaurant.svg";
+import AccountIcon from "../../assets/HomePage/account-box.svg";
 
 const AdminSidebar = () => {
   return (
@@ -15,16 +18,16 @@ const AdminSidebar = () => {
           <SidebarFirstContent icon={SearchIcon} link="/search-plan">
             Search plan
           </SidebarFirstContent>
-          <SidebarFirstContent icon={DownloadIcon} link="/admin/list-hotel">
+          <SidebarFirstContent icon={HotelListIcon} link="/admin/list-hotel">
             Hotel List
           </SidebarFirstContent>
-          <SidebarFirstContent icon={DownloadIcon} link="/admin/list-restaurant">
+          <SidebarFirstContent icon={RestaurantIcon} link="/admin/list-restaurant">
             Restaurant List
           </SidebarFirstContent>
           <SidebarFirstContent icon={DownloadIcon} link="/admin/saved">
             Saved
           </SidebarFirstContent>
-          <SidebarFirstContent icon={DownloadIcon} link="/admin/account">
+          <SidebarFirstContent icon={AccountIcon} link="/admin/account">
             Account
           </SidebarFirstContent>
         </ul>
