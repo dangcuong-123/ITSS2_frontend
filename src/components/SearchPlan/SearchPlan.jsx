@@ -17,7 +17,8 @@ import CardHomeTick from "../HomePage/CardHomeTick";
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import { Link } from 'react-router-dom'
-
+import Input from "../Input";
+import ButtonSearch from "../Button";
 const SearchPlan = () => {
     const handleSearch = () => { };
     const [checkin, setCheckin] = useState(new Date());
@@ -31,9 +32,10 @@ const SearchPlan = () => {
             <Container fixed>
                 <LayoutAdmin>
                     <AdminTitle>Search Plan</AdminTitle>
-                    {/* <div>
-                        <Search onSearchChange={handleSearch} />
-                    </div> */}
+                    <div className="flex justify-between ml-2 mr-7">
+                      <Input placeholder="Where do you want to go ?" onChange={handleSearch} />
+                      <ButtonSearch color="font-bold mr-0">Search</ButtonSearch>
+                    </div>
                     <div>
                         <span className="text-2xl font-bold mb-5">Recommend hotel</span>
                         <div className="m-5">
