@@ -1,32 +1,17 @@
 import React from "react";
 import "../../style/search.css";
-
-const Search = ({ search, onSearchChange }) => (
+import Input from "../Input";
+import ButtonSearch from "../Button";
+import { AdminTitle } from "../../style";
+const Search = ({ text, search, onSearchChange }) => (
   <div>
-    <div className="searchBox p2">
-      <div className="text-2xl font-bold mb-3"> Where you want to go?</div>
-
-      <form className=" mb-10">
-        <input
-          id="userInput"
-          className="search tc bg-lightest-purple placeholder-white"
-          type="search"
-          placeholder="search countries..."
-          style={{
-            display: "block",
-            margin: "auto",
-            border: "1px solid white",
-            borderRadius: "30px",
-            height: "45px",
-            width: "500px",
-            outline: "none",
-            backgroundColor: "#30A1C9",
-          }}
-          value={search}
-          onChange={(text) => onSearchChange(text)}
-        />
-      </form>
-    </div>
+    <span className="text-2xl font-bold mb-5 mt-0">
+      Search plan
+    </span>
+    <div className="flex justify-between ml-2 mr-7">
+      <Input  placeholder="Where do you want to go ?" onChange={onSearchChange} />
+      <ButtonSearch color="font-bold mr-0">Search</ButtonSearch>
+    </div> 
   </div>
 );
 

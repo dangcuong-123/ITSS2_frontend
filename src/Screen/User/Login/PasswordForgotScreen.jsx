@@ -1,5 +1,5 @@
 import Card from "../../../components/User/Login/Card";
-import Input from "../../../components/User/Login/Input";
+import Input from "../../../components/Input";
 import EmailIcon from "../../../assets/User/Login/EmailIcon.svg";
 import { Link } from "react-router-dom";
 
