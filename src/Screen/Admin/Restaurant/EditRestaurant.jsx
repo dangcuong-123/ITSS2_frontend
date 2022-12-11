@@ -6,6 +6,7 @@ import Input from "../../../components/Input";
 import Button from "../../../components/Button";
 
 import { Link, useNavigate } from "react-router-dom";
+import PopupUpdateMenu from "../../../components/Popup/PopupUpdateMenu";
 
 const EditRestaurant = ({ handleAddMenu }) => {
   const [editContactId, setEditContactId] = useState(null);
@@ -139,7 +140,7 @@ const EditRestaurant = ({ handleAddMenu }) => {
             <label className="text-black font-bold">Menu list*</label>
           </div>
           <div className="w-3/5">
-            <Button color="color-green font-bold">Add Menu</Button>
+            <PopupUpdateMenu />
           </div>
         </div>
       </div>
