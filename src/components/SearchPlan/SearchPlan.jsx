@@ -1,4 +1,3 @@
-import Search from "../../components/HomePage/Search";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
@@ -11,8 +10,6 @@ import 'react-calendar/dist/Calendar.css';
 import Stack from "@mui/material/Stack";
 import "../../style/search_plan.css";
 import "../../style/search.css";
-import CardHome from "../HomePage/CardHomePage";
-import Checkbox from '@mui/material/Checkbox';
 import CardHomeTick from "../HomePage/CardHomeTick";
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
@@ -24,7 +21,7 @@ const SearchPlan = () => {
     const [checkin, setCheckin] = useState(new Date());
     const [checkout, setCheckout] = useState(new Date());
     const [search, onSearchChange] = useState()
-    const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+    // const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
     return (
         <React.Fragment>
@@ -40,7 +37,7 @@ const SearchPlan = () => {
                         <span className="text-2xl font-bold mb-5">Recommend hotel</span>
                         <div className="m-5">
                             <Stack spacing={2} direction="row">
-                                <Button variant="contained">Hotel</Button>
+                                <Button variant="contained" component={Link} to={"/search-plan"}>Hotel</Button>
                                 <Button variant="text">Restaurant</Button>
                             </Stack>
                         </div>
@@ -90,18 +87,9 @@ const SearchPlan = () => {
                         </Box>
                     </div>
                     <div>
-                        <CardHomeTick/>
+                        <CardHomeTick />
                     </div>
-                    <div className="footer">
-                        <span className="text-2xl font-bold mb-5" style={{
-                            padding: '10px 20px 0 0'
-                        }}>
-                            you have chosen hotel!
-                        </span>
-                        <Button variant="contained" color="success" component={Link} to={"/search-plan-restaurant"}>
-                            Next
-                        </Button>
-                    </div>
+                        
                 </LayoutAdmin>
             </Container>
         </React.Fragment>
