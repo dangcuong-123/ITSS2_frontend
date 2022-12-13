@@ -5,6 +5,7 @@ import LayoutAdmin from "../../../components/Sidebar/AdminContainer";
 import { AdminTitle } from "../../../style";
 import Input from "../../../components/Input";
 import Button from "../../../components/Button";
+import { Link } from "react-router-dom";
 
 const AddHotel = () => {
   const [contacts1, setContacts1] = useState(data1);
@@ -15,6 +16,12 @@ const AddHotel = () => {
     roomInfo: "",
     price: "",
   });
+
+  const [name, setName] = useState("");
+  const [address, setAddress] = useState("");
+  const [intro, setIntro] = useState("");
+  const [roomInfo, setRoomInfo] = useState("");
+  const [price, setPrice] = useState("");
 
   const handleAddHotel = (e) => {
     e.preventDefault();
@@ -40,6 +47,21 @@ const AddHotel = () => {
     alert("1");
   };
 
+  const handleClick = (e) =>{
+    e.preventDefault();
+    const addHot = {name, address, intro,roomInfo,price};
+    console.log(addHot);
+    // fetch("http://35.78.85.107:8080/hotel/create",{
+    //   method:"POST",
+    //         headers:{"Content-Type" : "application/json"},
+    //         body:JSON.stringify(addHot)
+    //     }).then(()=>{
+    //         console.log("Add hotel complete");
+    //         alert("Add hotel complete");
+    // })
+
+  }
+
   return (
     <LayoutAdmin>
       <div>
@@ -55,8 +77,8 @@ const AddHotel = () => {
             <Input
               type="text"
               placeholder="Name restaurant"
-              value={addHotel.name}
-              onChange={() => {}}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />
           </div>
         </div>
@@ -72,8 +94,8 @@ const AddHotel = () => {
             <Input
               type="text"
               placeholder="Name restaurant"
-              value={addHotel.name}
-              onChange={() => {}}
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
             />
           </div>
         </div>
@@ -89,8 +111,8 @@ const AddHotel = () => {
             <Input
               type="text"
               placeholder="Name restaurant"
-              value={addHotel.name}
-              onChange={() => {}}
+              value={intro}
+              onChange={(e) => setIntro(e.target.value)}
             />
           </div>
         </div>
@@ -106,8 +128,8 @@ const AddHotel = () => {
             <Input
               type="text"
               placeholder="Name restaurant"
-              value={addHotel.name}
-              onChange={() => {}}
+              value={roomInfo}
+              onChange={(e) => setRoomInfo(e.target.value)}
             />
           </div>
         </div>
@@ -123,15 +145,19 @@ const AddHotel = () => {
             <Input
               type="text"
               placeholder="Name restaurant"
-              value={addHotel.name}
-              onChange={() => {}}
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
             />
           </div>
         </div>
       </div>
       <div className="w-4/5 flex ml-4 justify-end">
-        <Button color="from-[#961919] to-[#f6646e] font-bold">Cancel</Button>
-        <Button color="font-bold mr-0">Add Hotel</Button>
+        <Button color="from-[#961919] to-[#f6646e] font-bold">
+          <Link to="/list-hotel">
+            Cancel
+          </Link>
+        </Button>
+        <Button color="font-bold mr-0" onClick={handleClick}>Add Hotel</Button>
       </div>
     </LayoutAdmin>
   );

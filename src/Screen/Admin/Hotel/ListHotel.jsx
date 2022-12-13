@@ -6,6 +6,7 @@ import { AdminTitle } from "../../../style";
 import Card from "../../../components/Card/Card";
 import Button from "../../../components/Button";
 import Input from "../../../components/Input";
+import { Link } from "react-router-dom";
 
 const ListHotel = () => {
   const handleSearch = () => {};
@@ -17,7 +18,9 @@ const ListHotel = () => {
           <AdminTitle>Hotel List</AdminTitle>
           <div className="flex justify-between ml-2 mr-7">
             <Input placeholder="Hotel's name" onChange={handleSearch} />
-            <Button color="font-bold mr-0">Add Hotel</Button>
+            <Button color="font-bold mr-0">
+              <Link to="/add-hotel">Add Hotel</Link>
+            </Button>
           </div>
           <Card NameCard="Hotel" />
         </LayoutAdmin>
