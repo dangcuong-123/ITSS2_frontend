@@ -3,75 +3,37 @@ import "../../style/search.css";
 import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
+import { getRestaurant } from "../../services/HomeServices";
 
 const CardRestaurantTick = () => {
-  const listCardHome = [
-    {
-      tag: "Highlight",
-      name: "Restaurant",
-      cost: "45,00",
-      vote: "34",
-      imageUrl:
-        "https://image-tc.galaxy.tf/wijpeg-bjktly0b6ohnhdedjegyau3mf/wph-windsorsuite-restaurant-6-orig_wide.jpg?crop=0%2C52%2C1000%2C563",
-    },
-    {
-      tag: "Highlight",
-      name: "Restaurant",
-      cost: "45,00",
-      vote: "34",
-      imageUrl:
-        "https://image-tc.galaxy.tf/wijpeg-bjktly0b6ohnhdedjegyau3mf/wph-windsorsuite-restaurant-6-orig_wide.jpg?crop=0%2C52%2C1000%2C563",
-    },
-    {
-      tag: "Highlight",
-      name: "Restaurant",
-      cost: "45,00",
-      vote: "34",
-      imageUrl:
-        "https://image-tc.galaxy.tf/wijpeg-bjktly0b6ohnhdedjegyau3mf/wph-windsorsuite-restaurant-6-orig_wide.jpg?crop=0%2C52%2C1000%2C563",
-    },
-    {
-      tag: "Highlight",
-      name: "Restaurant",
-      cost: "45,00",
-      vote: "34",
-      imageUrl:
-        "https://image-tc.galaxy.tf/wijpeg-bjktly0b6ohnhdedjegyau3mf/wph-windsorsuite-restaurant-6-orig_wide.jpg?crop=0%2C52%2C1000%2C563",
-    },
-    {
-      tag: "Highlight",
-      name: "Restaurant",
-      cost: "45,00",
-      vote: "34",
-      imageUrl:
-        "https://image-tc.galaxy.tf/wijpeg-bjktly0b6ohnhdedjegyau3mf/wph-windsorsuite-restaurant-6-orig_wide.jpg?crop=0%2C52%2C1000%2C563",
-    },
-    {
-      tag: "Highlight",
-      name: "Restaurant",
-      cost: "45,00",
-      vote: "34",
-      imageUrl:
-        "https://image-tc.galaxy.tf/wijpeg-bjktly0b6ohnhdedjegyau3mf/wph-windsorsuite-restaurant-6-orig_wide.jpg?crop=0%2C52%2C1000%2C563",
-    },
-  ];
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
   const [isShown, setIsShown] = useState(false);
+  const [restaurantAPI, setRestaurantAPI] = useState();
   const handleTickClick = (event) => {
     setIsShown(true);
   };
+  const getRestaurantAPI = async () => {
+    getRestaurant().then((res) => {
+      if (res.status === 200) {
+        setRestaurantAPI(res.data);
+      }
+    });
+  };
+  React.useEffect(() => {
+    getRestaurantAPI();
+  }, []);
   return (
     <div className="antialiased bg-gray-200 text-gray-900 font-sans p-6">
       <div className="container mx-auto">
         <div className="flex flex-wrap -mx-4">
-          {listCardHome.map((card, ids) => {
+          {restaurantAPI?.map((card, ids) => {
             return (
               <div key={ids} className="w-full sm:w-1/2 md:w-1/2 xl:w-1/3 p-4">
                 <a className="c-card block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden">
                   <div className="relative pb-48 overflow-hidden">
                     <img
                       className="absolute inset-0 h-full w-full object-cover"
-                      src={card.imageUrl}
+                      src={card.image_url}
                       alt=""
                     />
                   </div>
@@ -84,14 +46,23 @@ const CardRestaurantTick = () => {
                   </div>
                   <div className="p-4">
                     <span className="inline-block px-2 py-1 leading-none bg-orange-200 text-orange-800 rounded-full font-semibold uppercase tracking-wide text-xs">
-                      {card.tag}
+                      {card.restaurant_name}
                     </span>
-                    <h2 className="mt-2 mb-2  font-bold">{card.name}</h2>
+                    <h2 className="mt-2 mb-2  font-bold">
+                      {card.restaurant_address}
+                    </h2>
 
                     <div className="mt-3 flex items-center">
-                      <span className="font-bold text-xl">{card.cost}</span>
+                      <span className="font-bold text-xl">
+                        {card.restaurant_fee}
+                      </span>
                       &nbsp;
-                      <span className="text-sm font-semibold">€</span>
+                      <span className="text-sm font-semibold">VND</span>
+                    </div>
+                    <div className="mt-3 flex items-center">
+                      <span className="font-bold text-xl">
+                        {card.restaurant_open_time}
+                      </span>
                     </div>
                   </div>
 
@@ -156,7 +127,12 @@ const CardRestaurantTick = () => {
         >
           Please choose restaurant to complete your plan!
         </span>
-        <Button variant="contained" color="success">
+        <Button
+          variant="contained"
+          color="success"
+          component={Link}
+          to={"/detail-plan"}
+        >
           Next
         </Button>
       </div>

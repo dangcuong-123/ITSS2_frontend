@@ -1,7 +1,7 @@
 import { apiService } from "../common/helpers";
 
-export const showHomePage = async () => {
-  return await apiService.get("/homepage/show");
+export const login = async (data) => {
+  return await apiService.post("/authenticate/login", data);
 };
 
 export const getRestaurant = async () => {
@@ -10,8 +10,4 @@ export const getRestaurant = async () => {
 
 export const getHotel = async () => {
   return await apiService.get("/hotel/show");
-};
-
-export const getLocation = async () => {
-  return await apiService.get("/homepage/search_location_name");
 };
