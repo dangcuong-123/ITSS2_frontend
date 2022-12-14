@@ -5,6 +5,7 @@ import { nanoid } from "nanoid";
 import { AdminTitle } from "../../../style";
 import Input from "../../../components/Input";
 import Button from "../../../components/Button";
+import { Link } from "react-router-dom";
 
 const AddRestaurant = ({ handleCancelClick, handleDeleteClick }) => {
   const [contacts, setContacts] = useState(data);
@@ -112,7 +113,9 @@ const AddRestaurant = ({ handleCancelClick, handleDeleteClick }) => {
         </div>
       </div>
       <div className="w-4/5 flex ml-4" style={{ justifyContent: "end" }}>
-        <Button color="from-[#961919] to-[#f6646e] font-bold">Cancel</Button>
+        <Button color="from-[#961919] to-[#f6646e] font-bold">
+          <Link to="/list-restaurant">Cancel</Link>
+        </Button>
         <Button color="font-bold mr-0">Add Restaurant</Button>
       </div>
     </LayoutAdmin>
