@@ -44,8 +44,8 @@ const CardHomeTick = () => {
                     ) : (
                       <Checkbox {...label} />
                     )}
-                    {/* <Checkbox {...label}  /> */}
                   </div>
+
                   <div className="p-4">
                     <span className="inline-block px-2 py-1 leading-none bg-orange-200 text-orange-800 rounded-full font-semibold uppercase tracking-wide text-xs">
                       {card.hotel_name}
@@ -62,7 +62,7 @@ const CardHomeTick = () => {
                       <span className="text-sm font-semibold">VND</span>
                     </div>
                   </div>
-
+          
                   <div className="p-4 flex items-center text-sm text-gray-600">
                     <svg
                       viewBox="0 0 24 24"

@@ -8,6 +8,7 @@ import ListHotel from "../Screen/Admin/Hotel/ListHotel";
 import ListRestaurant from "../Screen/Admin/Restaurant/ListRestaurant";
 import DetailRestaurant from "../Screen/Admin/Restaurant/DetailRestaurant";
 import DetailHotel from "../Screen/Admin/Hotel/DetailHotel";
+import DetailPlan from "../Screen/Admin/Plan/PlanDetail";
 
 const User = () => {
   return (
@@ -33,6 +34,7 @@ const User = () => {
           path="list-restaurant"
           element={<ListRestaurant></ListRestaurant>}
         ></Route>
+        <Route path="detail-plan" element={<DetailPlan></DetailPlan>}></Route>
       </Routes>
     </div>
   );
