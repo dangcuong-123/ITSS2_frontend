@@ -1,15 +1,39 @@
+import React, { useState, useEffect } from "react";
 import Search from "../../components/HomePage/Search";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
-import * as React from "react";
 import Stack from "@mui/material/Stack";
 import LayoutAdmin from "../../components/Sidebar/AdminContainer";
-import CardHome from "../../components/HomePage/CardHomePage";
+import HotelCard from "../../components/HomePage/HotelCard";
+import RestaurantCard from "../../components/HomePage/RestaurantCard";
 import { AdminTitle } from "../../style";
+import { getRestaurant, getHotel } from "../../services/HomeServices";
 
 const HomePageScreen = () => {
   const handleSearch = () => {};
+
+  // get restaurant and hotel
+  const [restaurant, setRestaurant] = useState([]);
+  const [hotel, setHotel] = useState([]);
+
+  useEffect(() => {
+    getRestaurant()
+      .then((res) => {
+        setRestaurant(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    getHotel()
+      .then((res) => {
+        setHotel(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <React.Fragment>
       <CssBaseline />
@@ -28,7 +52,7 @@ const HomePageScreen = () => {
                 <Button variant="text">TP Hồ Chí Minh</Button>
               </Stack>
             </div>
-            <CardHome />
+            <HotelCard hotel={hotel} />
           </div>
           <div className="mt-5">
             <span className="text-2xl font-bold mb-5">
@@ -41,7 +65,7 @@ const HomePageScreen = () => {
                 <Button variant="contained">TP Hồ Chí Minh</Button>
               </Stack>
             </div>
-            <CardHome />
+            <RestaurantCard restaurant={restaurant} />
           </div>
         </LayoutAdmin>
       </Container>
