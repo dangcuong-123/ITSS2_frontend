@@ -86,7 +86,13 @@ const EditHotel = () => {
 
   const handleEditClick = (e) => {
     e.preventDefault();
-    const editHot = {editName,editAddress,editIntro,editRoomInfo,editPrice}
+    const editHot = {
+      editName,
+      editAddress,
+      editIntro,
+      editRoomInfo,
+      editPrice,
+    };
     console.log(editHot);
     // fetch("http://35.78.85.107:8080/hotel/edit_hotel",{
     //   method:"PUT",
@@ -96,7 +102,7 @@ const EditHotel = () => {
     //         console.log("Edit hotel complete");
     //         alert("Edit hotel complete");
     // })
-  }
+  };
 
   return (
     <LayoutAdmin>
@@ -191,7 +197,9 @@ const EditHotel = () => {
         <Button color="from-[#961919] to-[#f6646e] font-bold">
           <Link to="/list-hotel">Cancel</Link>
         </Button>
-        <Button color="font-bold mr-0" onClick={handleEditClick}>Edit Hotel</Button>
+        <Button color="font-bold mr-0" onClick={handleEditClick}>
+          Edit Hotel
+        </Button>
       </div>
     </LayoutAdmin>
   );

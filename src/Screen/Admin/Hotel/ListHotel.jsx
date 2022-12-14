@@ -1,15 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
 import LayoutAdmin from "../../../components/Sidebar/AdminContainer";
 import { AdminTitle } from "../../../style";
-import Card from "../../../components/Card/Card";
+import CardHotel from "../../../components/Card/CardHotel";
 import Button from "../../../components/Button";
 import Input from "../../../components/Input";
 import { Link } from "react-router-dom";
+import { getHotel } from "../../../services/HotelServices";
 
 const ListHotel = () => {
   const handleSearch = () => {};
+  const [hotel, setHotel] = useState();
+
+  useEffect(() => {
+    getHotel()
+      .then((res) => {
+        setHotel(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <React.Fragment>
       <CssBaseline />
@@ -22,7 +35,7 @@ const ListHotel = () => {
               <Link to="/add-hotel">Add Hotel</Link>
             </Button>
           </div>
-          <Card NameCard="Hotel" />
+          <CardHotel data={hotel} />
         </LayoutAdmin>
       </Container>
     </React.Fragment>

@@ -8,8 +8,8 @@ import LayoutAdmin from "../../components/Sidebar/AdminContainer";
 import HotelCard from "../../components/HomePage/HotelCard";
 import RestaurantCard from "../../components/HomePage/RestaurantCard";
 import { AdminTitle } from "../../style";
-import { getRestaurant, getHotel } from "../../services/HomeServices";
-
+import { getRestaurant } from "../../services/RestaurantServices";
+import { getHotel } from "../../services/HotelServices";
 const HomePageScreen = () => {
   const handleSearch = () => {};
 

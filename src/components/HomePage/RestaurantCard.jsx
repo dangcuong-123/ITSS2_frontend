@@ -9,7 +9,7 @@ const RestaurantCard = ({ restaurant }) => {
           {restaurant.map((card, id) => {
             return (
               <div key={id} className="w-full sm:w-1/2 md:w-1/2 xl:w-1/3 p-4">
-                <a className="c-card block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden">
+                <div className="c-card block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden">
                   <div className="relative pb-48 overflow-hidden">
                     <img
                       className="absolute inset-0 h-full w-full object-cover"
@@ -72,7 +72,7 @@ const RestaurantCard = ({ restaurant }) => {
                     </svg>
                     <span className="ml-2">34 vote</span>
                   </div>
-                </a>
+                </div>
               </div>
             );
           })}
