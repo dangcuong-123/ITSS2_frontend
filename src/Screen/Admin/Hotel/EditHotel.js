@@ -4,6 +4,7 @@ import data1 from "./mock-data.json";
 import { AdminTitle } from "../../../style";
 import Input from "../../../components/Input";
 import Button from "../../../components/Button";
+import { Link } from "react-router-dom";
 
 const EditHotel = () => {
   const [editContactId1, setEditContactId1] = useState(null);
@@ -77,6 +78,26 @@ const EditHotel = () => {
     alert("1");
   };
 
+  const [editName, setEditName] = useState("");
+  const [editAddress, setEditAddress] = useState("");
+  const [editIntro, setEditIntro] = useState("");
+  const [editRoomInfo, setEditRoomInfo] = useState("");
+  const [editPrice, setEditPrice] = useState("");
+
+  const handleEditClick = (e) => {
+    e.preventDefault();
+    const editHot = {editName,editAddress,editIntro,editRoomInfo,editPrice}
+    console.log(editHot);
+    // fetch("http://35.78.85.107:8080/hotel/edit_hotel",{
+    //   method:"PUT",
+    //         headers:{"Content-Type" : "application/json"},
+    //         body:JSON.stringify(editHot)
+    //     }).then(()=>{
+    //         console.log("Edit hotel complete");
+    //         alert("Edit hotel complete");
+    // })
+  }
+
   return (
     <LayoutAdmin>
       <div>
@@ -92,8 +113,8 @@ const EditHotel = () => {
             <Input
               type="text"
               placeholder="Name restaurant"
-              value={editHotel.name}
-              onChange={() => {}}
+              value={editName}
+              onChange={(e) => setEditName(e.target.value)}
             />
           </div>
         </div>
@@ -109,8 +130,8 @@ const EditHotel = () => {
             <Input
               type="text"
               placeholder="Name restaurant"
-              value={editHotel.name}
-              onChange={() => {}}
+              value={editAddress}
+              onChange={(e) => setEditAddress(e.target.value)}
             />
           </div>
         </div>
@@ -126,8 +147,8 @@ const EditHotel = () => {
             <Input
               type="text"
               placeholder="Name restaurant"
-              value={editHotel.name}
-              onChange={() => {}}
+              value={editIntro}
+              onChange={(e) => setEditIntro(e.target.value)}
             />
           </div>
         </div>
@@ -143,8 +164,8 @@ const EditHotel = () => {
             <Input
               type="text"
               placeholder="Name restaurant"
-              value={editHotel.name}
-              onChange={() => {}}
+              value={editRoomInfo}
+              onChange={(e) => setEditRoomInfo(e.target.value)}
             />
           </div>
         </div>
@@ -160,15 +181,17 @@ const EditHotel = () => {
             <Input
               type="text"
               placeholder="Name restaurant"
-              value={editHotel.name}
-              onChange={() => {}}
+              value={editPrice}
+              onChange={(e) => setEditPrice(e.target.value)}
             />
           </div>
         </div>
       </div>
       <div className="w-4/5 flex ml-4" style={{ justifyContent: "end" }}>
-        <Button color="from-[#961919] to-[#f6646e] font-bold">Cancel</Button>
-        <Button color="font-bold mr-0">Add Hotel</Button>
+        <Button color="from-[#961919] to-[#f6646e] font-bold">
+          <Link to="/list-hotel">Cancel</Link>
+        </Button>
+        <Button color="font-bold mr-0" onClick={handleEditClick}>Edit Hotel</Button>
       </div>
     </LayoutAdmin>
   );

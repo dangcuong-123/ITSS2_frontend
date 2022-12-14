@@ -140,12 +140,14 @@ const EditRestaurant = ({ handleAddMenu }) => {
             <label className="text-black font-bold">Menu list*</label>
           </div>
           <div className="w-3/5">
-            <PopupUpdateMenu />
+            <PopupUpdateMenu nameBtn="Add Menu"/>
           </div>
         </div>
       </div>
       <div className="w-4/5 flex ml-4 justify-end">
-        <Button color="from-[#961919] to-[#f6646e] font-bold">Cancel</Button>
+        <Button color="from-[#961919] to-[#f6646e] font-bold">
+          <Link to="/list-restaurant">Cancel</Link>
+        </Button>
         <Button color="font-bold mr-0">Saved Edit</Button>
       </div>
     </LayoutAdmin>
