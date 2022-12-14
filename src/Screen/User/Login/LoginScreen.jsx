@@ -6,7 +6,7 @@ import PasswordIcon from "../../../assets/User/Login/Password.svg";
 // import ShowPassword from "../../../assets/User/Login/show.svg";
 import Input from "../../../components/Input";
 import { Link, useNavigate } from "react-router-dom";
-import { login } from "../services/UserServices";
+import { login } from "../../../services/UserServices";
 import accountStore from "../../../store/AccountInfoStore";
 
 const LoginScreen = () => {

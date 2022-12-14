@@ -1,4 +1,4 @@
-import { apiService } from "../../../common/helpers";
+import { apiService } from "../common/helpers";
 
 export const login = async (data) => {
   return await apiService.post("/authenticate/login", data);

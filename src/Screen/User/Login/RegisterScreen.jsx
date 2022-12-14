@@ -7,7 +7,7 @@ import EmailIcon from "../../../assets/User/Login/EmailIcon.svg";
 import PasswordIcon from "../../../assets/User/Login/Password.svg";
 import user from "../../../assets/User/Login/user.svg";
 import { useNavigate } from "react-router-dom";
-import { register } from "../services/UserServices";
+import { register } from "../../../services/UserServices";
 // import ShowPassword from "../../../assets/User/Login/show.svg";
 import { Link } from "react-router-dom";
 
