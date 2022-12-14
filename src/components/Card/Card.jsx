@@ -2,6 +2,7 @@ import React from "react";
 import "../../style/search.css";
 import Button from "../Button";
 import { Link } from "react-router-dom";
+import PopupUpdateMenu from "../Popup/PopupUpdateMenu";
 
 const Card = ({ NameCard }) => {
   const listCardHome = [
@@ -84,7 +85,7 @@ const Card = ({ NameCard }) => {
                         <Link to="/admin/detail-restaurant">Detail</Link>
                       )}
                     </Button>
-                    <Button color="font-bold mx-1 px-1 py-1">Edit</Button>
+                    <PopupUpdateMenu nameBtn="Edit" styleBtn="mx-1 px-1 py-1"/>
                     <Button color="from-[#f6646e] to-[#961919] mx-1 font-bold px-1 py-1">
                       Delete
                     </Button>
