@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../style/search.css";
 import Checkbox from '@mui/material/Checkbox';
+import Button from "@mui/material/Button";
+import { Link } from 'react-router-dom'
 
 const CardRestaurantTick = () => {
     const listCardHome = [
@@ -54,7 +56,10 @@ const CardRestaurantTick = () => {
         },
     ];
     const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
-
+    const [isShown, setIsShown] = useState(false)
+    const handleTickClick = event => {
+        setIsShown(true)
+    }
     return (
         <div className="antialiased bg-gray-200 text-gray-900 font-sans p-6">
             <div className="container mx-auto">
@@ -70,8 +75,12 @@ const CardRestaurantTick = () => {
                                             alt=""
                                         />
                                     </div> 
-                                    <div>
-                                        <Checkbox {...label} />
+                                    <div onClick={handleTickClick}>
+                                        {
+                                            isShown
+                                                ? <Checkbox {...label} disabled/>
+                                                : <Checkbox {...label} /> 
+                                        }
                                     </div>                                       
                                     <div className="p-4">
                                         <span className="inline-block px-2 py-1 leading-none bg-orange-200 text-orange-800 rounded-full font-semibold uppercase tracking-wide text-xs">
@@ -129,6 +138,19 @@ const CardRestaurantTick = () => {
                         );
                     })}
                 </div>
+            </div>
+            <div className="footer">
+                <Button variant="contained" color="error" component={Link} to={"/search-plan"}>
+                    Back
+                </Button>
+                <span className="text-2xl font-bold mb-5" style={{
+                    padding: '10px 20px 0 0'
+                }}>
+                    Please choose restaurant to complete your plan!
+                </span>
+                <Button variant="contained" color="success">
+                    Next
+                </Button>
             </div>
         </div>
     );

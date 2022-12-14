@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../style/search.css";
 import Checkbox from '@mui/material/Checkbox';
-
+import Button from "@mui/material/Button";
+import { Link } from 'react-router-dom'
+import axios from "axios";
+import { type } from "@testing-library/user-event/dist/type";
 const CardHomeTick = () => {
     const listCardHome = [
         {
@@ -54,30 +57,55 @@ const CardHomeTick = () => {
         },
     ];
     const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+    const [isShown, setIsShown] = useState(false)
+    const [homeAPI, setHomeAPI] = useState()
+    const handleTickClick = event => {
+        setIsShown(true)
+    }
+    const getHomeAPI = async () => {
+        
+        let response = await axios({
+            method: 'get',
+            url: 'http://35.78.85.107:8080/homepage/show',
+        })
 
+        if (response && response.data) {
+            setHomeAPI(response.data)
+        }
+    }
+    React.useEffect(() => {
+        getHomeAPI();
+        console.log(homeAPI.hotels)
+        
+    },[]);
     return (
         <div className="antialiased bg-gray-200 text-gray-900 font-sans p-6">
             <div className="container mx-auto">
                 <div className="flex flex-wrap -mx-4">
-                    {listCardHome.map((card, ids) => {
+                    {homeAPI.hotels.map((card, ids) => {
                         return (
                             <div key={ids} className="w-full sm:w-1/2 md:w-1/2 xl:w-1/3 p-4">
                                 <a className="c-card block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden">
                                     <div className="relative pb-48 overflow-hidden">
                                         <img
                                             className="absolute inset-0 h-full w-full object-cover"
-                                            src={card.imageUrl}
+                                            src={card.image_url}
                                             alt=""
                                         />
                                     </div> 
-                                    <div>
-                                        <Checkbox {...label} />
+                                    <div onClick={handleTickClick}>
+                                        {
+                                            isShown 
+                                                ? <Checkbox {...label} disabled  />
+                                                : <Checkbox {...label}  />  
+                                        }
+                                        {/* <Checkbox {...label}  /> */}
                                     </div>                                       
                                     <div className="p-4">
                                         <span className="inline-block px-2 py-1 leading-none bg-orange-200 text-orange-800 rounded-full font-semibold uppercase tracking-wide text-xs">
-                                            {card.tag}
+                                            {card.hotel_name}
                                         </span>
-                                        <h2 className="mt-2 mb-2  font-bold">{card.name}</h2>
+                                        <h2 className="mt-2 mb-2  font-bold">{card.hotel_name}</h2>
 
                                         <div className="mt-3 flex items-center">
                                             <span className="font-bold text-xl">{card.cost}</span>
@@ -129,6 +157,27 @@ const CardHomeTick = () => {
                         );
                     })}
                 </div>
+            </div>
+            <div className="footer">
+                {
+                    isShown ?
+                        <div>
+                            <span className="text-2xl font-bold mb-5" style={{
+                                padding: '10px 20px 0 0'
+                            }}>
+                                you have chosen hotel!
+                            </span>
+                            <Button variant="contained" color="success" component={Link} to={"/search-plan-restaurant"}>
+                                Next
+                            </Button>
+                        </div>
+                        :
+                        <div>
+                            <Button variant="contained" color="error" >
+                                Next
+                            </Button>
+                        </div>
+                }
             </div>
         </div>
     );

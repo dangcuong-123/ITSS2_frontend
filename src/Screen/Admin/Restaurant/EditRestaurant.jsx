@@ -140,7 +140,7 @@ const EditRestaurant = ({ handleAddMenu }) => {
             <label className="text-black font-bold">Menu list*</label>
           </div>
           <div className="w-3/5">
-            <PopupUpdateMenu />
+            <PopupUpdateMenu nameBtn="Add Menu"/>
           </div>
         </div>
       </div>
