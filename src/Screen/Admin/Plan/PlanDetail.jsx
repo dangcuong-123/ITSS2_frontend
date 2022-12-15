@@ -2,6 +2,7 @@ import React from "react";
 import LayoutAdmin from "../../../components/Sidebar/AdminContainer";
 import { AdminTitle } from "../../../style";
 import Button from "../../../components/Button";
+import { Link } from "react-router-dom";
 
 const DetailPlan = () => {
   const listCardPlan = {
@@ -97,8 +98,9 @@ const DetailPlan = () => {
 
       <div className="flex justify-between">
         <Button color="from-[#961919] to-[#f6646e] font-bold ml-0 py-1">
-          Back
+          <Link to="/search-plan-restaurant">Back</Link>
         </Button>
+
         <Button color="font-bold mr-0 py-1">Save Plan</Button>
       </div>
     </LayoutAdmin>

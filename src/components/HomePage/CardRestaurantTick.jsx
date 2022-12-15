@@ -3,7 +3,7 @@ import "../../style/search.css";
 import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
-import { getRestaurant } from "../../services/HomeServices";
+import { getRestaurant } from "../../services/RestaurantServices";
 
 const CardRestaurantTick = () => {
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
