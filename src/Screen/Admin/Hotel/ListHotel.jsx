@@ -7,10 +7,18 @@ import CardHotel from "../../../components/Card/CardHotel";
 import Button from "../../../components/Button";
 import Input from "../../../components/Input";
 import { Link } from "react-router-dom";
-import { getHotel } from "../../../services/HotelServices";
+import { getHotel, searchHotel } from "../../../services/HotelServices";
 
 const ListHotel = () => {
-  const handleSearch = () => {};
+  const handleSearch = (e) => {
+    searchHotel(e.target.value)
+      .then((res) => {
+        setHotel(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const [hotel, setHotel] = useState();
 
   useEffect(() => {
