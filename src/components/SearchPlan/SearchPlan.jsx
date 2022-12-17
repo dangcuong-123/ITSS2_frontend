@@ -4,7 +4,7 @@ import Container from "@mui/material/Container";
 import * as React from "react";
 import LayoutAdmin from "../../components/Sidebar/AdminContainer";
 import { AdminTitle } from "../../style";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DatePicker from "react-date-picker";
 import "react-calendar/dist/Calendar.css";
 import Stack from "@mui/material/Stack";
@@ -17,12 +17,60 @@ import Slider from "@mui/material/Slider";
 import { Link } from "react-router-dom";
 import Input from "../Input";
 import ButtonSearch from "../Button";
+import { getHotelLowerEqualPrice } from "../../services/HotelServices";
+
+const marks = [
+  {
+    value: 0,
+    label: '0đ',
+  },
+  {
+    value: 25,
+    label: '500.000đ',
+  },
+  {
+    value: 50,
+    label: '1.000.000đ',
+  },
+  {
+    value: 75,
+    label: '1.500.000đ',
+  },
+  {
+    value: 100,
+    label: '2.000.000đ',
+  },
+];
+
+
 const SearchPlan = () => {
   const handleSearch = () => {};
   const [checkin, setCheckin] = useState(new Date());
   const [checkout, setCheckout] = useState(new Date());
   const [search, onSearchChange] = useState();
   // const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+  const [price, setPrice] = useState(100);
+  const [finalPrice, setFinalPrice] = useState(2000000);
+  const [hotel, setHotel] = useState([]);
+
+  const handleChangePrice = (new_price) => {
+    setPrice(new_price);
+  }
+
+  const handleApplyPrice = () => {
+    setFinalPrice(price*20000);
+  }
+
+  useEffect(() => {
+    getHotelLowerEqualPrice(finalPrice)
+      .then((res) => {
+        setHotel(res.data);
+      })
+      .catch((err) => {
+        setHotel([]);
+        console.log(err);
+      });
+  }, [finalPrice]);
 
   return (
     <React.Fragment>
@@ -92,21 +140,32 @@ const SearchPlan = () => {
           </div>
           <div>
             <span className="text-2xl font-bold mb-3">Cash</span>
-            <Box width={300}>
-              <Slider
-                defaultValue={50}
-                aria-label="Default"
-                valueLabelDisplay="auto"
-              />
+            <Stack direction="row" alignItems="flex-start" spacing={6}>
+            <Box width={400}>
+            <Slider
+              aria-label="Price"
+              getAriaValueText={valuetext}
+              step={25}
+              valueLabelDisplay="off"
+              marks={marks}
+              value={price} 
+              onChange={e => handleChangePrice(e.target.value)}
+            />
             </Box>
+            <Button variant="outlined" onClick={handleApplyPrice}>Apply</Button>
+            </Stack>
           </div>
           <div>
-            <CardHomeTick />
+            <CardHomeTick hotel={hotel}/>
           </div>
         </LayoutAdmin>
       </Container>
     </React.Fragment>
   );
 };
+
+function valuetext(value) {
+  return `${value}đ`;
+}
 
 export default SearchPlan;
