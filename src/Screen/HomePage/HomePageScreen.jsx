@@ -8,31 +8,38 @@ import LayoutAdmin from "../../components/Sidebar/AdminContainer";
 import HotelCard from "../../components/HomePage/HotelCard";
 import RestaurantCard from "../../components/HomePage/RestaurantCard";
 import { AdminTitle } from "../../style";
-import { getRestaurant } from "../../services/RestaurantServices";
-import { getHotel } from "../../services/HotelServices";
-const HomePageScreen = () => {
-  const handleSearch = () => {};
+import { getHotelAndRestaurantList } from "../../services/HomeServices";
 
+const HomePageScreen = () => {
+  const [value, setValue] = useState("ha noi");
+  const [locationDefault, setlocationDefault] = useState("ha noi");
   // get restaurant and hotel
   const [restaurant, setRestaurant] = useState([]);
   const [hotel, setHotel] = useState([]);
 
+  const handleSearch = (new_value) => {
+    setlocationDefault("")
+    setValue(new_value);
+  };
+
+  const handleChangeTab = (location) => {
+    setlocationDefault(location)
+    setValue(location);
+  }
+
   useEffect(() => {
-    getRestaurant()
+    getHotelAndRestaurantList(value)
       .then((res) => {
-        setRestaurant(res.data);
+        setRestaurant(res.data.restaurants);
+        setHotel(res.data.hotels);
+        console.log(res.data.hotels);
       })
       .catch((err) => {
+        setRestaurant([]);
+        setHotel([]);
         console.log(err);
       });
-    getHotel()
-      .then((res) => {
-        setHotel(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  }, [value]);
 
   return (
     <React.Fragment>
@@ -47,9 +54,9 @@ const HomePageScreen = () => {
             <span className="text-2xl font-bold mb-5">Recommend hotel</span>
             <div className="m-5">
               <Stack spacing={2} direction="row">
-                <Button variant="text">Hà Nội</Button>
-                <Button variant="contained">Hải Phòng</Button>
-                <Button variant="text">TP Hồ Chí Minh</Button>
+                <Button variant={locationDefault == "ha noi" ? "contained" : "text"} onClick={e => handleChangeTab("ha noi")}>Hà Nội</Button>
+                <Button variant={locationDefault == "hai phong" ? "contained" : "text"} onClick={e => handleChangeTab("hai phong")}>Hải Phòng</Button>
+                <Button variant={locationDefault == "ho chi minh" ? "contained" : "text"} onClick={e => handleChangeTab("ho chi minh")}>TP Hồ Chí Minh</Button>
               </Stack>
             </div>
             <HotelCard hotel={hotel} />
@@ -60,9 +67,9 @@ const HomePageScreen = () => {
             </span>
             <div className="m-5">
               <Stack spacing={2} direction="row">
-                <Button variant="text">Hà Nội</Button>
-                <Button variant="text">Hải Phòng</Button>
-                <Button variant="contained">TP Hồ Chí Minh</Button>
+                <Button variant={locationDefault == "ha noi" ? "contained" : "text"} onClick={e => handleChangeTab("ha noi")}>Hà Nội</Button>
+                <Button variant={locationDefault == "hai phong" ? "contained" : "text"} onClick={e => handleChangeTab("hai phong")}>Hải Phòng</Button>
+                <Button variant={locationDefault == "ho chi minh" ? "contained" : "text"} onClick={e => handleChangeTab("ho chi minh")}>TP Hồ Chí Minh</Button>
               </Stack>
             </div>
             <RestaurantCard restaurant={restaurant} />

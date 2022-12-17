@@ -2,6 +2,7 @@ import SidebarFirstContent from "./SidebarFirstContent";
 import SearchIcon from "../../assets/HomePage/Search.svg";
 import HomeIcon from "../../assets/HomePage/Home.svg";
 import DownloadIcon from "../../assets/HomePage/Download.svg";
+import accountIcon from "../../assets/HomePage/account-box.svg";
 
 const UserSidebar = () => {
   return (
@@ -16,6 +17,9 @@ const UserSidebar = () => {
           </SidebarFirstContent>
           <SidebarFirstContent icon={SearchIcon} link="/search-plan">
             Search plan
+          </SidebarFirstContent>
+          <SidebarFirstContent icon={accountIcon} link="/profile">
+            Account
           </SidebarFirstContent>
           <SidebarFirstContent icon={DownloadIcon} link="/saved">
             Saved
