@@ -15,9 +15,7 @@ const ListHotel = () => {
       .then((res) => {
         setHotel(res.data);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
   const [hotel, setHotel] = useState();
 
@@ -26,9 +24,7 @@ const ListHotel = () => {
       .then((res) => {
         setHotel(res.data);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   }, []);
 
   return (

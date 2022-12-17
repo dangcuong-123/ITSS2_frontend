@@ -7,7 +7,10 @@ import CardRestaurant from "../../../components/Card/CardRestaurant";
 import Button from "../../../components/Button";
 import Input from "../../../components/Input";
 import { Link } from "react-router-dom";
-import { getRestaurant } from "../../../services/RestaurantServices";
+import {
+  getRestaurant,
+  searchRestaurant,
+} from "../../../services/RestaurantServices";
 
 const ListRestaurant = () => {
   const [restaurant, setRestaurant] = useState();
@@ -17,11 +20,15 @@ const ListRestaurant = () => {
       .then((res) => {
         setRestaurant(res.data);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   }, []);
-  const handleSearch = () => {};
+  const handleSearch = (e) => {
+    searchRestaurant(e.target.value)
+      .then((res) => {
+        setRestaurant(res.data);
+      })
+      .catch((err) => {});
+  };
   return (
     <React.Fragment>
       <CssBaseline />
