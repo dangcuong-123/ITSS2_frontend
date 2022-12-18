@@ -6,6 +6,7 @@ import { AdminTitle } from "../../../style";
 import Input from "../../../components/Input";
 import Button from "../../../components/Button";
 import { Link } from "react-router-dom";
+import Select from 'react-select'
 
 const AddHotel = () => {
   const [contacts1, setContacts1] = useState(data1);
@@ -16,13 +17,21 @@ const AddHotel = () => {
     roomInfo: "",
     price: "",
   });
+  const options = [
+    { value: 'ha noi', label: 'Ha noi' },
+    { value: 'ha long', label: 'Ha long' },
+    { value: 'hai phong', label: 'Hai phong' }
+  ]
+
 
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [intro, setIntro] = useState("");
   const [roomInfo, setRoomInfo] = useState("");
   const [price, setPrice] = useState("");
-
+  const [description, setDescription] = useState("")
+  const [image, setImage] = useState("")
+  const [province, setProvince] = useState("")
   const handleAddHotel = (e) => {
     e.preventDefault();
     const fielName = e.target.getAttribute("name");
@@ -46,26 +55,34 @@ const AddHotel = () => {
     setContacts1(newContacts1);
     alert("1");
   };
-
+  const handleTypeSelect = e => {
+    setProvince(e.value);
+  };
   const handleClick = (e) =>{
     e.preventDefault();
-    const addHot = {name, address, intro,roomInfo,price};
+    const addHot = { 
+      "hotel_name": name, 
+      "hotel_address_input": address, 
+      "hotel_address_select": province,
+      "image_url": image,
+      "hotel_description": description,
+      "hotel_fee":price};
     console.log(addHot);
-    // fetch("http://35.78.85.107:8080/hotel/create",{
-    //   method:"POST",
-    //         headers:{"Content-Type" : "application/json"},
-    //         body:JSON.stringify(addHot)
-    //     }).then(()=>{
-    //         console.log("Add hotel complete");
-    //         alert("Add hotel complete");
-    // })
+    fetch("http://35.78.85.107:8080/hotel/create",{
+      method:"POST",
+            headers:{"Content-Type" : "application/json"},
+            body:JSON.stringify(addHot)
+        }).then(()=>{
+            console.log("Add hotel complete");
+            alert("Add hotel complete");
+    })
 
   }
 
   return (
     <LayoutAdmin>
       <div>
-        <AdminTitle>Add/Edit Hotel</AdminTitle>
+        <AdminTitle>Add Hotel</AdminTitle>
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
             <label className="text-black font-bold">
@@ -76,7 +93,7 @@ const AddHotel = () => {
           <div className="w-3/5 items-center">
             <Input
               type="text"
-              placeholder="Name restaurant"
+              placeholder="Name hotel"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
@@ -90,29 +107,43 @@ const AddHotel = () => {
               <span className="text-red-700"> *</span>
             </label>
           </div>
+
           <div className="w-3/5 items-center">
             <Input
               type="text"
-              placeholder="Name restaurant"
+              placeholder="Address's hotel"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
             />
           </div>
+          
         </div>
 
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
             <label className="text-black font-bold">
-              Introduce
+              Province
+              <span className="text-red-700"> *</span>
+            </label>
+          </div>
+          <div className="items-center" style={{padding: '10px'}}>
+            <Select options={options} onChange={handleTypeSelect} />
+          </div>
+        </div >
+
+        <div className="flex items-center">
+          <div className="w-1/5 self-center text-end">
+            <label className="text-black font-bold">
+              Description
               <span className="text-red-700"> *</span>
             </label>
           </div>
           <div className="w-3/5 items-center">
             <Input
               type="text"
-              placeholder="Name restaurant"
-              value={intro}
-              onChange={(e) => setIntro(e.target.value)}
+              placeholder="Write something about your hotel"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
             />
           </div>
         </div>
@@ -120,16 +151,16 @@ const AddHotel = () => {
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
             <label className="text-black font-bold">
-              Room information
+              Image URL
               <span className="text-red-700"> *</span>
             </label>
           </div>
           <div className="w-3/5 items-center">
             <Input
               type="text"
-              placeholder="Name restaurant"
-              value={roomInfo}
-              onChange={(e) => setRoomInfo(e.target.value)}
+              placeholder="Link to image"
+              value={image}
+              onChange={(e) => setImage(e.target.value)}
             />
           </div>
         </div>
@@ -144,7 +175,7 @@ const AddHotel = () => {
           <div className="w-3/5 items-center">
             <Input
               type="text"
-              placeholder="Name restaurant"
+              placeholder="Price per day"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
             />
@@ -157,7 +188,11 @@ const AddHotel = () => {
             Cancel
           </Link>
         </Button>
-        <Button color="font-bold mr-0" onClick={handleClick}>Add Hotel</Button>
+        <Button color="font-bold mr-0" onClick={handleClick}>
+          <Link to='/list-hotel'>
+          </Link>
+          Add Hotel
+          </Button>
       </div>
     </LayoutAdmin>
   );

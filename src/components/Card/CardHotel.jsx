@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import PopupUpdateMenu from "../Popup/PopupUpdateMenu";
 
 const CardHotel = ({ data }) => {
+
   return (
     <div className="antialiased bg-gray-200 text-gray-900 font-sans p-6">
       <div className="container mx-auto">
