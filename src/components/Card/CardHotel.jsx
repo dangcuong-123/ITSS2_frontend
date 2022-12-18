@@ -40,7 +40,9 @@ const CardHotel = ({ data }) => {
                     <Button color="from-[#7CFC00] to-[#008000] font-bold mx-1 px-1 py-1">
                       <Link to="/admin/detail-hotel">Detail</Link>
                     </Button>
-                    <PopupUpdateMenu nameBtn="Edit" styleBtn="mx-1 px-1 py-1" />
+                    <Button color="from-[#64B5F6] to-[#2286C3] mx-1 font-bold px-1 py-1">
+                      <Link to={`/edit-hotel/${card.hotel_id}`}>Edit</Link>
+                    </Button>
                     <Button color="from-[#f6646e] to-[#961919] mx-1 font-bold px-1 py-1">
                       Delete
                     </Button>

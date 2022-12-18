@@ -46,7 +46,7 @@ const AddRestaurant = ({ handleCancelClick, handleDeleteClick }) => {
   return (
     <LayoutAdmin>
       <div>
-        <AdminTitle>Add/Edit Restaurant</AdminTitle>
+        <AdminTitle>Add Restaurant</AdminTitle>
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
             <label className="text-black font-bold">Name*</label>
