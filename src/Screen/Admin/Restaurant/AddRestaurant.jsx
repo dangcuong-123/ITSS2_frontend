@@ -114,7 +114,8 @@ const AddRestaurant = ({ handleCancelClick, handleDeleteClick }) => {
       </div>
       <div className="w-4/5 flex ml-4" style={{ justifyContent: "end" }}>
         <Button color="from-[#961919] to-[#f6646e] font-bold">
-          <Link to="/list-restaurant">Cancel</Link>
+          <Link to="/list-restaurant"></Link>
+          Cancel
         </Button>
         <Button color="font-bold mr-0">Add Restaurant</Button>
       </div>
