@@ -18,14 +18,19 @@ const ListHotel = () => {
       .catch((err) => {});
   };
   const [hotel, setHotel] = useState();
-
+  const [hotelLength, setHotelLength] = useState();
   useEffect(() => {
     getHotel()
       .then((res) => {
         setHotel(res.data);
+        // console.log(res.data.length)
+        setHotelLength(res.data.length);
+        console.log(hotelLength);
       })
-      .catch((err) => {});
-  }, []);
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [hotel]);
 
   return (
     <React.Fragment>
