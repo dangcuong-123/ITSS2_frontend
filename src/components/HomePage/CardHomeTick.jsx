@@ -3,9 +3,8 @@ import "../../style/search.css";
 import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
-import { showHomePage } from "../../services/HomeServices";
 
-const CardHomeTick = ({hotel}) => {
+const CardHomeTick = ({ hotel }) => {
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
   const [isShown, setIsShown] = useState(false);
   const handleTickClick = (event) => {
@@ -51,7 +50,7 @@ const CardHomeTick = ({hotel}) => {
                       <span className="text-sm font-semibold">VND</span>
                     </div>
                   </div>
-          
+
                   <div className="p-4 flex items-center text-sm text-gray-600">
                     <svg
                       viewBox="0 0 24 24"

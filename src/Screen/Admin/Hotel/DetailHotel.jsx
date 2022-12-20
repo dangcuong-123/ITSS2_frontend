@@ -1,11 +1,34 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
+import { useEffect } from "react";
 import LayoutAdmin from "../../../components/Sidebar/AdminContainer";
 import { AdminTitle } from "../../../style";
 import Input from "../../../components/Input";
 import Button from "../../../components/Button";
-
+import { useParams } from "react-router-dom";
+import { getHotelById } from "../../../services/HotelServices";
 const DetailHotel = (props) => {
+  const [cardHotel, setCardHotel] = useState();
+
+  const { hotelId } = useParams();
+
+  useEffect(() => {
+    if (hotelId) {
+      console.log(
+        "🚀 ~ file: DetailHotel.jsx:25 ~ useEffect ~ hotelId",
+        hotelId
+      );
+      getHotelById(hotelId)
+        .then((res) => {
+          console.log("🚀 ~ file: DetailHotel.jsx:16 ~ .then ~ res", res);
+
+          setCardHotel(res.data[0]);
+        })
+        .catch((err) => {
+          console.log("🚀 ~ file: DetailHotel.jsx:21 ~ useEffect ~ err", err);
+        });
+    }
+  }, [hotelId]);
+
   const listCardHome = {
     hotel_name: "123",
     hotel_detail:

@@ -1,14 +1,26 @@
 import React from "react";
 import "../../style/search.css";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const HotelCard = ({ hotel }) => {
+  const navigate = useNavigate();
+
+  function handleClickCard() {
+    navigate("/login");
+  }
+
   return (
     <div className="antialiased bg-gray-200 text-gray-900 font-sans p-6">
       <div className="container mx-auto">
         <div className="flex flex-wrap -mx-4">
           {hotel.map((card, id) => {
             return (
-              <div key={id} className="w-full sm:w-1/2 md:w-1/2 xl:w-1/3 p-4">
+              <div
+                key={id}
+                className="w-full sm:w-1/2 md:w-1/2 xl:w-1/3 p-4"
+                onClick={handleClickCard}
+              >
                 <a className="c-card block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden">
                   <div className="relative pb-48 overflow-hidden">
                     <img

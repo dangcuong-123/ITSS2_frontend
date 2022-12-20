@@ -24,7 +24,7 @@ const User = () => {
         />
         <Route path="list-hotel" element={<ListHotel></ListHotel>}></Route>
         <Route
-          path="detail-hotel"
+          path="detail-hotel/:id"
           element={<DetailHotel></DetailHotel>}
         ></Route>
         <Route

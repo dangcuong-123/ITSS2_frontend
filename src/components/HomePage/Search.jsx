@@ -7,7 +7,7 @@ function Search({ onSearchChange }) {
   const [value, setValue] = useState("");
 
   const handleSearch = () => {
-    if (value != "") {
+    if (value !== "") {
       onSearchChange(value);
     }
   };

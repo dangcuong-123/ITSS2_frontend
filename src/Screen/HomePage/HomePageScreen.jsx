@@ -47,7 +47,6 @@ const HomePageScreen = () => {
         .then((res) => {
           setRestaurant(res.data.restaurants);
           setHotel(res.data.hotels);
-          console.log(res.data.hotels);
         })
         .catch((err) => {
           setRestaurant([]);
@@ -80,19 +79,6 @@ const HomePageScreen = () => {
                     </Button>
                   );
                 })}
-
-                {/* <Button
-                  variant={location == "hai phong" ? "contained" : "text"}
-                  onClick={(e) => handleChangeTab("hai phong")}
-                >
-                  Hải Phòng
-                </Button>
-                <Button
-                  variant={location == "ho chi minh" ? "contained" : "text"}
-                  onClick={(e) => handleChangeTab("ho chi minh")}
-                >
-                  TP Hồ Chí Minh
-                </Button> */}
               </Stack>
             </div>
             <HotelCard hotel={hotel} />
@@ -103,24 +89,17 @@ const HomePageScreen = () => {
             </span>
             <div className="m-5">
               <Stack spacing={2} direction="row">
-                {/* <Button
-                  variant={location == "ha noi" ? "contained" : "text"}
-                  onClick={(e) => handleChangeTab("ha noi")}
-                >
-                  Hà Nội
-                </Button>
-                <Button
-                  variant={location == "hai phong" ? "contained" : "text"}
-                  onClick={(e) => handleChangeTab("hai phong")}
-                >
-                  Hải Phòng
-                </Button>
-                <Button
-                  variant={location == "ho chi minh" ? "contained" : "text"}
-                  onClick={(e) => handleChangeTab("ho chi minh")}
-                >
-                  TP Hồ Chí Minh
-                </Button> */}
+                {listLocation.map((loc, idx) => {
+                  return (
+                    <Button
+                      key={idx}
+                      variant={loc === locations ? "contained" : "text"}
+                      onClick={(e) => handleChangeTab(loc)}
+                    >
+                      {loc}
+                    </Button>
+                  );
+                })}
               </Stack>
             </div>
             <RestaurantCard restaurant={restaurant} />
