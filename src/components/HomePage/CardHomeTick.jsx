@@ -8,6 +8,11 @@ const CardHomeTick = ({ hotel }) => {
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
   const [isShown, setIsShown] = useState(false);
   const handleTickClick = (event) => {
+    console.log(
+      "🚀 ~ file: CardHomeTick.jsx:11 ~ handleTickClick ~ event",
+      event
+    );
+
     setIsShown(true);
   };
 
@@ -106,14 +111,11 @@ const CardHomeTick = ({ hotel }) => {
             >
               you have chosen hotel!
             </span>
-            <Button
-              variant="contained"
-              color="success"
-              component={Link}
-              to={"/search-plan-restaurant"}
-            >
-              Next
-            </Button>
+            <Link to={"/search-plan-restaurant"} state={{ hotel }}>
+              <Button variant="contained" color="success">
+                Next
+              </Button>
+            </Link>
           </div>
         ) : (
           <div>

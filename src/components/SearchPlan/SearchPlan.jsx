@@ -10,7 +10,6 @@ import "react-calendar/dist/Calendar.css";
 import Stack from "@mui/material/Stack";
 import "../../style/search_plan.css";
 import "../../style/search.css";
-// import CardHome from "../HomePage/CardHomePage";
 import CardHomeTick from "../HomePage/CardHomeTick";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";

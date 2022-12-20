@@ -4,7 +4,7 @@ import { AdminTitle } from "../../../style";
 import Button from "../../../components/Button";
 import { Link } from "react-router-dom";
 
-const DetailPlan = () => {
+const DetailPlan = ({ hotel, restaurant }) => {
   const listCardPlan = {
     plan_name: "Cat Ba Trip",
     hotel_name: "Highlight",

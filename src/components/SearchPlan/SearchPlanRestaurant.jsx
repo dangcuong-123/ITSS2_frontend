@@ -19,11 +19,19 @@ import {
   getRestaurantLowerEqualPrice,
   searchRestaurant,
 } from "../../services/RestaurantServices";
+import { useLocation } from "react-router-dom";
+
 const SearchPlanRestaurant = () => {
   const [price, setPrice] = useState(100);
   const [finalPrice, setFinalPrice] = useState(2000000);
   const [restaurant, setRestaurant] = useState();
-  // const [hotel, setHotel] = useState([]);
+  const location = useLocation();
+  const { hotel } = location.state;
+  console.log(
+    "🚀 ~ file: SearchPlanRestaurant.jsx:30 ~ SearchPlanRestaurant ~ hotel",
+    hotel
+  );
+
   const marks = [
     {
       value: 0,

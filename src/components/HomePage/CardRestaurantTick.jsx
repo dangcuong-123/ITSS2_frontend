@@ -109,7 +109,7 @@ const CardRestaurantTick = ({ restaurant }) => {
           Back
         </Button>
         <span
-          className="text-2xl font-bold mb-5"
+          className="text-2xl font-bold mb-5 ml-3"
           style={{
             padding: "10px 20px 0 0",
           }}
