@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { Snackbar, Alert } from "@mui/material";
 import Card from "../../../components/User/Login/Card";
 import Input from "../../../components/Input";
@@ -10,108 +9,129 @@ import { useNavigate } from "react-router-dom";
 import { register } from "../../../services/UserServices";
 // import ShowPassword from "../../../assets/User/Login/show.svg";
 import { Link } from "react-router-dom";
+import { Button } from "antd";
+import accountStore from "../../../store/AccountInfoStore";
 
 const RegisterScreen = () => {
-  const navigate = useNavigate();
-  const baseURL = process.env.REACT_APP_BASE_URL;
+	const navigate = useNavigate();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [userName, setUserName] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+	const [email, setEmail] = useState("");
+	const [emailError, setEmailError] = useState("");
 
-  // handle email change
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
+	const [password, setPassword] = useState("");
 
-  // handle password change
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
+	const [userName, setUserName] = useState("");
 
-  // handle user name change
-  const handleUserNameChange = (e) => {
-    setUserName(e.target.value);
-  };
+	const [passwordError, setPasswordError] = useState("");
 
-  // handle confirm password change
-  const handleConfirmPasswordChange = (e) => {
-    setConfirmPassword(e.target.value);
-  };
+	// handle email change
+	const handleEmailChange = (e) => {
+		// check valid email
+		const emailRegex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
+		if (emailRegex.test(e.target.value)) {
+			setEmail(e.target.value);
+			setEmailError("");
+		} else {
+			setEmailError("Invalid email");
+		}
+	};
 
-  // handle register
-  const handleRegister = (e) => {
-    e.preventDefault();
-    const data = {
-      email,
-      password,
-      userName,
-    };
-    register(data)
-      .then((res) => {
-        if (res.status === 200) {
-          alert("Register Success");
-          navigate("/login");
-          // <Snackbar autoHideDuration={6000}>
-          // 	<Alert severity="success">{res?.data}</Alert>
-          // </Snackbar>;
-        }
-      })
-      .catch((err) => {
-        if (err) {
-          alert("Register Fail");
-          // <Snackbar autoHideDuration={6000}>
-          // 	<Alert severity="error">{err?.response?.data?.message}</Alert>
-          // </Snackbar>;
-        }
-      });
-  };
+	// handle password change
+	const handlePasswordChange = (e) => {
+		setPassword(e.target.value);
+	};
 
-  return (
-    <div className="flex flex-col justify-center items-center">
-      <Card>
-        <span className="text-sm text-[#2286C3] mb-4">Register</span>
-        <div className="w-4/5 flex flex-col justify-center">
-          <Input
-            leftIcon={user}
-            placeholder="User Name"
-            onChange={handleUserNameChange}
-          />
-          <Input
-            leftIcon={EmailIcon}
-            placeholder="Email Address"
-            onChange={handleEmailChange}
-          />
-          <Input
-            leftIcon={PasswordIcon}
-            placeholder="Password"
-            type="password"
-            onChange={handlePasswordChange}
-          />
-          <Input
-            leftIcon={PasswordIcon}
-            placeholder="Password confirmation"
-            type="password"
-            onChange={handleConfirmPasswordChange}
-          />
-          <Link
-            style={{ float: "right" }}
-            className="bg-gradient-to-r p-5 m-5 from-[#64B5F6] to-[#2286C3] py-3 text-white shadow-lg text-center"
-            onClick={handleRegister}
-          >
-            Register
-          </Link>
-        </div>
-      </Card>
-      <Link
-        to="/login"
-        className="text-center text-[#64B5F6] mt-6 text-lg font-medium"
-      >
-        Login here
-      </Link>
-    </div>
-  );
+	// handle user name change
+	const handleUserNameChange = (e) => {
+		setUserName(e.target.value);
+	};
+
+	// handle confirm password change
+	const handleConfirmPasswordChange = (e) => {
+		if (e.target.value === password) {
+			setPasswordError("");
+		} else {
+			setPasswordError("Confirm Password not match");
+		}
+	};
+
+	// handle register
+	const handleRegister = (e) => {
+		e.preventDefault();
+		const data = {
+			email,
+			password,
+			userName,
+		};
+
+		register(data)
+			.then((res) => {
+				if (res.status === 200) {
+					navigate("/login");
+					accountStore.updateAccountInfo(data);
+					<Snackbar open={true} autoHideDuration={6000}>
+						<Alert severity="success">This is a success message!</Alert>
+					</Snackbar>;
+				}
+			})
+			.catch((err) => {
+				console.log(err);
+				if (err) {
+					<Snackbar open={true} autoHideDuration={6000}>
+						<Alert severity="error">This is a error message!</Alert>
+					</Snackbar>;
+				}
+			});
+	};
+
+	return (
+		<div className="flex flex-col justify-center items-center">
+			<Card>
+				<span className="text-sm text-[#2286C3] mb-4">Register</span>
+				<div className="w-4/5 flex flex-col justify-center">
+					<Input
+						type={"text"}
+						leftIcon={user}
+						placeholder="User Name"
+						onChange={handleUserNameChange}
+					/>
+					<Input
+						type={"text"}
+						leftIcon={EmailIcon}
+						placeholder="Email Address"
+						onChange={handleEmailChange}
+					/>
+					<span className="ml-6 text-red-500 text-xs">{emailError}</span>
+					<Input
+						type={"password"}
+						leftIcon={PasswordIcon}
+						placeholder="Password"
+						onChange={handlePasswordChange}
+					/>
+					<Input
+						type="password"
+						leftIcon={PasswordIcon}
+						placeholder="Password confirmation"
+						onChange={handleConfirmPasswordChange}
+					/>
+					<span className="ml-6 text-red-500 text-xs">{passwordError}</span>
+					<Button
+						style={{ float: "right" }}
+						className="bg-gradient-to-r p-5 m-5 from-[#64B5F6] to-[#2286C3] py-3 text-white shadow-lg text-center"
+						onClick={handleRegister}
+					>
+						Register
+					</Button>
+				</div>
+			</Card>
+			<Link
+				to="/login"
+				className="text-center text-[#64B5F6] mt-6 text-lg font-medium"
+			>
+				Login here
+			</Link>
+		</div>
+	);
 };
 
 export default RegisterScreen;

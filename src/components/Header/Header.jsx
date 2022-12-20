@@ -19,6 +19,7 @@ const Header = () => {
               <img
                 className="w-10 h-10 rounded-full"
                 src={accountStore?.AccountInfo.imageUrl}
+                alt="avatar"
               />
               <div class="font-medium dark:text-white">
                 <div className="font-bold">
