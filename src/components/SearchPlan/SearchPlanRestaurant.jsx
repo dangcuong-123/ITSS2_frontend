@@ -1,7 +1,7 @@
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
-import * as React from "react";
+import React, { useEffect } from "react";
 import LayoutAdmin from "../../components/Sidebar/AdminContainer";
 import { AdminTitle } from "../../style";
 import { useState } from "react";
@@ -9,20 +9,73 @@ import "react-calendar/dist/Calendar.css";
 import Stack from "@mui/material/Stack";
 import "../../style/search_plan.css";
 import "../../style/search.css";
-// import CardHome from "../HomePage/CardHomePage";
-import Checkbox from "@mui/material/Checkbox";
 import CardRestaurentTick from "../HomePage/CardRestaurantTick";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import { Link } from "react-router-dom";
 import ButtonSearch from "../Button";
 import Input from "../Input";
+import {
+  getRestaurantLowerEqualPrice,
+  searchRestaurant,
+} from "../../services/RestaurantServices";
 const SearchPlanRestaurant = () => {
-  const handleSearch = () => {};
-  // const [checkin, setCheckin] = useState(new Date());
-  // const [checkout, setCheckout] = useState(new Date());
-  const [search, onSearchChange] = useState();
-  // const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+  const [price, setPrice] = useState(100);
+  const [finalPrice, setFinalPrice] = useState(2000000);
+  const [restaurant, setRestaurant] = useState();
+  // const [hotel, setHotel] = useState([]);
+  const marks = [
+    {
+      value: 0,
+      label: "0đ",
+    },
+    {
+      value: 25,
+      label: "500.000đ",
+    },
+    {
+      value: 50,
+      label: "1.000.000đ",
+    },
+    {
+      value: 75,
+      label: "1.500.000đ",
+    },
+    {
+      value: 100,
+      label: "2.000.000đ",
+    },
+  ];
+
+  const handleSearch = (e) => {
+    searchRestaurant(e.target.value)
+      .then((res) => {
+        setRestaurant(res.data);
+      })
+      .catch((err) => {
+        setRestaurant([]);
+        // console.log(err);
+      });
+  };
+
+  const handleApplyPrice = () => {
+    setFinalPrice(price * 20000);
+  };
+
+  const handleChangePrice = (new_price) => {
+    setPrice(new_price);
+  };
+
+  useEffect(() => {
+    getRestaurantLowerEqualPrice(finalPrice)
+      .then((res) => {
+        setRestaurant(res.data);
+      })
+      .catch((err) => {
+        setRestaurant([]);
+        console.log(err);
+      });
+  }, [finalPrice]);
 
   return (
     <React.Fragment>
@@ -55,7 +108,7 @@ const SearchPlanRestaurant = () => {
             </div>
           </div>
           <div className="title-tools">
-            <div>
+            {/* <div>
               <div>
                 <form className=" mb-10">
                   <input
@@ -78,20 +131,29 @@ const SearchPlanRestaurant = () => {
                   />
                 </form>
               </div>
-            </div>
+            </div> */}
           </div>
           <div>
             <span className="text-2xl font-bold mb-3">Cash</span>
-            <Box width={300}>
-              <Slider
-                defaultValue={50}
-                aria-label="Default"
-                valueLabelDisplay="auto"
-              />
-            </Box>
+            <Stack direction="row" alignItems="flex-start" spacing={6}>
+              <Box width={"80vh"}>
+                <Slider
+                  aria-label="Price"
+                  // getAriaValueText={valuetext}
+                  step={25}
+                  valueLabelDisplay="off"
+                  marks={marks}
+                  value={price}
+                  onChange={(e) => handleChangePrice(e.target.value)}
+                />
+              </Box>
+              <Button variant="outlined" onClick={handleApplyPrice}>
+                Apply
+              </Button>
+            </Stack>
           </div>
           <div>
-            <CardRestaurentTick />
+            <CardRestaurentTick restaurant={restaurant} />
           </div>
         </LayoutAdmin>
       </Container>

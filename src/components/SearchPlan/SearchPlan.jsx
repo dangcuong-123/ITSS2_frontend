@@ -17,49 +17,59 @@ import Slider from "@mui/material/Slider";
 import { Link } from "react-router-dom";
 import Input from "../Input";
 import ButtonSearch from "../Button";
-import { getHotelLowerEqualPrice } from "../../services/HotelServices";
+import {
+  getHotelLowerEqualPrice,
+  searchHotel,
+} from "../../services/HotelServices";
 
 const marks = [
   {
     value: 0,
-    label: '0đ',
+    label: "0đ",
   },
   {
     value: 25,
-    label: '500.000đ',
+    label: "500.000đ",
   },
   {
     value: 50,
-    label: '1.000.000đ',
+    label: "1.000.000đ",
   },
   {
     value: 75,
-    label: '1.500.000đ',
+    label: "1.500.000đ",
   },
   {
     value: 100,
-    label: '2.000.000đ',
+    label: "2.000.000đ",
   },
 ];
 
-
 const SearchPlan = () => {
-  const handleSearch = () => {};
   const [checkin, setCheckin] = useState(new Date());
   const [checkout, setCheckout] = useState(new Date());
-  const [search, onSearchChange] = useState();
-  // const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
   const [price, setPrice] = useState(100);
   const [finalPrice, setFinalPrice] = useState(2000000);
   const [hotel, setHotel] = useState([]);
 
+  const handleSearch = (e) => {
+    searchHotel(e.target.value)
+      .then((res) => {
+        setHotel(res.data);
+      })
+      .catch((err) => {
+        setHotel([]);
+        // console.log(err);
+      });
+  };
+
   const handleChangePrice = (new_price) => {
     setPrice(new_price);
-  }
+  };
 
   const handleApplyPrice = () => {
-    setFinalPrice(price*20000);
-  }
+    setFinalPrice(price * 20000);
+  };
 
   useEffect(() => {
     getHotelLowerEqualPrice(finalPrice)
@@ -101,7 +111,7 @@ const SearchPlan = () => {
             </div>
           </div>
           <div className="title-tools">
-            <div>
+            {/* <div>
               <div>
                 <form className=" mb-10">
                   <input
@@ -124,7 +134,7 @@ const SearchPlan = () => {
                   />
                 </form>
               </div>
-            </div>
+            </div> */}
             <div>
               <span className="text-2xl font-bold mb-3">Check in</span>
               <div>
@@ -141,22 +151,24 @@ const SearchPlan = () => {
           <div>
             <span className="text-2xl font-bold mb-3">Cash</span>
             <Stack direction="row" alignItems="flex-start" spacing={6}>
-            <Box width={400}>
-            <Slider
-              aria-label="Price"
-              getAriaValueText={valuetext}
-              step={25}
-              valueLabelDisplay="off"
-              marks={marks}
-              value={price} 
-              onChange={e => handleChangePrice(e.target.value)}
-            />
-            </Box>
-            <Button variant="outlined" onClick={handleApplyPrice}>Apply</Button>
+              <Box width={"80vh"}>
+                <Slider
+                  aria-label="Price"
+                  getAriaValueText={valuetext}
+                  step={25}
+                  valueLabelDisplay="off"
+                  marks={marks}
+                  value={price}
+                  onChange={(e) => handleChangePrice(e.target.value)}
+                />
+              </Box>
+              <Button variant="outlined" onClick={handleApplyPrice}>
+                Apply
+              </Button>
             </Stack>
           </div>
           <div>
-            <CardHomeTick hotel={hotel}/>
+            <CardHomeTick hotel={hotel} />
           </div>
         </LayoutAdmin>
       </Container>

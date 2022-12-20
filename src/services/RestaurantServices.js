@@ -9,3 +9,13 @@ export const searchRestaurant = async (nameRestaurant) => {
     `/restaurant/search_restaurant_name?name=${nameRestaurant}`
   );
 };
+
+export const getRestaurantById = async (id) => {
+  return await apiService.get(`/restaurant/search_restaurant_id/${id}`);
+};
+
+export const getRestaurantLowerEqualPrice = async (price) => {
+  return await apiService.get(
+    `/restaurant/search_restaurant_lower_equal_price?price=${price}`
+  );
+};

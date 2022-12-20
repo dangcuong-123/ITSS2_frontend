@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import LayoutAdmin from "../../../components/Sidebar/AdminContainer";
 import { AdminTitle } from "../../../style";
 import Button from "../../../components/Button";
-
+import { useParams } from "react-router-dom";
+import { getRestaurantById } from "../../../services/RestaurantServices";
 
 const DetailRestaurant = () => {
-
   const listCardRestaurant = {
     hotel_name: "Highlight",
     hotel_detail:
@@ -23,55 +23,70 @@ const DetailRestaurant = () => {
     item3: "250000 vnd",
   };
 
+  const [cardRestaurant, setCardRestaurant] = useState();
+  const { id } = useParams();
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    
-  }
+  useEffect(() => {
+    if (id) {
+      getRestaurantById(id)
+        .then((res) => {
+          setCardRestaurant(res.data[0]);
+        })
+        .catch((err) => {
+          setCardRestaurant([]);
+        });
+    }
+  }, [id]);
+
+  // const handleClick = (e) => {
+  //   e.preventDefault();
+  // };
 
   return (
     <LayoutAdmin>
       <AdminTitle>Restaurant Detail</AdminTitle>
       <div className="font-bold text-2xl mt-4 my-2">
-        Hotel name - {`[${listCardRestaurant.location}]`}
+        {cardRestaurant?.restaurant_name} -{" "}
+        {`[${cardRestaurant?.restaurant_address}]`}
       </div>
       <div className="flex justify-between">
         <img
           className="inset-0 h-full mt-1 w-2/5 object-cover"
-          src={listCardRestaurant.imageUrl}
+          src={cardRestaurant?.image_url}
           alt=""
         />
-        <div className="mx-6">{listCardRestaurant.hotel_detail}</div>
+        <div className="mx-6">{cardRestaurant?.restaurant_description}</div>
       </div>
 
       <div className="font-bold text-2xl mt-4">1. Service Info</div>
-      <div className="relative flex">
+      <div className="relative flex mb-3">
         <img
           className="inset-0 mt-1 w-2/5 object-cover"
-          src={listCardRestaurant.imageUrl}
+          src={cardRestaurant?.image_url}
           alt=""
         />
         <div className="mx-6 text-blue font-bold text-2xl ">
-          {listCardRestaurant.cost} - {listCardRestaurant.time}
+          {cardRestaurant?.restaurant_fee} VND :{" "}
+          {cardRestaurant?.restaurant_open_time}
         </div>
       </div>
-      <div className="mb-10">{listCardRestaurant.hotel_detail}</div>
-      <div className="font-bold text-2xl mt-4">
-          2. Menu
-      </div>
+      <div className="mb-10">{cardRestaurant?.menu_description}</div>
+      <div className="font-bold text-2xl mt-4">2. Menu</div>
       <div className="relative flex">
-        <div className="mx-6 text-blue font-bold text-2xl ">
+        {/* <div className="mx-6 text-blue font-bold text-2xl ">
           Item One : {listCardRestaurant.item1} <br />
           Item Two : {listCardRestaurant.item2} <br />
           Item Three : {listCardRestaurant.item3}
-        </div>
+        </div> */}
         <div className="mx-6 text-blue font-bold text-2xl ">
           Average price :{listCardRestaurant.cost_menu}
-          <div className="mx-6 text-blue font-bold text-2xl " onClick={handleClick}>
+          {/* <div
+            className="mx-6 text-blue font-bold text-2xl "
+            onClick={handleClick}
+          >
             <u>See details</u>
-          </div>
+          </div> */}
         </div>
-        
       </div>
       <div className="flex justify-between">
         <Button color="from-[#961919] to-[#f6646e] font-bold ml-0 py-1">

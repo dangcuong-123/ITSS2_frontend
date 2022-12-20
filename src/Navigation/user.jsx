@@ -28,7 +28,7 @@ const User = () => {
           element={<DetailHotel></DetailHotel>}
         ></Route>
         <Route
-          path="detail-restaurant"
+          path="detail-restaurant/:id"
           element={<DetailRestaurant></DetailRestaurant>}
         ></Route>
         <Route

@@ -3,30 +3,19 @@ import "../../style/search.css";
 import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
-import { getRestaurant } from "../../services/RestaurantServices";
 
-const CardRestaurantTick = () => {
+const CardRestaurantTick = ({ restaurant }) => {
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
   const [isShown, setIsShown] = useState(false);
-  const [restaurantAPI, setRestaurantAPI] = useState();
   const handleTickClick = (event) => {
     setIsShown(true);
   };
-  const getRestaurantAPI = async () => {
-    getRestaurant().then((res) => {
-      if (res.status === 200) {
-        setRestaurantAPI(res.data);
-      }
-    });
-  };
-  React.useEffect(() => {
-    getRestaurantAPI();
-  }, []);
+
   return (
     <div className="antialiased bg-gray-200 text-gray-900 font-sans p-6">
       <div className="container mx-auto">
         <div className="flex flex-wrap -mx-4">
-          {restaurantAPI?.map((card, ids) => {
+          {restaurant?.map((card, ids) => {
             return (
               <div key={ids} className="w-full sm:w-1/2 md:w-1/2 xl:w-1/3 p-4">
                 <a className="c-card block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden">
