@@ -8,38 +8,53 @@ import LayoutAdmin from "../../components/Sidebar/AdminContainer";
 import HotelCard from "../../components/HomePage/HotelCard";
 import RestaurantCard from "../../components/HomePage/RestaurantCard";
 import { AdminTitle } from "../../style";
-import { getHotelAndRestaurantList } from "../../services/HomeServices";
+import {
+  getHotelAndRestaurantList,
+  showHomePage,
+} from "../../services/HomeServices";
+
+const listLocation = ["All", "Ha Long", "Ha Noi"];
 
 const HomePageScreen = () => {
-  const [value, setValue] = useState("ha noi");
-  const [locationDefault, setlocationDefault] = useState("ha noi");
+  // const [value, setValue] = useState("ha long");
+  const [locations, setlocation] = useState("All");
+
   // get restaurant and hotel
   const [restaurant, setRestaurant] = useState([]);
   const [hotel, setHotel] = useState([]);
 
   const handleSearch = (new_value) => {
-    setlocationDefault("")
-    setValue(new_value);
+    setlocation("");
   };
 
   const handleChangeTab = (location) => {
-    setlocationDefault(location)
-    setValue(location);
-  }
+    setlocation(location);
+  };
 
   useEffect(() => {
-    getHotelAndRestaurantList(value)
-      .then((res) => {
-        setRestaurant(res.data.restaurants);
-        setHotel(res.data.hotels);
-        console.log(res.data.hotels);
-      })
-      .catch((err) => {
-        setRestaurant([]);
-        setHotel([]);
-        console.log(err);
-      });
-  }, [value]);
+    if (locations === "All") {
+      showHomePage()
+        .then((res) => {
+          setRestaurant(res.data.restaurants);
+          setHotel(res.data.hotels);
+        })
+        .catch((err) => {
+          setRestaurant([]);
+          setHotel([]);
+        });
+    } else {
+      getHotelAndRestaurantList(locations)
+        .then((res) => {
+          setRestaurant(res.data.restaurants);
+          setHotel(res.data.hotels);
+          console.log(res.data.hotels);
+        })
+        .catch((err) => {
+          setRestaurant([]);
+          setHotel([]);
+        });
+    }
+  }, [locations]);
 
   return (
     <React.Fragment>
@@ -54,9 +69,30 @@ const HomePageScreen = () => {
             <span className="text-2xl font-bold mb-5">Recommend hotel</span>
             <div className="m-5">
               <Stack spacing={2} direction="row">
-                <Button variant={locationDefault == "ha noi" ? "contained" : "text"} onClick={e => handleChangeTab("ha noi")}>Hà Nội</Button>
-                <Button variant={locationDefault == "hai phong" ? "contained" : "text"} onClick={e => handleChangeTab("hai phong")}>Hải Phòng</Button>
-                <Button variant={locationDefault == "ho chi minh" ? "contained" : "text"} onClick={e => handleChangeTab("ho chi minh")}>TP Hồ Chí Minh</Button>
+                {listLocation.map((loc, idx) => {
+                  return (
+                    <Button
+                      key={idx}
+                      variant={loc === locations ? "contained" : "text"}
+                      onClick={(e) => handleChangeTab(loc)}
+                    >
+                      {loc}
+                    </Button>
+                  );
+                })}
+
+                {/* <Button
+                  variant={location == "hai phong" ? "contained" : "text"}
+                  onClick={(e) => handleChangeTab("hai phong")}
+                >
+                  Hải Phòng
+                </Button>
+                <Button
+                  variant={location == "ho chi minh" ? "contained" : "text"}
+                  onClick={(e) => handleChangeTab("ho chi minh")}
+                >
+                  TP Hồ Chí Minh
+                </Button> */}
               </Stack>
             </div>
             <HotelCard hotel={hotel} />
@@ -67,9 +103,24 @@ const HomePageScreen = () => {
             </span>
             <div className="m-5">
               <Stack spacing={2} direction="row">
-                <Button variant={locationDefault == "ha noi" ? "contained" : "text"} onClick={e => handleChangeTab("ha noi")}>Hà Nội</Button>
-                <Button variant={locationDefault == "hai phong" ? "contained" : "text"} onClick={e => handleChangeTab("hai phong")}>Hải Phòng</Button>
-                <Button variant={locationDefault == "ho chi minh" ? "contained" : "text"} onClick={e => handleChangeTab("ho chi minh")}>TP Hồ Chí Minh</Button>
+                {/* <Button
+                  variant={location == "ha noi" ? "contained" : "text"}
+                  onClick={(e) => handleChangeTab("ha noi")}
+                >
+                  Hà Nội
+                </Button>
+                <Button
+                  variant={location == "hai phong" ? "contained" : "text"}
+                  onClick={(e) => handleChangeTab("hai phong")}
+                >
+                  Hải Phòng
+                </Button>
+                <Button
+                  variant={location == "ho chi minh" ? "contained" : "text"}
+                  onClick={(e) => handleChangeTab("ho chi minh")}
+                >
+                  TP Hồ Chí Minh
+                </Button> */}
               </Stack>
             </div>
             <RestaurantCard restaurant={restaurant} />

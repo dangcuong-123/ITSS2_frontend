@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../../style/search.css";
 import Input from "../Input";
 import ButtonSearch from "../Button";
-import { AdminTitle } from "../../style";
+
 function Search({ onSearchChange }) {
   const [value, setValue] = useState("");
 
