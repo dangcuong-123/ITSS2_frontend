@@ -13,10 +13,9 @@ import {
   showHomePage,
 } from "../../services/HomeServices";
 
-const listLocation = ["All", "Ha Long", "Ha Noi"];
+const listLocation = ["All", "Quang Ninh", "Ha Noi"];
 
 const HomePageScreen = () => {
-  // const [value, setValue] = useState("ha long");
   const [locations, setlocation] = useState("All");
 
   // get restaurant and hotel

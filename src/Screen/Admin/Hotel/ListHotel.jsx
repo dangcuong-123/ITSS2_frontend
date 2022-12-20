@@ -24,7 +24,6 @@ const ListHotel = () => {
     getHotel()
       .then((res) => {
         setHotel(res.data);
-        // console.log(res.data.length)
         setHotelLength(res.data.length);
       })
       .catch((err) => {

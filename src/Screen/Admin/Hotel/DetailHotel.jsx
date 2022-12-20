@@ -8,26 +8,19 @@ import { useParams } from "react-router-dom";
 import { getHotelById } from "../../../services/HotelServices";
 const DetailHotel = (props) => {
   const [cardHotel, setCardHotel] = useState();
-
-  const { hotelId } = useParams();
+  const { id } = useParams();
 
   useEffect(() => {
-    if (hotelId) {
-      console.log(
-        "🚀 ~ file: DetailHotel.jsx:25 ~ useEffect ~ hotelId",
-        hotelId
-      );
-      getHotelById(hotelId)
+    if (id) {
+      getHotelById(id)
         .then((res) => {
-          console.log("🚀 ~ file: DetailHotel.jsx:16 ~ .then ~ res", res);
-
           setCardHotel(res.data[0]);
         })
         .catch((err) => {
-          console.log("🚀 ~ file: DetailHotel.jsx:21 ~ useEffect ~ err", err);
+          setCardHotel([]);
         });
     }
-  }, [hotelId]);
+  }, [id]);
 
   const listCardHome = {
     hotel_name: "123",
@@ -45,29 +38,29 @@ const DetailHotel = (props) => {
     <LayoutAdmin>
       <AdminTitle>Hotel Detail</AdminTitle>
       <div className="font-bold text-2xl mt-4 my-2">
-        Hotel name - {`[${listCardHome.location}]`}
+        {cardHotel?.hotel_name} - {`[${cardHotel?.hotel_address}]`}
       </div>
       <div className="flex justify-between">
         <img
           className="inset-0 h-full mt-1 w-2/5 object-cover"
-          src={listCardHome.imageUrl}
+          src={cardHotel?.image_url}
           alt=""
         />
-        <div className="mx-6">{listCardHome.hotel_detail}</div>
+        <div className="mx-6">{cardHotel?.hotel_description}</div>
       </div>
 
       <div className="font-bold text-2xl mt-4">Room information</div>
       <div className="relative flex">
         <img
           className="inset-0 mt-1 w-2/5 object-cover"
-          src={listCardHome.imageUrl}
+          src={cardHotel?.image_url}
           alt=""
         />
         <div className="mx-6 text-blue font-bold text-2xl ">
-          {listCardHome.cost} - {listCardHome.time}
+          {cardHotel?.hotel_fee} - {listCardHome.time}
         </div>
       </div>
-      <div className="mb-10">{listCardHome.hotel_detail}</div>
+      <div className="mb-10">{cardHotel?.hotel_description}</div>
       <div className="flex justify-between">
         <Button color="from-[#961919] to-[#f6646e] font-bold ml-0 py-1">
           Back

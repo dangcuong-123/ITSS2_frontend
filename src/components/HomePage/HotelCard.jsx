@@ -1,13 +1,12 @@
 import React from "react";
 import "../../style/search.css";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const HotelCard = ({ hotel }) => {
   const navigate = useNavigate();
 
-  function handleClickCard() {
-    navigate("/login");
+  function handleClickCard(hotelId) {
+    navigate(`/detail-hotel/${hotelId}`);
   }
 
   return (
@@ -19,7 +18,7 @@ const HotelCard = ({ hotel }) => {
               <div
                 key={id}
                 className="w-full sm:w-1/2 md:w-1/2 xl:w-1/3 p-4"
-                onClick={handleClickCard}
+                onClick={() => handleClickCard(card.hotel_id)}
               >
                 <a className="c-card block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden">
                   <div className="relative pb-48 overflow-hidden">
