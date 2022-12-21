@@ -7,6 +7,9 @@ import Input from "../../../components/Input";
 import Button from "../../../components/Button";
 import { Link } from "react-router-dom";
 import Select from 'react-select'
+import { Snackbar, Alert } from "@mui/material"
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
+
 
 const AddRestaurant = ({ handleCancelClick, handleDeleteClick }) => {
   const [contacts, setContacts] = useState(data);
@@ -21,6 +24,8 @@ const AddRestaurant = ({ handleCancelClick, handleDeleteClick }) => {
   const [restaurant_description, setRestaurant_description] = useState("")
   const [province, setProvince] = useState('')
   const [hotelList, setHotelList] = useState([])
+  const [open, setOpen] = useState(false)
+  const [severity, setSeverity] = useState('')
   const options = [
     { value: 'none', label: 'None', id: '0' },
   ]
@@ -64,7 +69,9 @@ const AddRestaurant = ({ handleCancelClick, handleDeleteClick }) => {
     intro: "",
     menuIntro: "",
   });
-
+  const handleClose = () => {
+    setOpen(false);
+  };
   const handleAddRes = (e) => {
     e.preventDefault();
     const fieldName = e.target.getAttribute("name");
@@ -112,7 +119,13 @@ const AddRestaurant = ({ handleCancelClick, handleDeleteClick }) => {
       body: JSON.stringify(addRes)
     }).then(() => {
       console.log("Add restaurant complete");
-      alert("Add restaurant complete");
+      setOpen(true);
+      setSeverity('success')
+      // alert("Add restaurant complete");
+    }).catch((err) => {
+      console.log(err)
+      setSeverity('error')
+      setOpen(true)
     })
 
   }
@@ -249,7 +262,13 @@ const AddRestaurant = ({ handleCancelClick, handleDeleteClick }) => {
             />
           </div>
         </div>
-
+        <div>
+          <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+            <Alert severity={severity} onClose={handleClose}>
+              Add restaurant completely!
+            </Alert>
+          </Snackbar>
+        </div>
       </div>
       <div className="w-4/5 flex ml-4" style={{ justifyContent: "end" }}>
         <Button color="from-[#961919] to-[#f6646e] font-bold">

@@ -8,10 +8,13 @@ import { Link } from "react-router-dom";
 import Select from 'react-select'
 import { useParams } from 'react-router-dom'
 import { getHotelById } from "../../../services/HotelServices";
+import { Snackbar, Alert } from "@mui/material"
 
 const EditHotel = () => {
   const { id } = useParams();
   // console.log(id)
+  const [open, setOpen] = useState(false)
+  const [severity, setSeverity] = useState('')
   const [hotelID, setHotelID] = useState([]);
   const [editContactId1, setEditContactId1] = useState(null);
   const [contacts1, setContacts1] = useState(data1);
@@ -25,6 +28,9 @@ const EditHotel = () => {
   const [image, setImage] = useState("")
   const [province, setProvince] = useState("")
 
+  const handleClose = () => {
+    setOpen(false);
+  };
   const options = [
     { value: 'ha long', label: 'Ha long' },
     { value: 'ha noi', label: 'Ha noi' },
@@ -269,6 +275,13 @@ const EditHotel = () => {
                     onChange={(e) => setPrice(e.target.value)}
                   />
                 </div>
+              </div>
+              <div>
+                <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                  <Alert severity={severity} onClose={handleClose}>
+                    Edit restaurant completely!
+                  </Alert>
+                </Snackbar>
               </div>
 
         
