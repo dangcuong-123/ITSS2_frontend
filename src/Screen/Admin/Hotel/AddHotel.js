@@ -72,7 +72,7 @@ const AddHotel = () => {
       "hotel_description": description,
       "hotel_fee":price};
     console.log(addHot);
-    fetch("http://35.78.85.107:8080/hotel/create",{
+    fetch("http://13.230.246.62:8080/hotel/create",{
       method:"POST",
             headers:{"Content-Type" : "application/json"},
             body:JSON.stringify(addHot)
