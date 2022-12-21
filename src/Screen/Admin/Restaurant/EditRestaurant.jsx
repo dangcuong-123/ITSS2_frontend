@@ -5,10 +5,80 @@ import { AdminTitle } from "../../../style";
 import Input from "../../../components/Input";
 import Button from "../../../components/Button";
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import PopupUpdateMenu from "../../../components/Popup/PopupUpdateMenu";
+import { getRestaurantById } from "../../../services/RestaurantServices";
+import { useEffect } from "react"; 
+import Select from 'react-select'
+import {Snackbar, Alert} from "@mui/material"
+
 
 const EditRestaurant = ({ handleAddMenu }) => {
+
+  const [restaurant_name, setRestaurantName] = useState("")
+  const [hotel, setHotel] = useState("")
+  const [image_url, setImage_url] = useState("")
+  const [menu_description, setMenu_description] = useState("")
+  const [menu_image_url, setMenu_image_url] = useState("")
+  const [restaurant_address, setRestaurant_address] = useState("")
+  const [restaurant_fee, setRestaurant_fee] = useState("")
+  const [restaurant_open_time, setRestaurant_open_time] = useState("")
+  const [restaurant_description, setRestaurant_description] = useState("")
+  const [province, setProvince] = useState('')
+  const [hotelList, setHotelList] = useState([])
+  const options = [
+    { value: 'none', label: 'None', id: '0' },
+  ]
+
+  const options_province = [
+    { value: 'ha noi', label: 'Ha noi' },
+    { value: 'ha long', label: 'Ha long' },
+    { value: 'hai phong', label: 'Hai phong' }
+  ]
+  const [restaurant, setRestaurant] = useState()
+  const { id } = useParams();
+  useEffect(() => {
+    fetch(`http://192.168.1.64:8080/restaurant/search_restaurant_id/${id}`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    }).then(async response => {
+      const data = await response.json()
+      console.log(data)
+      setHotel(data[0].hotel_id)
+      setRestaurantName(data[0].restaurant_name)
+      setRestaurant_address(data[0].restaurant_address)
+      setRestaurant_description(data[0].restaurant_description)
+      setRestaurant_fee(data[0].restaurant_fee)
+      setRestaurant_open_time(data[0].restaurant_open_time)
+      setImage_url(data[0].image_url)
+      setMenu_image_url(data[0].menu_img_url)
+      setMenu_description(data[0].menu_description)
+    })
+  }, [])
+
+  const handleTypeProvince = e => {
+    setProvince(e.value)
+  }
+  const handleTypeSelect = e => {
+    setHotel(e.id);
+  };
+
+  useEffect(() => {
+    fetch("http://192.168.1.64:8080/hotel/show", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    }).then(async response => {
+      const data = await response.json()
+      // console.log(data)
+      setHotelList(data)
+    })
+  }, [])
+
+  hotelList.map((hotel, id) => {
+    options.push({ value: hotel.hotel_name, label: hotel.hotel_name, id: hotel.hotel_id })
+  })
+
+
   const [editContactId, setEditContactId] = useState(null);
   const [contacts, setContacts] = useState(data);
 
@@ -74,6 +144,43 @@ const EditRestaurant = ({ handleAddMenu }) => {
     setContacts(newContacts);
     alert("1");
   };
+  const [open, setOpen] = useState(false)
+  const [severity, setSeverity] = useState('')
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const editRestaurant = (e) => {
+    e.preventDefault();
+    const editRes = {
+      "restaurant_id": id,
+      "restaurant_name": restaurant_name,
+      "restaurant_address_input": restaurant_address,
+      "restaurant_address_select": province,
+      "hotel_id": hotel,
+      "restaurant_fee": restaurant_fee,
+      "image_url": image_url,
+      "restaurant_open_time": restaurant_open_time,
+      "menu_img_url": menu_image_url,
+      "menu_description": menu_description,
+      "restaurant_description": restaurant_description
+    };
+    console.log(editRes);
+    fetch("http://192.168.1.64:8080/restaurant/edit_restaurant", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(editRes)
+    }).then(() => {
+      console.log("Edit restaurant complete");
+      // alert("Edit restaurant complete");
+      setOpen(true);
+      setSeverity('success')
+    }).catch((err) => {
+      console.log(err)
+      setSeverity('error')
+      setOpen(true)
+    })
+
+  }
 
   return (
     <LayoutAdmin>
@@ -87,8 +194,8 @@ const EditRestaurant = ({ handleAddMenu }) => {
             <Input
               type="text"
               placeholder="Name restaurant"
-              value={editRes.name}
-              onChange={handleEditRes}
+              value={restaurant_name}
+              onChange={(e) => setRestaurantName(e.target.value)}
             />
           </div>
         </div>
@@ -100,23 +207,69 @@ const EditRestaurant = ({ handleAddMenu }) => {
           <div className="w-3/5 items-center">
             <Input
               type="text"
-              placeholder="Name restaurant"
-              value={editRes.name}
-              onChange={handleEditRes}
+              placeholder="Restaurant Address"
+              value={restaurant_address}
+              onChange={(e) => setRestaurant_address(e.target.value)}
             />
           </div>
         </div>
 
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
-            <label className="text-black font-bold">Introduce*</label>
+            <label className="text-black font-bold">Province*</label>
+          </div>
+          <div className="items-center" style={{ padding: '15px' }}>
+            <Select options={options_province} onChange={handleTypeProvince} />
+          </div>
+        </div>
+
+        <div className="flex items-center">
+          <div className="w-1/5 self-center text-end">
+            <label className="text-black font-bold">Restaurant fee*</label>
           </div>
           <div className="w-3/5 items-center">
             <Input
               type="text"
-              placeholder="Name restaurant"
-              value={editRes.name}
-              onChange={handleEditRes}
+              placeholder="Restaurant fee"
+              value={restaurant_fee}
+              onChange={(e) => setRestaurant_fee(e.target.value)}
+            />
+          </div>
+        </div>
+
+        <div className="flex items-center">
+          <div className="w-1/5 self-center text-end">
+            <label className="text-black font-bold">Hotel*</label>
+          </div>
+          <div className="items-center" style={{ padding: '15px' }}>
+            <Select options={options} onChange={handleTypeSelect} />
+          </div>
+        </div>
+
+        <div className="flex items-center">
+          <div className="w-1/5 self-center text-end">
+            <label className="text-black font-bold">Image URL*</label>
+          </div>
+          <div className="w-3/5 items-center">
+            <Input
+              type="text"
+              placeholder="Restaurant's Image"
+              value={image_url}
+              onChange={(e) => setImage_url(e.target.value)}
+            />
+          </div>
+        </div>
+
+        <div className="flex items-center">
+          <div className="w-1/5 self-center text-end">
+            <label className="text-black font-bold">Restaurant open time*</label>
+          </div>
+          <div className="w-3/5 items-center">
+            <Input
+              type="text"
+              placeholder="Restaurant Open Time"
+              value={restaurant_open_time}
+              onChange={(e) => setRestaurant_open_time(e.target.value)}
             />
           </div>
         </div>
@@ -128,27 +281,53 @@ const EditRestaurant = ({ handleAddMenu }) => {
           <div className="w-3/5 items-center">
             <Input
               type="text"
-              placeholder="Name restaurant"
-              value={editRes.name}
-              onChange={handleEditRes}
+              placeholder="Menu introduction"
+              value={menu_description}
+              onChange={(e) => setMenu_description(e.target.value)}
             />
           </div>
         </div>
 
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
-            <label className="text-black font-bold">Menu list*</label>
+            <label className="text-black font-bold">Menu Image URL*</label>
           </div>
-          <div className="w-3/5">
-            <PopupUpdateMenu nameBtn="Add Menu"/>
+          <div className="w-3/5 items-center">
+            <Input
+              type="text"
+              placeholder="Menu image url"
+              value={menu_image_url}
+              onChange={(e) => setMenu_image_url(e.target.value)}
+            />
           </div>
+        </div>
+
+        <div className="flex items-center">
+          <div className="w-1/5 self-center text-end">
+            <label className="text-black font-bold">Restaurant's description*</label>
+          </div>
+          <div className="w-3/5 items-center">
+            <Input
+              type="text"
+              placeholder="Description"
+              value={restaurant_description}
+              onChange={(e) => setRestaurant_description(e.target.value)}
+            />
+          </div>
+        </div>
+        <div>
+          <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+            <Alert severity={severity} onClose={handleClose}>
+              Edit Restaurant completely!
+            </Alert>
+          </Snackbar>
         </div>
       </div>
       <div className="w-4/5 flex ml-4 justify-end">
         <Button color="from-[#961919] to-[#f6646e] font-bold">
           <Link to="/list-restaurant">Cancel</Link>
         </Button>
-        <Button color="font-bold mr-0">Saved Edit</Button>
+        <Button color="font-bold mr-0" onClick={editRestaurant}>Saved Edit</Button>
       </div>
     </LayoutAdmin>
   );
