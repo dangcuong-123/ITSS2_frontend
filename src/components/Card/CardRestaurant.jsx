@@ -3,8 +3,41 @@ import "../../style/search.css";
 import Button from "../Button";
 import { Link } from "react-router-dom";
 import PopupUpdateMenu from "../Popup/PopupUpdateMenu";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
 const CardRestaurant = ({ data }) => {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleClickDelete = (id) => {
+    console.log(id);
+    const deleteHotel = { id: id };
+    fetch(`http://35.78.85.107:8080/restaurant/delete_restaurant`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(deleteHotel),
+    })
+      .then(() => {
+        console.log("Delete restaurant complete");
+        // alert("Add hotel complete");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    setOpen(false);
+  };
   return (
     <div className="antialiased bg-gray-200 text-gray-900 font-sans p-6">
       <div className="container mx-auto">
@@ -42,9 +75,33 @@ const CardRestaurant = ({ data }) => {
                       </Link>
                     </Button>
                     <PopupUpdateMenu nameBtn="Edit" styleBtn="mx-1 px-1 py-1" />
-                    <Button color="from-[#f6646e] to-[#961919] mx-1 font-bold px-1 py-1">
+                    <Button color="from-[#f6646e] to-[#961919] mx-1 font-bold px-1 py-1" onClick={handleClickOpen}>
                       Delete
                     </Button>
+                    <Dialog
+                      open={open}
+                      onClose={handleClose}
+                      aria-labelledby="alert-dialog-title"
+                      aria-describedby="alert-dialog-description"
+                    >
+                      <DialogTitle id="alert-dialog-title">
+                        {"You want to delete the restaurant!"}
+                      </DialogTitle>
+                      <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                          You want to delete the restaurant!!
+                        </DialogContentText>
+                      </DialogContent>
+                      <DialogActions>
+                        <Button onClick={handleClose}>No</Button>
+                        <Button
+                          onClick={() => handleClickDelete(card.restaurant_id)}
+                          autoFocus
+                        >
+                          Yes
+                        </Button>
+                      </DialogActions>
+                    </Dialog>
                   </div>
                 </div>
               </div>
