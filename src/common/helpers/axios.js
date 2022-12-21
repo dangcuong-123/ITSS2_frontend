@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const defaultConfig = {
-  baseURL: "http://35.78.85.107:8080/",
+  baseURL: "http://13.230.246.62:8080/",
   timeout: 10000,
 };
 
