@@ -42,7 +42,7 @@ const Router = () => {
           element={<AddRestaurant></AddRestaurant>}
         />
         <Route
-          path="edit-restaurant"
+          path="edit-restaurant/:id"
           element={<EditRestaurant></EditRestaurant>}
         />
       </Routes>
