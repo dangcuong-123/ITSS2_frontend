@@ -164,8 +164,8 @@ const EditRestaurant = ({ handleAddMenu }) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(editRes)
     }).then(() => {
-      console.log("Add restaurant complete");
-      alert("Add restaurant complete");
+      console.log("Edit restaurant complete");
+      alert("Edit restaurant complete");
     })
 
   }
