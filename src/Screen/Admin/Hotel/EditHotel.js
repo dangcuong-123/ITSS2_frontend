@@ -164,7 +164,7 @@ const EditHotel = () => {
       "hotel_fee": price
     };
     console.log(editHot);
-    fetch("http://35.78.85.107:8080/hotel/edit_hotel", {
+    fetch("http://13.230.246.62:8080/hotel/edit_hotel", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(editHot)

@@ -24,7 +24,7 @@ const CardHotel = ({ data }) => {
   const handleClickDelete = (id) => {
     console.log(id);
     const deleteHotel = { id: id };
-    fetch(`http://35.78.85.107:8080/hotel/delete_hotel?id=${id}`, {
+    fetch(`http://13.230.246.62:8080//hotel/delete_hotel?id=${id}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(deleteHotel),

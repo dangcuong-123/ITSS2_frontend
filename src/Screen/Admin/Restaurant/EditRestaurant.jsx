@@ -38,7 +38,7 @@ const EditRestaurant = ({ handleAddMenu }) => {
   const [restaurant, setRestaurant] = useState()
   const { id } = useParams();
   useEffect(() => {
-    fetch(`http://192.168.1.64:8080/restaurant/search_restaurant_id/${id}`, {
+    fetch(`http://13.230.246.62:8080/restaurant/search_restaurant_id/${id}`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     }).then(async response => {
@@ -64,7 +64,7 @@ const EditRestaurant = ({ handleAddMenu }) => {
   };
 
   useEffect(() => {
-    fetch("http://192.168.1.64:8080/hotel/show", {
+    fetch("http://13.230.246.62:8080/hotel/show", {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     }).then(async response => {
@@ -165,7 +165,7 @@ const EditRestaurant = ({ handleAddMenu }) => {
       "restaurant_description": restaurant_description
     };
     console.log(editRes);
-    fetch("http://192.168.1.64:8080/restaurant/edit_restaurant", {
+    fetch("http://13.230.246.62:8080/restaurant/edit_restaurant", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(editRes)
