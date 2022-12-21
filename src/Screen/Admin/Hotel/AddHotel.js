@@ -7,6 +7,7 @@ import Input from "../../../components/Input";
 import Button from "../../../components/Button";
 import { Link } from "react-router-dom";
 import Select from 'react-select'
+import { Snackbar, Alert } from "@mui/material"
 
 const AddHotel = () => {
   const [contacts1, setContacts1] = useState(data1);
@@ -22,7 +23,8 @@ const AddHotel = () => {
     { value: 'ha long', label: 'Ha long' },
     { value: 'hai phong', label: 'Hai phong' }
   ]
-
+  const [open, setOpen] = useState(false)
+  const [severity, setSeverity] = useState('')
 
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
@@ -40,7 +42,9 @@ const AddHotel = () => {
     newAddHotel[fielName] = fielValue;
     setAddHotel(newAddHotel);
   };
-
+  const handleClose = () => {
+    setOpen(false);
+  };
   const handleAddHotelSubmit = (e) => {
     e.preventDefault();
     const newContact1 = {
@@ -74,7 +78,13 @@ const AddHotel = () => {
             body:JSON.stringify(addHot)
         }).then(()=>{
             console.log("Add hotel complete");
-            alert("Add hotel complete");
+            // alert("Add hotel complete");
+            setOpen(true);
+            setSeverity('success')
+    }).catch((err) =>{
+      console.log(err)
+      setSeverity('error')
+      setOpen(true)
     })
 
   }
@@ -180,6 +190,13 @@ const AddHotel = () => {
               onChange={(e) => setPrice(e.target.value)}
             />
           </div>
+        </div>
+        <div>
+          <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+            <Alert severity={severity} onClose={handleClose}>
+              Add hotel completely!
+            </Alert>
+          </Snackbar>
         </div>
       </div>
       <div className="w-4/5 flex ml-4 justify-end">

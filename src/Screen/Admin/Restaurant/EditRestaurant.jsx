@@ -144,7 +144,11 @@ const EditRestaurant = ({ handleAddMenu }) => {
     setContacts(newContacts);
     alert("1");
   };
-
+  const [open, setOpen] = useState(false)
+  const [severity, setSeverity] = useState('')
+  const handleClose = () => {
+    setOpen(false);
+  };
   const editRestaurant = (e) => {
     e.preventDefault();
     const editRes = {
@@ -167,7 +171,13 @@ const EditRestaurant = ({ handleAddMenu }) => {
       body: JSON.stringify(editRes)
     }).then(() => {
       console.log("Edit restaurant complete");
-      alert("Edit restaurant complete");
+      // alert("Edit restaurant complete");
+      setOpen(true);
+      setSeverity('success')
+    }).catch((err) => {
+      console.log(err)
+      setSeverity('error')
+      setOpen(true)
     })
 
   }
@@ -304,6 +314,13 @@ const EditRestaurant = ({ handleAddMenu }) => {
               onChange={(e) => setRestaurant_description(e.target.value)}
             />
           </div>
+        </div>
+        <div>
+          <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+            <Alert severity={severity} onClose={handleClose}>
+              Edit Restaurant completely!
+            </Alert>
+          </Snackbar>
         </div>
       </div>
       <div className="w-4/5 flex ml-4 justify-end">

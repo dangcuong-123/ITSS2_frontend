@@ -170,7 +170,13 @@ const EditHotel = () => {
       body: JSON.stringify(editHot)
     }).then(() => {
       console.log("Edit hotel complete");
-      alert("Edit hotel complete");
+      // alert("Edit hotel complete");
+      setOpen(true);
+      setSeverity('success')
+    }).catch((err) => {
+      console.log(err)
+      setSeverity('error')
+      setOpen(true)
     })
 
   }
@@ -279,7 +285,7 @@ const EditHotel = () => {
               <div>
                 <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
                   <Alert severity={severity} onClose={handleClose}>
-                    Edit restaurant completely!
+                    Edit Hotel completely!
                   </Alert>
                 </Snackbar>
               </div>
