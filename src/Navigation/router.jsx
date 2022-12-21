@@ -10,7 +10,15 @@ import AddHotel from "../Screen/Admin/Hotel/AddHotel";
 import EditHotel from "../Screen/Admin/Hotel/EditHotel";
 import AddRestaurant from "../Screen/Admin/Restaurant/AddRestaurant";
 import EditRestaurant from "../Screen/Admin/Restaurant/EditRestaurant";
+import accountStore from "../store/AccountInfoStore";
 
+const validateAccessToAdminRoute = (element) => {
+  if (accountStore.isAdmin) {
+    return element;
+  } else {
+    return <User />;
+  }
+};
 
 const Router = () => {
   return (
@@ -21,12 +29,22 @@ const Router = () => {
         <Route path="register" element={<RegisterScreen />} />
         <Route path="password_forgot" element={<PasswordForgotScreen />} />
         <Route path="/*" element={<User />} />
-        <Route path="/admin/*" element={<Admin />} />
+        <Route
+          path="/admin/*"
+          element={<Admin />}
+          onEnter={validateAccessToAdminRoute}
+        />
         <Route path="detail-plan" element={<DetailPlan></DetailPlan>}></Route>
-        <Route path="add-hotel" element={<AddHotel></AddHotel>}/>
-        <Route path="edit-hotel/:id" element={<EditHotel></EditHotel>}/>
-        <Route path="add-restaurant" element={<AddRestaurant></AddRestaurant>}/>
-        <Route path="edit-restaurant" element={<EditRestaurant></EditRestaurant>}/>
+        <Route path="add-hotel" element={<AddHotel></AddHotel>} />
+        <Route path="edit-hotel/:id" element={<EditHotel></EditHotel>} />
+        <Route
+          path="add-restaurant"
+          element={<AddRestaurant></AddRestaurant>}
+        />
+        <Route
+          path="edit-restaurant"
+          element={<EditRestaurant></EditRestaurant>}
+        />
       </Routes>
     </BrowserRouter>
   );
