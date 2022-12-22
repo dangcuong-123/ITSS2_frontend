@@ -12,42 +12,34 @@ import AddRestaurant from "../Screen/Admin/Restaurant/AddRestaurant";
 import EditRestaurant from "../Screen/Admin/Restaurant/EditRestaurant";
 import accountStore from "../store/AccountInfoStore";
 
-const validateAccessToAdminRoute = (element) => {
-  if (accountStore.isAdmin) {
-    return element;
-  } else {
-    return <User />;
-  }
-};
-
 const Router = () => {
-  return (
-    <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route path="login" element={<LoginScreen />} />
-        <Route path="register" element={<RegisterScreen />} />
-        <Route path="password_forgot" element={<PasswordForgotScreen />} />
-        <Route path="/*" element={<User />} />
-        <Route
-          path="/admin/*"
-          element={<Admin />}
-          onEnter={validateAccessToAdminRoute}
-        />
-        <Route path="detail-plan" element={<DetailPlan></DetailPlan>}></Route>
-        <Route path="add-hotel" element={<AddHotel></AddHotel>} />
-        <Route path="edit-hotel/:id" element={<EditHotel></EditHotel>} />
-        <Route
-          path="add-restaurant"
-          element={<AddRestaurant></AddRestaurant>}
-        />
-        <Route
-          path="edit-restaurant/:id"
-          element={<EditRestaurant></EditRestaurant>}
-        />
-      </Routes>
-    </BrowserRouter>
-  );
+	return (
+		<BrowserRouter>
+			<Header />
+			<Routes>
+				<Route path="login" element={<LoginScreen />} />
+				<Route path="register" element={<RegisterScreen />} />
+				<Route path="password_forgot" element={<PasswordForgotScreen />} />
+				<Route path="/*" element={<User />} />
+				{accountStore?.AccountInfo?.email === "admin@gmail.com" ? (
+					<Route path="admin/*" element={<Admin />} />
+				) : (
+					<Route path="/*" element={<User />} />
+				)}
+				<Route path="detail-plan" element={<DetailPlan></DetailPlan>}></Route>
+				<Route path="add-hotel" element={<AddHotel></AddHotel>} />
+				<Route path="edit-hotel/:id" element={<EditHotel></EditHotel>} />
+				<Route
+					path="add-restaurant"
+					element={<AddRestaurant></AddRestaurant>}
+				/>
+				<Route
+					path="edit-restaurant/:id"
+					element={<EditRestaurant></EditRestaurant>}
+				/>
+			</Routes>
+		</BrowserRouter>
+	);
 };
 
 export default Router;

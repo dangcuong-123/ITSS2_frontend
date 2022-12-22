@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Snackbar, Alert } from "@mui/material";
 import Card from "../../../components/User/Login/Card";
 import EmailIcon from "../../../assets/User/Login/EmailIcon.svg";
