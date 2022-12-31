@@ -8,6 +8,7 @@ import Button from "../../../components/Button";
 import Input from "../../../components/Input";
 import { Link } from "react-router-dom";
 import { getHotel, searchHotel } from "../../../services/HotelServices";
+import { useTranslation } from 'react-i18next';
 
 const ListHotel = () => {
   const handleSearch = (e) => {
@@ -19,6 +20,7 @@ const ListHotel = () => {
   };
   const [hotel, setHotel] = useState();
   const [hotelLength, setHotelLength] = useState();
+  const { t } = useTranslation()
 
   useEffect(() => {
     getHotel()
@@ -36,11 +38,11 @@ const ListHotel = () => {
       <CssBaseline />
       <Container fixed>
         <LayoutAdmin>
-          <AdminTitle>Hotel List</AdminTitle>
+          <AdminTitle>{t('listHotel.title')}</AdminTitle>
           <div className="flex justify-between ml-2 mr-7">
-            <Input placeholder="Hotel's name" onChange={handleSearch} />
+            <Input placeholder={t('listHotel.add')} onChange={handleSearch} />
             <Button color="font-bold mr-0">
-              <Link to="/add-hotel">Add Hotel</Link>
+              <Link to="/add-hotel">{t('listHotel.add')}</Link>
             </Button>
           </div>
           <CardHotel data={hotel} />

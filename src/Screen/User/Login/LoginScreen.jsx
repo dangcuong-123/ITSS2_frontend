@@ -8,9 +8,11 @@ import Input from "../../../components/Input";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../../services/UserServices";
 import accountStore from "../../../store/AccountInfoStore";
+import { useTranslation } from 'react-i18next';
 
 const LoginScreen = () => {
 	const navigate = useNavigate();
+	const { t } = useTranslation();
 
 	const [email, setEmail] = useState("");
 	const [emailError, setEmailError] = useState("");
@@ -85,23 +87,23 @@ const LoginScreen = () => {
 					<div className="flex items-center my-3">
 						<div className="flex-grow h-px bg-[#2286C3]"></div>
 						<span className="text-[#2286C3] text-sm font-medium px-4">
-							LOGIN
+						{t('login.login')}
 						</span>
 						<div className="flex-grow h-px bg-[#2286C3]"></div>
 					</div>
-					<label className="text-[#2286C3]">E-mail</label>
+					<label className="text-[#2286C3]">Email</label>
 					<Input
 						type={"text"}
 						leftIcon={EmailIcon}
-						placeholder="Please enter e-mail"
+						placeholder={t('login.placeEmail')}
 						onChange={handleEmailChange}
 					/>
 					<span className="ml-6 text-red-500 text-xs">{emailError}</span>
-					<label className="text-[#2286C3]">Password</label>
+					<label className="text-[#2286C3]">{t('login.password')}</label>
 					<Input
 						type={"password"}
 						leftIcon={PasswordIcon}
-						placeholder="Please enter password"
+						placeholder={t('login.placePass')}
 						onChange={handlePasswordChange}
 					/>
 					<div>
@@ -109,7 +111,7 @@ const LoginScreen = () => {
 							to="/password_forgot"
 							className="text-center text-[#64B5F6] mt-5 text-lg font-medium"
 						>
-							<u>Forgot password ?</u>
+							<u>{t('login.forgot')}</u>
 						</Link>
 					</div>
 					<Link
@@ -118,7 +120,7 @@ const LoginScreen = () => {
 						className="bg-gradient-to-r p-5 m-5 from-[#64B5F6] to-[#2286C3] py-3 text-white shadow-lg text-center"
 						onClick={handleLogin}
 					>
-						Login
+						{t('login.login')}
 					</Link>
 				</div>
 			</Card>
@@ -127,7 +129,7 @@ const LoginScreen = () => {
 				to="/register"
 				className="text-center text-[#64B5F6] mt-6 text-lg font-medium"
 			>
-				Create a new account
+				{t('login.create')}
 			</Link>
 		</div>
 	);

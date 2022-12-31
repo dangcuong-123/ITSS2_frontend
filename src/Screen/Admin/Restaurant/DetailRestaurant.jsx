@@ -4,6 +4,7 @@ import { AdminTitle } from "../../../style";
 import Button from "../../../components/Button";
 import { useParams } from "react-router-dom";
 import { getRestaurantById } from "../../../services/RestaurantServices";
+import { useTranslation } from 'react-i18next';
 
 const DetailRestaurant = () => {
   const listCardRestaurant = {
@@ -25,6 +26,7 @@ const DetailRestaurant = () => {
 
   const [cardRestaurant, setCardRestaurant] = useState();
   const { id } = useParams();
+  const { t } = useTranslation()
 
   useEffect(() => {
     if (id) {
@@ -44,7 +46,7 @@ const DetailRestaurant = () => {
 
   return (
     <LayoutAdmin>
-      <AdminTitle>Restaurant Detail</AdminTitle>
+      <AdminTitle>{t('detailRest.title')}</AdminTitle>
       <div className="font-bold text-2xl mt-4 my-2">
         {cardRestaurant?.restaurant_name} -{" "}
         {`[${cardRestaurant?.restaurant_address}]`}
@@ -58,7 +60,7 @@ const DetailRestaurant = () => {
         <div className="mx-6">{cardRestaurant?.restaurant_description}</div>
       </div>
 
-      <div className="font-bold text-2xl mt-4">1. Service Info</div>
+      <div className="font-bold text-2xl mt-4">{t('detailRest.infor')}</div>
       <div className="relative flex mb-3">
         <img
           className="inset-0 mt-1 w-2/5 object-cover"
@@ -71,7 +73,7 @@ const DetailRestaurant = () => {
         </div>
       </div>
       <div className="mb-10">{cardRestaurant?.menu_description}</div>
-      <div className="font-bold text-2xl mt-4">2. Menu</div>
+      <div className="font-bold text-2xl mt-4">{t('detailRest.menu')}</div>
       <div className="relative flex">
         {/* <div className="mx-6 text-blue font-bold text-2xl ">
           Item One : {listCardRestaurant.item1} <br />
@@ -79,7 +81,7 @@ const DetailRestaurant = () => {
           Item Three : {listCardRestaurant.item3}
         </div> */}
         <div className="mx-6 text-blue font-bold text-2xl ">
-          Average price :{listCardRestaurant.cost_menu}
+        {t('detailRest.price')} :{listCardRestaurant.cost_menu}
           {/* <div
             className="mx-6 text-blue font-bold text-2xl "
             onClick={handleClick}
@@ -90,13 +92,13 @@ const DetailRestaurant = () => {
       </div>
       <div className="flex justify-between">
         <Button color="from-[#961919] to-[#f6646e] font-bold ml-0 py-1">
-          Back
+        {t('detailRest.back')}
         </Button>
-        <Button color="font-bold mr-0 py-1">Make Plan</Button>
+        <Button color="font-bold mr-0 py-1">{t('detailRest.makePlan')}</Button>
       </div>
 
       <div className="font-bold text-2xl mt-4">
-        Review - {`[${listCardRestaurant.star}]`}
+      {t('detailRest.review')} - {`[${listCardRestaurant.star}]`}
       </div>
     </LayoutAdmin>
   );
