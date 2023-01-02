@@ -11,6 +11,7 @@ import EditHotel from "../Screen/Admin/Hotel/EditHotel";
 import AddRestaurant from "../Screen/Admin/Restaurant/AddRestaurant";
 import EditRestaurant from "../Screen/Admin/Restaurant/EditRestaurant";
 import accountStore from "../store/AccountInfoStore";
+import Customer from "./customer";
 
 const Router = () => {
 	return (
@@ -20,11 +21,11 @@ const Router = () => {
 				<Route path="login" element={<LoginScreen />} />
 				<Route path="register" element={<RegisterScreen />} />
 				<Route path="password_forgot" element={<PasswordForgotScreen />} />
-				<Route path="/*" element={<User />} />
+				<Route path="/*" element={<Customer />} />
 				{accountStore?.AccountInfo?.email === "admin@gmail.com" ? (
 					<Route path="admin/*" element={<Admin />} />
 				) : (
-					<Route path="/*" element={<User />} />
+					<Route path="user/*" element={<User />} />
 				)}
 				<Route path="detail-plan" element={<DetailPlan></DetailPlan>}></Route>
 				<Route path="add-hotel" element={<AddHotel></AddHotel>} />
