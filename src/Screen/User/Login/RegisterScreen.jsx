@@ -36,6 +36,14 @@ const RegisterScreen = () => {
 		}
 	};
 
+	// state handle show error message
+	const [errorMessage, setErrorMessage] = useState("");
+	const [open, setOpen] = useState(false);
+
+	// state handle show success message
+	const [successMessage, setSuccessMessage] = useState("");
+	const [openSuccess, setOpenSuccess] = useState(false);
+
 	// handle password change
 	const handlePasswordChange = (e) => {
 		setPassword(e.target.value);
@@ -69,23 +77,46 @@ const RegisterScreen = () => {
 				if (res.status === 200) {
 					navigate("/login");
 					accountStore.updateAccountInfo(data);
-					<Snackbar open={true} autoHideDuration={6000}>
-						<Alert severity="success">This is a success message!</Alert>
-					</Snackbar>;
+					setOpenSuccess(true);
+					setSuccessMessage("Register success");
 				}
 			})
 			.catch((err) => {
-				console.log(err);
-				if (err) {
-					<Snackbar open={true} autoHideDuration={6000}>
-						<Alert severity="error">This is a error message!</Alert>
-					</Snackbar>;
+				setOpen(true);
+				if (err?.response?.data?.message === 400) {
+					setErrorMessage("Email already exists");
+				} else {
+					setErrorMessage("Something went wrong");
 				}
 			});
 	};
 
 	return (
 		<div className="flex flex-col justify-center items-center">
+			{open && (
+				<Snackbar
+					open={open}
+					autoHideDuration={6000}
+					onClose={() => setOpen(false)}
+					anchorOrigin={{ vertical: "top", horizontal: "right" }}
+				>
+					<Alert onClose={() => setOpen(false)} severity="error">
+						{errorMessage}
+					</Alert>
+				</Snackbar>
+			)}
+			{openSuccess && (
+				<Snackbar
+					open={openSuccess}
+					autoHideDuration={6000}
+					onClose={() => setOpenSuccess(false)}
+					anchorOrigin={{ vertical: "top", horizontal: "right" }}
+				>
+					<Alert onClose={() => setOpenSuccess(false)} severity="success">
+						{successMessage}
+					</Alert>
+				</Snackbar>
+			)}
 			<Card>
 				<span className="text-sm text-[#2286C3] mb-4">Register</span>
 				<div className="w-4/5 flex flex-col justify-center">

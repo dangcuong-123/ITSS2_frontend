@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Snackbar, Alert } from "@mui/material";
 import Card from "../../../components/User/Login/Card";
 import EmailIcon from "../../../assets/User/Login/EmailIcon.svg";
@@ -13,11 +13,28 @@ const LoginScreen = () => {
 	const navigate = useNavigate();
 
 	const [email, setEmail] = useState("");
+	const [emailError, setEmailError] = useState("");
+
 	const [password, setPassword] = useState("");
+
+	// state handle show error message
+	const [errorMessage, setErrorMessage] = useState("");
+	const [open, setOpen] = useState(false);
+
+	// state handle show success message
+	const [successMessage, setSuccessMessage] = useState("");
+	const [openSuccess, setOpenSuccess] = useState(false);
 
 	// handle email change
 	const handleEmailChange = (e) => {
-		setEmail(e.target.value);
+		// check valid email
+		const emailRegex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
+		if (emailRegex.test(e.target.value)) {
+			setEmail(e.target.value);
+			setEmailError("");
+		} else {
+			setEmailError("Invalid email");
+		}
 	};
 
 	// handle password change
@@ -37,14 +54,17 @@ const LoginScreen = () => {
 				console.log(res);
 				if (res.status === 200) {
 					accountStore.setIsAuthenticated();
+					setOpenSuccess(true);
+					setSuccessMessage("Login successfully");
 					navigate("/home");
 				}
 			})
 			.catch((err) => {
-				if (err) {
-					<Snackbar autoHideDuration={6000}>
-						<Alert severity="error">{err.response.data.message}</Alert>
-					</Snackbar>;
+				setOpen(true);
+				if (err?.response?.data?.message) {
+					setErrorMessage("err.response.data.message");
+				} else {
+					setErrorMessage("Something went wrong");
 				}
 			});
 	};
@@ -52,6 +72,30 @@ const LoginScreen = () => {
 	return (
 		<div className="flex flex-col justify-center items-center">
 			<Card>
+				{open && (
+					<Snackbar
+						open={open}
+						autoHideDuration={6000}
+						onClose={() => setOpen(false)}
+						anchorOrigin={{ vertical: "top", horizontal: "right" }}
+					>
+						<Alert onClose={() => setOpen(false)} severity="error">
+							{errorMessage}
+						</Alert>
+					</Snackbar>
+				)}
+				{openSuccess && (
+					<Snackbar
+						open={openSuccess}
+						autoHideDuration={6000}
+						onClose={() => setOpenSuccess(false)}
+						anchorOrigin={{ vertical: "top", horizontal: "right" }}
+					>
+						<Alert onClose={() => setOpenSuccess(false)} severity="success">
+							{successMessage}
+						</Alert>
+					</Snackbar>
+				)}
 				<div className="w-4/5 flex flex-col justify-center">
 					<div className="flex items-center my-3">
 						<div className="flex-grow h-px bg-[#2286C3]"></div>
@@ -67,6 +111,7 @@ const LoginScreen = () => {
 						placeholder="Please enter e-mail"
 						onChange={handleEmailChange}
 					/>
+					<span className="ml-6 text-red-500 text-xs">{emailError}</span>
 					<label className="text-[#2286C3]">Password</label>
 					<Input
 						type={"password"}
