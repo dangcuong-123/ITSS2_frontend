@@ -120,11 +120,15 @@ const SearchPlan = () => {
                 <Button
                   variant="contained"
                   component={Link}
-                  to={"/search-plan"}
+                  to={"/list-hotel"}
                 >
                   Hotel
                 </Button>
-                <Button variant="text">Restaurant</Button>
+                <Button variant="text"
+                  component={Link}
+                  to={"/list-restaurant"}
+                >
+                    Restaurant</Button>
               </Stack>
             </div>
           </div>
