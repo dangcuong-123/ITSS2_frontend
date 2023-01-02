@@ -114,10 +114,13 @@ const CardHomeTick = ({ hotel }) => {
           </div>
         ) : (
           <div>
-            <Button variant="contained" color="error">
-              Next
-            </Button>
+            
           </div>
+          // <div>
+          //   <Button variant="contained" color="error">
+          //     Next
+          //   </Button>
+          // </div>
         )}
       </div>
     </div>
