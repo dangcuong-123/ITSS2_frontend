@@ -8,11 +8,6 @@ const CardHomeTick = ({ hotel }) => {
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
   const [isShown, setIsShown] = useState(false);
   const handleTickClick = (event) => {
-    console.log(
-      "🚀 ~ file: CardHomeTick.jsx:11 ~ handleTickClick ~ event",
-      event
-    );
-
     setIsShown(true);
   };
 

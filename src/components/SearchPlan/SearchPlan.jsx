@@ -16,6 +16,7 @@ import Slider from "@mui/material/Slider";
 import { Link } from "react-router-dom";
 import Input from "../Input";
 import ButtonSearch from "../Button";
+import { Snackbar, Alert } from "@mui/material"
 import {
   getHotelLowerEqualPrice,
   searchHotel,
@@ -50,7 +51,7 @@ const SearchPlan = () => {
   const [price, setPrice] = useState(100);
   const [finalPrice, setFinalPrice] = useState(2000000);
   const [hotel, setHotel] = useState([]);
-
+  const [open, setOpen] = useState(false);
   const handleSearch = (e) => {
     searchHotel(e.target.value)
       .then((res) => {
@@ -70,6 +71,22 @@ const SearchPlan = () => {
     setFinalPrice(price * 20000);
   };
 
+  const compareDate = (date) =>{
+    if(checkin <= date) 
+    { 
+      setOpen(false);
+      setCheckout(date)
+    }
+    else{
+      setOpen(true);
+      setCheckout(new Date())
+    } 
+  } 
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   useEffect(() => {
     getHotelLowerEqualPrice(finalPrice)
       .then((res) => {
@@ -81,6 +98,8 @@ const SearchPlan = () => {
       });
   }, [finalPrice]);
 
+  // console.log(open)
+  // console.log(checkin, checkout)
   return (
     <React.Fragment>
       <CssBaseline />
@@ -143,9 +162,18 @@ const SearchPlan = () => {
             <div>
               <span className="text-2xl font-bold mb-3">Check out</span>
               <div>
-                <DatePicker onChange={setCheckout} value={checkout} />
+                <DatePicker onChange={(date) => {
+                  compareDate(date)
+                }} value={checkout} />
               </div>
             </div>
+          </div>
+          <div>
+            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+              <Alert severity="error" onClose={handleClose}>
+                Please have to book checkout far from checkin!
+              </Alert>
+            </Snackbar>
           </div>
           <div>
             <span className="text-2xl font-bold mb-3">Cash</span>

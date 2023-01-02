@@ -36,7 +36,7 @@ const AddRestaurant = ({ handleCancelClick, handleDeleteClick }) => {
     { value: 'hai phong', label: 'Hai phong' }
   ]
   useEffect(() => {
-    fetch("http://192.168.1.64:8080/hotel/show", {
+    fetch("http://13.230.246.62:8080/hotel/show", {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     }).then(async response => {
@@ -113,7 +113,7 @@ const AddRestaurant = ({ handleCancelClick, handleDeleteClick }) => {
       "restaurant_description": restaurant_description
     };
     console.log(addRes);
-    fetch("http://192.168.1.64:8080/restaurant/create", {
+    fetch("http://13.230.246.62:8080/restaurant/create", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(addRes)
