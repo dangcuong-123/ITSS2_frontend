@@ -21,10 +21,6 @@ const LoginScreen = () => {
 	const [errorMessage, setErrorMessage] = useState("");
 	const [open, setOpen] = useState(false);
 
-	// state handle show success message
-	const [successMessage, setSuccessMessage] = useState("");
-	const [openSuccess, setOpenSuccess] = useState(false);
-
 	// handle email change
 	const handleEmailChange = (e) => {
 		// check valid email
@@ -51,18 +47,16 @@ const LoginScreen = () => {
 		};
 		login(data)
 			.then((res) => {
-				console.log(res);
 				if (res.status === 200) {
 					accountStore.setIsAuthenticated();
-					setOpenSuccess(true);
-					setSuccessMessage("Login successfully");
+					accountStore.updateAccountInfo(data);
 					navigate("/home");
 				}
 			})
 			.catch((err) => {
 				setOpen(true);
 				if (err?.response?.data?.message) {
-					setErrorMessage("err.response.data.message");
+					setErrorMessage("Invalid email or password");
 				} else {
 					setErrorMessage("Something went wrong");
 				}
@@ -81,18 +75,6 @@ const LoginScreen = () => {
 					>
 						<Alert onClose={() => setOpen(false)} severity="error">
 							{errorMessage}
-						</Alert>
-					</Snackbar>
-				)}
-				{openSuccess && (
-					<Snackbar
-						open={openSuccess}
-						autoHideDuration={6000}
-						onClose={() => setOpenSuccess(false)}
-						anchorOrigin={{ vertical: "top", horizontal: "right" }}
-					>
-						<Alert onClose={() => setOpenSuccess(false)} severity="success">
-							{successMessage}
 						</Alert>
 					</Snackbar>
 				)}

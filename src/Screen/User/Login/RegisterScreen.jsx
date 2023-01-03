@@ -38,11 +38,11 @@ const RegisterScreen = () => {
 
 	// state handle show error message
 	const [errorMessage, setErrorMessage] = useState("");
-	const [open, setOpen] = useState(false);
+	const [open, setOpen] = useState(null);
 
 	// state handle show success message
 	const [successMessage, setSuccessMessage] = useState("");
-	const [openSuccess, setOpenSuccess] = useState(false);
+	const [openSuccess, setOpenSuccess] = useState(null);
 
 	// handle password change
 	const handlePasswordChange = (e) => {
@@ -75,10 +75,8 @@ const RegisterScreen = () => {
 		register(data)
 			.then((res) => {
 				if (res.status === 200) {
-					navigate("/login");
-					accountStore.updateAccountInfo(data);
 					setOpenSuccess(true);
-					setSuccessMessage("Register success");
+					setSuccessMessage("Register success. Please navigate to login page!");
 				}
 			})
 			.catch((err) => {
