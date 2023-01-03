@@ -10,7 +10,7 @@ import AddHotel from "../Screen/Admin/Hotel/AddHotel";
 import EditHotel from "../Screen/Admin/Hotel/EditHotel";
 import AddRestaurant from "../Screen/Admin/Restaurant/AddRestaurant";
 import EditRestaurant from "../Screen/Admin/Restaurant/EditRestaurant";
-import accountStore from "../store/AccountInfoStore";
+// import accountStore from "../store/AccountInfoStore";
 
 const Router = () => {
 	return (
@@ -21,11 +21,8 @@ const Router = () => {
 				<Route path="register" element={<RegisterScreen />} />
 				<Route path="password_forgot" element={<PasswordForgotScreen />} />
 				<Route path="/*" element={<User />} />
-				{accountStore?.AccountInfo?.email === "admin@gmail.com" ? (
-					<Route path="admin/*" element={<Admin />} />
-				) : (
-					<Route path="/*" element={<User />} />
-				)}
+				<Route path="admin/*" element={<Admin />} />
+				<Route path="/*" element={<User />} />
 				<Route path="detail-plan" element={<DetailPlan></DetailPlan>}></Route>
 				<Route path="add-hotel" element={<AddHotel></AddHotel>} />
 				<Route path="edit-hotel/:id" element={<EditHotel></EditHotel>} />
