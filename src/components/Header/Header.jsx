@@ -1,9 +1,9 @@
-import React from "react";
-// import { Link } from "react-router-dom";
+import React, { useState } from "react";
 import Button from "../Button";
 import accountStore from "../../store/AccountInfoStore";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { Alert, Snackbar } from "@mui/material";
 
 const Header = () => {
   const location = useLocation();
@@ -17,6 +17,16 @@ const Header = () => {
     navigate("/");
   };
 
+  const [logoutMessage, setLogoutMessage] = useState("");
+  const [logout, setLogout] = useState(false);
+
+  const handleLogoutRoute = () => {
+    sessionStorage.removeItem("accountInfo");
+    setLogoutMessage("Logout successfully");
+    setLogout(true);
+    navigate("/");
+  };
+
   return (
     <div className="fixed w-full z-50 h-16 bg-gradient-to-r from-cyan-500 to-pink-500 flex justify-between items-center">
       <div className="w-4/5">
@@ -27,7 +37,18 @@ const Header = () => {
           Happy Travel
         </p>
       </div>
-
+      {logout && (
+        <Snackbar
+          open={logout}
+          autoHideDuration={6000}
+          onClose={() => setLogout(false)}
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        >
+          <Alert onClose={() => setLogout(false)} severity="success">
+            {logoutMessage}
+          </Alert>
+        </Snackbar>
+      )}
       {location.pathname !== "/login" &&
         (sessionStorage.getItem("accountInfo") ? (
           <>
@@ -41,6 +62,14 @@ const Header = () => {
                 <div className="font-bold">
                   {accountStore?.AccountInfo.accountname}
                 </div>
+              </div>
+              <div className="w-32 ml-4">
+                <p
+                  className="font-bold cursor-pointer"
+                  onClick={() => handleLogoutRoute()}
+                >
+                  Logout
+                </p>
               </div>
             </div>
           </>
