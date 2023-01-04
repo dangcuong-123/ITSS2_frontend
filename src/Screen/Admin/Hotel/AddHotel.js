@@ -8,6 +8,7 @@ import Button from "../../../components/Button";
 import { Link } from "react-router-dom";
 import Select from 'react-select'
 import { Snackbar, Alert } from "@mui/material"
+import { useTranslation } from 'react-i18next';
 
 const AddHotel = () => {
   const [contacts1, setContacts1] = useState(data1);
@@ -25,6 +26,7 @@ const AddHotel = () => {
   ]
   const [open, setOpen] = useState(false)
   const [severity, setSeverity] = useState('')
+  const { t } = useTranslation()
 
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
@@ -92,18 +94,18 @@ const AddHotel = () => {
   return (
     <LayoutAdmin>
       <div>
-        <AdminTitle>Add Hotel</AdminTitle>
+        <AdminTitle>{t('addHotel.title')}</AdminTitle>
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
             <label className="text-black font-bold">
-              Name
+            {t('addHotel.name')}
               <span className="text-red-700"> *</span>
             </label>
           </div>
           <div className="w-3/5 items-center">
             <Input
               type="text"
-              placeholder="Name hotel"
+              placeholder={t('addHotel.name')}
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
@@ -113,7 +115,7 @@ const AddHotel = () => {
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
             <label className="text-black font-bold">
-              Address
+            {t('addHotel.address')}
               <span className="text-red-700"> *</span>
             </label>
           </div>
@@ -121,7 +123,7 @@ const AddHotel = () => {
           <div className="w-3/5 items-center">
             <Input
               type="text"
-              placeholder="Address's hotel"
+              placeholder={t('addHotel.address')}
               value={address}
               onChange={(e) => setAddress(e.target.value)}
             />
@@ -132,7 +134,7 @@ const AddHotel = () => {
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
             <label className="text-black font-bold">
-              Province
+            {t('addHotel.province')}
               <span className="text-red-700"> *</span>
             </label>
           </div>
@@ -144,14 +146,14 @@ const AddHotel = () => {
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
             <label className="text-black font-bold">
-              Description
+            {t('addHotel.description')}
               <span className="text-red-700"> *</span>
             </label>
           </div>
           <div className="w-3/5 items-center">
             <Input
               type="text"
-              placeholder="Write something about your hotel"
+              placeholder={t('addHotel.description')}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
@@ -161,14 +163,14 @@ const AddHotel = () => {
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
             <label className="text-black font-bold">
-              Image URL
+            {t('addHotel.url')}
               <span className="text-red-700"> *</span>
             </label>
           </div>
           <div className="w-3/5 items-center">
             <Input
               type="text"
-              placeholder="Link to image"
+              placeholder={t('addHotel.url')}
               value={image}
               onChange={(e) => setImage(e.target.value)}
             />
@@ -178,14 +180,14 @@ const AddHotel = () => {
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
             <label className="text-black font-bold">
-              Price per day
+            {t('addHotel.price')}
               <span className="text-red-700"> *</span>
             </label>
           </div>
           <div className="w-3/5 items-center">
             <Input
               type="text"
-              placeholder="Price per day"
+              placeholder={t('addHotel.price')}
               value={price}
               onChange={(e) => setPrice(e.target.value)}
             />
@@ -194,7 +196,7 @@ const AddHotel = () => {
         <div>
           <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
             <Alert severity={severity} onClose={handleClose}>
-              Add hotel completely!
+            {t('addHotel.success')}
             </Alert>
           </Snackbar>
         </div>
@@ -202,13 +204,13 @@ const AddHotel = () => {
       <div className="w-4/5 flex ml-4 justify-end">
         <Button color="from-[#961919] to-[#f6646e] font-bold">
           <Link to="/list-hotel">
-            Cancel
+          {t('addHotel.cancel')}
           </Link>
         </Button>
         <Button color="font-bold mr-0" onClick={handleClick}>
           <Link to='/list-hotel'>
           </Link>
-          Add Hotel
+          {t('addHotel.title')}
           </Button>
       </div>
     </LayoutAdmin>

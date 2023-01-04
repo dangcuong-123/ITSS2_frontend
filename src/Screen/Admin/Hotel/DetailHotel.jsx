@@ -6,6 +6,8 @@ import Input from "../../../components/Input";
 import Button from "../../../components/Button";
 import { useParams } from "react-router-dom";
 import { getHotelById } from "../../../services/HotelServices";
+import { useTranslation } from 'react-i18next';
+
 const DetailHotel = (props) => {
   const [cardHotel, setCardHotel] = useState();
   const { id } = useParams();
@@ -33,10 +35,11 @@ const DetailHotel = (props) => {
     imageUrl:
       "https://images.unsplash.com/photo-1475855581690-80accde3ae2b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80",
   };
+  const { t } = useTranslation()
 
   return (
     <LayoutAdmin>
-      <AdminTitle>Hotel Detail</AdminTitle>
+      <AdminTitle>{t('detailHotel.title')}</AdminTitle>
       <div className="font-bold text-2xl mt-4 my-2">
         {cardHotel?.hotel_name} - {`[${cardHotel?.hotel_address}]`}
       </div>
@@ -49,7 +52,7 @@ const DetailHotel = (props) => {
         <div className="mx-6">{cardHotel?.hotel_description}</div>
       </div>
 
-      <div className="font-bold text-2xl mt-4">Room information</div>
+      <div className="font-bold text-2xl mt-4">{t('detailHotel.roomInfor')}</div>
       <div className="relative flex">
         <img
           className="inset-0 mt-1 w-2/5 object-cover"
@@ -63,13 +66,13 @@ const DetailHotel = (props) => {
       <div className="mb-10">{cardHotel?.hotel_description}</div>
       <div className="flex justify-between">
         <Button color="from-[#961919] to-[#f6646e] font-bold ml-0 py-1">
-          Back
+        {t('detailHotel.back')}
         </Button>
-        <Button color="font-bold mr-0 py-1">Book mark</Button>
+        <Button color="font-bold mr-0 py-1">{t('detailHotel.bookmark')}</Button>
       </div>
 
       <div className="font-bold text-2xl mt-4">
-        Review - {`[${listCardHome.star}]`}
+      {t('detailHotel.review')} - {`[${listCardHome.star}]`}
       </div>
     </LayoutAdmin>
   );

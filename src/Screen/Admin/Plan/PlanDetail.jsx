@@ -3,6 +3,7 @@ import LayoutAdmin from "../../../components/Sidebar/AdminContainer";
 import { AdminTitle } from "../../../style";
 import Button from "../../../components/Button";
 import { Link } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 const DetailPlan = ({ hotel, restaurant }) => {
   const listCardPlan = {
@@ -24,12 +25,13 @@ const DetailPlan = ({ hotel, restaurant }) => {
   const handleClick = (e) => {
     e.preventDefault();
   };
+  const { t } = useTranslation()
 
   return (
     <LayoutAdmin>
-      <AdminTitle>Plan Detail</AdminTitle>
+      <AdminTitle>{t('planDetail.title')}</AdminTitle>
       <div className="font-bold text-2xl mt-4 my-2">
-        Plan name - {`[${listCardPlan.plan_name}]`}
+      {t('planDetail.name')} - {`[${listCardPlan.plan_name}]`}
       </div>
       <div className="flex justify-between">
         <img
@@ -41,10 +43,10 @@ const DetailPlan = ({ hotel, restaurant }) => {
       </div>
 
       <div className="font-bold text-2xl mt-4 my-2">
-        Hotel name - {`[${listCardPlan.location}]`}
+      {t('planDetail.hotel')} - {`[${listCardPlan.location}]`}
       </div>
       <div className="font-bold text-2xl mt-4">
-        Review - {`[${listCardPlan.star}]`}
+      {t('planDetail.review')} - {`[${listCardPlan.star}]`}
       </div>
       <div className="relative flex">
         <img
@@ -63,15 +65,15 @@ const DetailPlan = ({ hotel, restaurant }) => {
             className="mx-6 text-blue font-bold text-2xl "
             onClick={handleClick}
           >
-            <u>See details</u>
+            <u>{t('planDetail.details')}</u>
           </div>
         </div>
       </div>
       <div className="mx-6">{listCardPlan.hotel_detail}</div>
 
-      <div className="font-bold text-2xl mt-4">Restaurant</div>
+      <div className="font-bold text-2xl mt-4">{t('planDetail.rest')}</div>
       <div className="font-bold text-2xl mt-4">
-        Review - {`[${listCardPlan.star}]`}
+      {t('planDetail.review')} - {`[${listCardPlan.star}]`}
       </div>
       <div className="relative flex">
         <img
@@ -90,7 +92,7 @@ const DetailPlan = ({ hotel, restaurant }) => {
             className="mx-6 text-blue font-bold text-2xl "
             onClick={handleClick}
           >
-            <u>See details</u>
+            <u>{t('planDetail.details')}</u>
           </div>
         </div>
       </div>
@@ -98,10 +100,10 @@ const DetailPlan = ({ hotel, restaurant }) => {
 
       <div className="flex justify-between">
         <Button color="from-[#961919] to-[#f6646e] font-bold ml-0 py-1">
-          <Link to="/search-plan-restaurant">Back</Link>
+          <Link to="/search-plan-restaurant">{t('planDetail.back')}</Link>
         </Button>
 
-        <Button color="font-bold mr-0 py-1">Save Plan</Button>
+        <Button color="font-bold mr-0 py-1">{t('planDetail.save')}</Button>
       </div>
     </LayoutAdmin>
   );

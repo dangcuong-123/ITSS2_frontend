@@ -4,10 +4,12 @@ import Button from "../Button";
 import accountStore from "../../store/AccountInfoStore";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 const Header = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
+	const location = useLocation();
+	const navigate = useNavigate();
+	const { t } = useTranslation()
 
   const handleLoginRoute = () => {
     navigate("/login");
@@ -51,7 +53,7 @@ const Header = () => {
                 color="font-bold mr-0 px-2 py-2"
                 onClick={() => handleLoginRoute()}
               >
-                Login
+								{t('header.login')}
               </Button>
             </div>
           </>

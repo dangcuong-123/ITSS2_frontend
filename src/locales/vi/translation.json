@@ -1,0 +1,137 @@
+{
+    "homepage": {
+        "title": "Trang chủ",
+        "searchPlan": "Tìm kiếm plan",
+        "recommendHotel": "Khách sạn gợi ý",
+        "recommendRestaurant": "Nhà hàng gợi ý"
+    },
+    "searchPlan": {
+        "title": "Tìm kiếm plan",
+        "button": "Tìm kiếm",
+        "placeholder": "Bạn muốn đi đâu ?"
+    },
+    "cardHome": {
+        "chooseHotel": "Bạn đã chọn khách sạn",
+        "next": "Tiếp theo"
+    },
+    "header": {
+        "login": "Đăng nhập"
+    },
+    "userSidebar": {
+        "content": "Nội dung",
+        "home": "Trang chủ",
+        "search": "Tìm kiếm",
+        "account": "Tài khoản",
+        "saved": "Plan đã lưu"
+    },
+    "adminSidebar": {
+        "content": "Nội dung",
+        "home": "Trang chủ",
+        "search": "Tìm kiếm",
+        "hotel": "Danh sách khách sạn",
+        "restaurant": "Danh sách nhà hàng",
+        "saved": "Plan đã lưu",
+        "account": "Tài khoản"
+    },
+    "login": {
+        "login": "Đăng nhập",
+        "password": "Mật khẩu",
+        "forgot": "Quên mật khẩu ?",
+        "create": "Tạo tài khoản mới",
+        "placeEmail": "Hãy nhập email",
+        "placePass": "Hãy nhập mật khẩu"
+    },
+    "register": {
+        "register": "Đăng ký",
+        "password": "Mật khẩu",
+        "email": "Địa chỉ Email",
+        "name": "Tên người dùng",
+        "passConfirm": "Nhập lại mật khẩu",
+        "login": "Đăng nhập tại đây"
+    },
+    "forgotPass": {
+        "text": "Chúng tôi sẽ gửi hướng dẫn cách đặt lại mật khẩu",
+        "next": "Tiếp theo",
+        "email": "Địa chỉ Email",
+        "login": "Đăng nhập tại đây"
+    },
+    "addRest": {
+        "title": "Thêm nhà hàng",
+        "name": "Tên nhà hàng",
+        "address": "Địa chỉ",
+        "province": "Thành phố",
+        "fee": "Phí nhà hàng",
+        "hotel": "khách sạn",
+        "url": "URL",
+        "openTime": "Giờ mở cửa",
+        "menu": "Menu",
+        "menuURL": "Đường dẫn menu",
+        "description": "Mô tả",
+        "success": "Thêm nhà hàng thành công",
+        "cancel": "Hủy",
+        "addRest": "Thêm nhà hàng"
+    },
+    "detailRest": {
+        "title": "Chi tiết nhà hàng",
+        "infor": "1. Thông tin dịch vụ",
+        "price": "Giá trung bình",
+        "back": "Quay lại",
+        "makePlan": "Tạo Plan",
+        "review": "Đánh giá",
+        "menu": "2. Menu"
+    },
+    "listRest": {
+        "title": "Danh sách nhà hàng",
+        "addRest": "Thêm nhà hàng"
+    },
+    "planDetail": {
+        "title": "Chi tiết Plan",
+        "name": "Tên Plan",
+        "hotel": "Khách sạn",
+        "review": "Đánh giá", 
+        "details": "Xem chi tiết", 
+        "rest": "Nhà hàng",
+        "back": "Quay lại",
+        "save": "Lưu Plan"
+    },
+    "addHotel": {
+        "title": "Thêm khách sạn",
+        "name": "Tên khách sạn",
+        "address": "Địa chỉ",
+        "province": "Thành phố", 
+        "description": "Mô tả", 
+        "url": "URL",
+        "price": "Giá một ngày",
+        "success": "Thêm khách sạn thành công",
+        "cancel": "Hủy"
+    },
+    "detailHotel": {
+        "title": "Thêm khách sạn",
+        "roomInfor": "Thông tin phòng",
+        "bookmark": "Đánh dấu",
+        "back": "Quay lại", 
+        "review": "Đánh giá"
+    },
+    "editHotel": {
+        "title": "Chỉnh sửa khách sạn",
+        "name": "Tên khách sạn",
+        "address": "Địa chỉ",
+        "province": "Thành phố", 
+        "description": "Mô tả", 
+        "url": "URL",
+        "price": "Giá một ngày",
+        "success": "Chỉnh sửa khách sạn thành công",
+        "cancel": "Hủy"
+    },
+    "listHotel": {
+        "title": "Danh sách khách sạn",
+        "add": "Thêm khách sạn"
+    },
+    "profile": {
+        "title": "Profile",
+        "name": "Tên người dùng",
+        "password": "Mật khẩu",
+        "edit": "Chỉnh sửa", 
+        "save": "Lưu lại"
+    }
+}

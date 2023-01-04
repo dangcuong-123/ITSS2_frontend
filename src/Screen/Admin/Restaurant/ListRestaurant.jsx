@@ -11,9 +11,11 @@ import {
   getRestaurant,
   searchRestaurant,
 } from "../../../services/RestaurantServices";
+import { useTranslation } from 'react-i18next';
 
 const ListRestaurant = () => {
   const [restaurant, setRestaurant] = useState();
+  const { t } = useTranslation()
 
   useEffect(() => {
     getRestaurant()
@@ -34,11 +36,11 @@ const ListRestaurant = () => {
       <CssBaseline />
       <Container fixed>
         <LayoutAdmin>
-          <AdminTitle>Restaurant List</AdminTitle>
+          <AdminTitle>{t('listRest.title')}</AdminTitle>
           <div className="flex justify-between ml-2 mr-7">
             <Input placeholder="Restaurant's name" onChange={handleSearch} />
             <Button color="font-bold mr-0">
-              <Link to="/add-restaurant">Add Restaurant</Link>
+              <Link to="/add-restaurant">{t('listRest.addRest')}</Link>
             </Button>
           </div>
           <CardRestaurant data={restaurant} />
