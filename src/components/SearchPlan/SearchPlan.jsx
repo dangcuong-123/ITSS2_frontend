@@ -21,6 +21,7 @@ import {
   getHotelLowerEqualPrice,
   searchHotel,
 } from "../../services/HotelServices";
+import { useTranslation } from 'react-i18next';
 
 const marks = [
   {
@@ -86,6 +87,7 @@ const SearchPlan = () => {
   const handleClose = () => {
     setOpen(false);
   };
+	const { t } = useTranslation()
 
   useEffect(() => {
     getHotelLowerEqualPrice(finalPrice)
@@ -105,16 +107,16 @@ const SearchPlan = () => {
       <CssBaseline />
       <Container fixed>
         <LayoutAdmin>
-          <AdminTitle>Search Plan</AdminTitle>
+          <AdminTitle>{t('userSearchPlan.title')}</AdminTitle>
           <div className="flex justify-between ml-2 mr-7">
             <Input
               placeholder="Where do you want to go ?"
               onChange={handleSearch}
             />
-            <ButtonSearch color="font-bold mr-0">Search</ButtonSearch>
+            <ButtonSearch color="font-bold mr-0">{t('userSearchPlan.search')}</ButtonSearch>
           </div>
           <div>
-            <span className="text-2xl font-bold mb-5">Recommend hotel</span>
+            <span className="text-2xl font-bold mb-5">{t('userSearchPlan.hotelRecommend')}</span>
             <div className="m-5">
               <Stack spacing={2} direction="row">
                 <Button
@@ -122,13 +124,13 @@ const SearchPlan = () => {
                   component={Link}
                   to={"/list-hotel"}
                 >
-                  Hotel
+                  {t('userSearchPlan.hotel')}
                 </Button>
                 <Button variant="text"
                   component={Link}
                   to={"/list-restaurant"}
                 >
-                    Restaurant</Button>
+                    {t('userSearchPlan.restaurant')}</Button>
               </Stack>
             </div>
           </div>
@@ -175,12 +177,12 @@ const SearchPlan = () => {
           <div>
             <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
               <Alert severity="error" onClose={handleClose}>
-                Please have to book checkout far from checkin!
+              {t('userSearchPlan.alert')}
               </Alert>
             </Snackbar>
           </div>
           <div>
-            <span className="text-2xl font-bold mb-3">Cash</span>
+            <span className="text-2xl font-bold mb-3">{t('userSearchPlan.cash')}</span>
             <Stack direction="row" alignItems="flex-start" spacing={6}>
               <Box width={"80vh"}>
                 <Slider
@@ -194,7 +196,7 @@ const SearchPlan = () => {
                 />
               </Box>
               <Button variant="outlined" onClick={handleApplyPrice}>
-                Apply
+              {t('userSearchPlan.apply')}
               </Button>
             </Stack>
           </div>

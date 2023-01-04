@@ -133,5 +133,15 @@
         "password": "Mật khẩu",
         "edit": "Chỉnh sửa", 
         "save": "Lưu lại"
+    },
+    "userSearchPlan": {
+        "title": "Tìm kiếm Plan",
+        "search": "Tìm kiếm",
+        "hotelRecommend": "Khách sạn gợi ý",
+        "hotel": "Khách sạn", 
+        "restaurant": "Nhà hàng",
+        "alert": "Hãy đặt thời gian checkout lớn hơn checkin",
+        "cash": "Tiền mặt",
+        "apply": "Đặt"
     }
 }
