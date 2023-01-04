@@ -13,11 +13,24 @@ const LoginScreen = () => {
 	const navigate = useNavigate();
 
 	const [email, setEmail] = useState("");
+	const [emailError, setEmailError] = useState("");
+
 	const [password, setPassword] = useState("");
+
+	// state handle show error message
+	const [errorMessage, setErrorMessage] = useState("");
+	const [open, setOpen] = useState(false);
 
 	// handle email change
 	const handleEmailChange = (e) => {
-		setEmail(e.target.value);
+		// check valid email
+		const emailRegex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
+		if (emailRegex.test(e.target.value)) {
+			setEmail(e.target.value);
+			setEmailError("");
+		} else {
+			setEmailError("Invalid email");
+		}
 	};
 
 	// handle password change
@@ -34,17 +47,21 @@ const LoginScreen = () => {
 		};
 		login(data)
 			.then((res) => {
-				console.log(res);
 				if (res.status === 200) {
-					accountStore.setIsAuthenticated();
+					// accountStore.setIsAuthenticated();
+					// accountStore.updateAccountInfo(data);
+					
+					// use session storage to store user info
+					sessionStorage.setItem("accountInfo", JSON.stringify(data));
 					navigate("/home");
 				}
 			})
 			.catch((err) => {
-				if (err) {
-					<Snackbar autoHideDuration={6000}>
-						<Alert severity="error">{err.response.data.message}</Alert>
-					</Snackbar>;
+				setOpen(true);
+				if (err?.response?.data?.message) {
+					setErrorMessage("Invalid email or password");
+				} else {
+					setErrorMessage("Something went wrong");
 				}
 			});
 	};
@@ -52,6 +69,18 @@ const LoginScreen = () => {
 	return (
 		<div className="flex flex-col justify-center items-center">
 			<Card>
+				{open && (
+					<Snackbar
+						open={open}
+						autoHideDuration={6000}
+						onClose={() => setOpen(false)}
+						anchorOrigin={{ vertical: "top", horizontal: "right" }}
+					>
+						<Alert onClose={() => setOpen(false)} severity="error">
+							{errorMessage}
+						</Alert>
+					</Snackbar>
+				)}
 				<div className="w-4/5 flex flex-col justify-center">
 					<div className="flex items-center my-3">
 						<div className="flex-grow h-px bg-[#2286C3]"></div>
@@ -67,6 +96,7 @@ const LoginScreen = () => {
 						placeholder="Please enter e-mail"
 						onChange={handleEmailChange}
 					/>
+					<span className="ml-6 text-red-500 text-xs">{emailError}</span>
 					<label className="text-[#2286C3]">Password</label>
 					<Input
 						type={"password"}

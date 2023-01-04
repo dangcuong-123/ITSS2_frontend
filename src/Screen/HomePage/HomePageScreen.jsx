@@ -12,6 +12,8 @@ import {
   getHotelAndRestaurantList,
   showHomePage,
 } from "../../services/HomeServices";
+import accountStore from "../../store/AccountInfoStore";
+import { Snackbar, Alert } from "@mui/material";
 
 const listLocation = ["All", "Quang Ninh", "Ha Noi"];
 
@@ -22,6 +24,10 @@ const HomePageScreen = () => {
   const [restaurant, setRestaurant] = useState([]);
   const [hotel, setHotel] = useState([]);
 
+  // set success message when login success
+  const [openSuccess, setOpenSuccess] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+
   const handleSearch = (new_value) => {
     setlocation("");
   };
@@ -31,6 +37,11 @@ const HomePageScreen = () => {
   };
 
   useEffect(() => {
+    if (sessionStorage.getItem("accountInfo")) {
+      setOpenSuccess(true);
+      setSuccessMessage("Login successfully");
+    }
+
     if (locations === "All") {
       showHomePage()
         .then((res) => {
@@ -64,6 +75,18 @@ const HomePageScreen = () => {
             <Search onSearchChange={handleSearch} />
           </div>
           <div>
+            {openSuccess && (
+              <Snackbar
+                open={openSuccess}
+                autoHideDuration={2000}
+                onClose={() => setOpenSuccess(false)}
+                anchorOrigin={{ vertical: "top", horizontal: "right" }}
+              >
+                <Alert onClose={() => setOpenSuccess(false)} severity="success">
+                  {successMessage}
+                </Alert>
+              </Snackbar>
+            )}
             <span className="text-2xl font-bold mb-5">Recommend hotel</span>
             <div className="m-5">
               <Stack spacing={2} direction="row">
