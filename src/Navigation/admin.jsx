@@ -13,6 +13,7 @@ import EditHotel from "../Screen/Admin/Hotel/EditHotel";
 import SearchPlan from "../components/SearchPlan/SearchPlan";
 import SearchPlanRestaurant from "../components/SearchPlan/SearchPlanRestaurant";
 import DetailPlan from "../Screen/Admin/Plan/PlanDetail";
+import ListPlace from "../Screen/Admin/Place/ListPlace";
 
 const Admin = () => {
   return (
@@ -38,6 +39,7 @@ const Admin = () => {
           path="edit-restaurant"
           element={<EditRestaurant></EditRestaurant>}
         />
+        <Route path="list-places" element={<ListPlace></ListPlace>}></Route>
         <Route path="list-hotel" element={<ListHotel></ListHotel>}></Route>
         <Route
           path="detail-hotel"
