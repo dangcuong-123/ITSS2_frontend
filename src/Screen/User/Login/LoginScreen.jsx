@@ -48,8 +48,11 @@ const LoginScreen = () => {
 		login(data)
 			.then((res) => {
 				if (res.status === 200) {
-					accountStore.setIsAuthenticated();
-					accountStore.updateAccountInfo(data);
+					// accountStore.setIsAuthenticated();
+					// accountStore.updateAccountInfo(data);
+					
+					// use session storage to store user info
+					sessionStorage.setItem("accountInfo", JSON.stringify(data));
 					navigate("/home");
 				}
 			})
