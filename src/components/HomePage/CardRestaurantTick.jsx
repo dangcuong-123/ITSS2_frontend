@@ -4,10 +4,12 @@ import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 
-const CardRestaurantTick = ({ restaurant }) => {
+const CardRestaurantTick = ({ restaurant, hotelSelect }) => {
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
   const [isShown, setIsShown] = useState(false);
+  const [restaurantSelect, setRestaurantSelect] = useState();
   const handleTickClick = (event) => {
+    setRestaurantSelect(event.target.value);
     setIsShown(true);
   };
 
@@ -28,9 +30,13 @@ const CardRestaurantTick = ({ restaurant }) => {
                   </div>
                   <div onClick={handleTickClick}>
                     {isShown ? (
-                      <Checkbox {...label} disabled />
+                      <Checkbox
+                        {...label}
+                        value={card.restaurant_name}
+                        disabled
+                      />
                     ) : (
-                      <Checkbox {...label} />
+                      <Checkbox {...label} value={card.restaurant_name} />
                     )}
                   </div>
                   <div className="p-4">
@@ -116,14 +122,19 @@ const CardRestaurantTick = ({ restaurant }) => {
         >
           Please choose restaurant to complete your plan!
         </span>
-        <Button
+        {/* <Button
           variant="contained"
           color="success"
           component={Link}
           to={"/detail-plan"}
         >
           Next
-        </Button>
+        </Button> */}
+        <Link to={"/detail-plan"} state={{ hotelSelect, restaurantSelect }}>
+          <Button variant="contained" color="success">
+            Next
+          </Button>
+        </Link>
       </div>
     </div>
   );
