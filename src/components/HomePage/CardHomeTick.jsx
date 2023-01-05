@@ -106,11 +106,11 @@ const CardHomeTick = ({ hotel }) => {
                 padding: "10px 20px 0 0",
               }}
             >
-              you have chosen hotel!
+              bạn đã chọn khách sạn!!
             </span>
             <Link to={"/user/search-plan-restaurant"} state={{ hotelSelect }}>
               <Button variant="contained" color="success">
-                Next
+                Tiếp
               </Button>
             </Link>
           </div>

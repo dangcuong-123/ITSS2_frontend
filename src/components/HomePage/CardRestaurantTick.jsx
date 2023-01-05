@@ -112,7 +112,7 @@ const CardRestaurantTick = ({ restaurant, hotelSelect }) => {
           component={Link}
           to={"/search-plan"}
         >
-          Back
+          Quay Lại
         </Button>
         <span
           className="text-2xl font-bold mb-5 ml-3"
@@ -120,7 +120,7 @@ const CardRestaurantTick = ({ restaurant, hotelSelect }) => {
             padding: "10px 20px 0 0",
           }}
         >
-          Please choose restaurant to complete your plan!
+          Hãy chọn nhà hàng để hoàn thành kế hoạch của bạn!
         </span>
         {/* <Button
           variant="contained"
@@ -132,7 +132,7 @@ const CardRestaurantTick = ({ restaurant, hotelSelect }) => {
         </Button> */}
         <Link to={"/detail-plan"} state={{ hotelSelect, restaurantSelect }}>
           <Button variant="contained" color="success">
-            Next
+            Tiếp
           </Button>
         </Link>
       </div>

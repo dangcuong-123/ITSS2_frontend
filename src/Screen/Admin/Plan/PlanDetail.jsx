@@ -61,8 +61,9 @@ const DetailPlan = ({ hotel, restaurant }) => {
   return (
     <LayoutAdmin>
       <AdminTitle>{t("planDetail.title")}</AdminTitle>
+      <div className="font-bold text-2xl mt-4">KHÁCH SẠN</div>
       <div className="font-bold text-2xl mt-4 my-2">
-        Hotel name - {`[${cardHotel?.hotel_name}]`}
+        Tên Khách Sạn - {`[${cardHotel?.hotel_name}]`}
       </div>
       <div className="font-bold text-2xl mt-4">
         {t("planDetail.review")} - {`[${listCardPlan.star}]`}
@@ -86,9 +87,9 @@ const DetailPlan = ({ hotel, restaurant }) => {
       </div>
       <div className="m-6">{cardHotel?.hotel_description}</div>
 
-      <div className="font-bold text-2xl mt-4">Restaurant</div>
+      <div className="font-bold text-2xl mt-4">NHÀ HÀNG</div>
       <div className="font-bold text-2xl mt-4 my-2">
-        Restaurant name - {`[${cardRestaurant?.restaurant_name}]`}
+        Tên Nhà Hàng - {`[${cardRestaurant?.restaurant_name}]`}
       </div>
       <div className="font-bold text-2xl mt-4">
         {t("planDetail.review")} - {`[${listCardPlan.star}]`}
@@ -119,7 +120,7 @@ const DetailPlan = ({ hotel, restaurant }) => {
         </Button>
 
         <Button color="font-bold mr-0 py-1" onClick={savePlan}>
-          Save Plan
+          Lưu Kế Hoạch
         </Button>
       </div>
     </LayoutAdmin>

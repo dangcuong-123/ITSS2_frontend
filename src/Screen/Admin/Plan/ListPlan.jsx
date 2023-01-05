@@ -25,13 +25,13 @@ const ListPlan = () => {
             className="block  p-6 m-5 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
           >
             <h3 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-              Hotel Name: {plan.hotel_name}
+              Tên Khách Sạn: {plan.hotel_name}
             </h3>
             <h3 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-              Restaurant Name: {plan.restaurant_name}
+              Tên Nhà Hàng: {plan.restaurant_name}
             </h3>
             <h3 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-              Location: {plan.location_name}
+              Địa Điểm: {plan.location_name}
             </h3>
           </a>
         );

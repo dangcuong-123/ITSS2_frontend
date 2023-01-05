@@ -16,7 +16,7 @@ import Slider from "@mui/material/Slider";
 import { Link } from "react-router-dom";
 import Input from "../Input";
 import ButtonSearch from "../Button";
-import { Snackbar, Alert } from "@mui/material"
+import { Snackbar, Alert } from "@mui/material";
 import {
   getHotelLowerEqualPrice,
   searchHotel,
@@ -71,17 +71,15 @@ const SearchPlan = () => {
     setFinalPrice(price * 20000);
   };
 
-  const compareDate = (date) =>{
-    if(checkin <= date) 
-    { 
+  const compareDate = (date) => {
+    if (checkin <= date) {
       setOpen(false);
-      setCheckout(date)
-    }
-    else{
+      setCheckout(date);
+    } else {
       setOpen(true);
-      setCheckout(new Date())
-    } 
-  } 
+      setCheckout(new Date());
+    }
+  };
 
   const handleClose = () => {
     setOpen(false);
@@ -105,30 +103,24 @@ const SearchPlan = () => {
       <CssBaseline />
       <Container fixed>
         <LayoutAdmin>
-          <AdminTitle>Search Plan</AdminTitle>
+          <AdminTitle>Tìm Kiếm Plan</AdminTitle>
           <div className="flex justify-between ml-2 mr-7">
             <Input
               placeholder="Where do you want to go ?"
               onChange={handleSearch}
             />
-            <ButtonSearch color="font-bold mr-0">Search</ButtonSearch>
+            <ButtonSearch color="font-bold mr-0">Tìm Kiếm</ButtonSearch>
           </div>
           <div>
-            <span className="text-2xl font-bold mb-5">Recommend hotel</span>
+            <span className="text-2xl font-bold mb-5">Gợi Ý Khách Sạn</span>
             <div className="m-5">
               <Stack spacing={2} direction="row">
-                <Button
-                  variant="contained"
-                  component={Link}
-                  to={"/list-hotel"}
-                >
+                <Button variant="contained" component={Link} to={"/list-hotel"}>
                   Hotel
                 </Button>
-                <Button variant="text"
-                  component={Link}
-                  to={"/list-restaurant"}
-                >
-                    Restaurant</Button>
+                <Button variant="text" component={Link} to={"/list-restaurant"}>
+                  Restaurant
+                </Button>
               </Stack>
             </div>
           </div>
@@ -158,29 +150,32 @@ const SearchPlan = () => {
               </div>
             </div> */}
             <div>
-              <span className="text-2xl font-bold mb-3">Check in</span>
+              <span className="text-2xl font-bold mb-3">Ngày Đến</span>
               <div>
                 <DatePicker onChange={setCheckin} value={checkin} />
               </div>
             </div>
             <div>
-              <span className="text-2xl font-bold mb-3">Check out</span>
+              <span className="text-2xl font-bold mb-3">Ngày Về</span>
               <div>
-                <DatePicker onChange={(date) => {
-                  compareDate(date)
-                }} value={checkout} />
+                <DatePicker
+                  onChange={(date) => {
+                    compareDate(date);
+                  }}
+                  value={checkout}
+                />
               </div>
             </div>
           </div>
           <div>
             <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
               <Alert severity="error" onClose={handleClose}>
-                Please have to book checkout far from checkin!
+                Xin vui lòng phải đặt Ngày Về trước Ngày Đi!
               </Alert>
             </Snackbar>
           </div>
           <div>
-            <span className="text-2xl font-bold mb-3">Cash</span>
+            <span className="text-2xl font-bold mb-3">Giá Tiền</span>
             <Stack direction="row" alignItems="flex-start" spacing={6}>
               <Box width={"80vh"}>
                 <Slider
@@ -194,7 +189,7 @@ const SearchPlan = () => {
                 />
               </Box>
               <Button variant="outlined" onClick={handleApplyPrice}>
-                Apply
+                Áp Dụng
               </Button>
             </Stack>
           </div>
