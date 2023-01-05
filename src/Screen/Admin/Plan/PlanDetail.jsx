@@ -116,7 +116,7 @@ const DetailPlan = ({ hotel, restaurant }) => {
 
       <div className="flex justify-between">
         <Button color="from-[#961919] to-[#f6646e] font-bold ml-0 py-1">
-          <Link to="/search-plan-restaurant">{t("planDetail.back")}</Link>
+          <Link to="/user/search-plan-restaurant">{t("planDetail.back")}</Link>
         </Button>
 
         <Button color="font-bold mr-0 py-1" onClick={savePlan}>
