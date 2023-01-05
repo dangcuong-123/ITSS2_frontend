@@ -6,6 +6,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { searchHotel } from "../../../services/HotelServices";
 import { searchRestaurant } from "../../../services/RestaurantServices";
 import { createPlan } from "../../../services/PlanServices";
+import { useTranslation } from "react-i18next";
 
 const DetailPlan = ({ hotel, restaurant }) => {
   const location = useLocation();
@@ -45,26 +46,26 @@ const DetailPlan = ({ hotel, restaurant }) => {
       restaurant_id: cardRestaurant?.restaurant_id,
       user_id: 0,
     };
-    console.log("🚀 ~ file: PlanDetail.jsx:47 ~ savePlan ~ data", data);
     createPlan(data)
       .then((res) => {
         if (res.status === 200) {
-          navigate("/user/home");
+          navigate("/user/saved");
         }
       })
       .catch((err) => {
         console.log(err);
       });
   };
+  const { t } = useTranslation();
 
   return (
     <LayoutAdmin>
-      <AdminTitle>Plan Detail</AdminTitle>
+      <AdminTitle>{t("planDetail.title")}</AdminTitle>
       <div className="font-bold text-2xl mt-4 my-2">
         Hotel name - {`[${cardHotel?.hotel_name}]`}
       </div>
       <div className="font-bold text-2xl mt-4">
-        Review - {`[${listCardPlan.star}]`}
+        {t("planDetail.review")} - {`[${listCardPlan.star}]`}
       </div>
       <div className="relative flex">
         <img
@@ -90,7 +91,7 @@ const DetailPlan = ({ hotel, restaurant }) => {
         Restaurant name - {`[${cardRestaurant?.restaurant_name}]`}
       </div>
       <div className="font-bold text-2xl mt-4">
-        Review - {`[${listCardPlan.star}]`}
+        {t("planDetail.review")} - {`[${listCardPlan.star}]`}
       </div>
       <div className="relative flex">
         <img
@@ -114,7 +115,7 @@ const DetailPlan = ({ hotel, restaurant }) => {
 
       <div className="flex justify-between">
         <Button color="from-[#961919] to-[#f6646e] font-bold ml-0 py-1">
-          <Link to="/search-plan-restaurant">Back</Link>
+          <Link to="/search-plan-restaurant">{t("planDetail.back")}</Link>
         </Button>
 
         <Button color="font-bold mr-0 py-1" onClick={savePlan}>

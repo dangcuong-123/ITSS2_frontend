@@ -11,11 +11,11 @@ const CustomerSiderbar = () => {
             CONTENTS
           </li>
           <SidebarFirstContent icon={HomeIcon} link="/home">
-            Home page
+            Trang Chủ
           </SidebarFirstContent>
           <SidebarFirstContent icon={SearchIcon} link="/search-plan">
-            Search plan
-          </SidebarFirstContent>          
+            Tìm Kiếm
+          </SidebarFirstContent>
         </ul>
       </div>
     </div>

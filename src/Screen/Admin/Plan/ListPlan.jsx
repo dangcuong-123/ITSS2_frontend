@@ -16,7 +16,7 @@ const ListPlan = () => {
   }, []);
   return (
     <LayoutAdmin>
-      <AdminTitle>Plan Detail</AdminTitle>
+      <AdminTitle>Plan Đã Lưu</AdminTitle>
       {listPlan?.map((plan, idx) => {
         return (
           <a

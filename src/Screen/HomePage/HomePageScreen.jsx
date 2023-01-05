@@ -15,6 +15,7 @@ import {
 import accountStore from "../../store/AccountInfoStore";
 import { Snackbar, Alert } from "@mui/material";
 
+import { useTranslation } from "react-i18next";
 const listLocation = ["All", "Quang Ninh", "Ha Noi"];
 
 const HomePageScreen = () => {
@@ -31,6 +32,7 @@ const HomePageScreen = () => {
   const handleSearch = (new_value) => {
     setlocation("");
   };
+  const { t } = useTranslation();
 
   const handleChangeTab = (location) => {
     setlocation(location);
@@ -70,7 +72,7 @@ const HomePageScreen = () => {
       <CssBaseline />
       <Container fixed>
         <LayoutAdmin>
-          <AdminTitle>HOME PAGE</AdminTitle>
+          <AdminTitle>{t("homepage.title")}</AdminTitle>
           <div>
             <Search onSearchChange={handleSearch} />
           </div>
@@ -78,7 +80,7 @@ const HomePageScreen = () => {
             {openSuccess && (
               <Snackbar
                 open={openSuccess}
-                autoHideDuration={2000}
+                autoHideDuration={10000}
                 onClose={() => setOpenSuccess(false)}
                 anchorOrigin={{ vertical: "top", horizontal: "right" }}
               >
@@ -87,7 +89,9 @@ const HomePageScreen = () => {
                 </Alert>
               </Snackbar>
             )}
-            <span className="text-2xl font-bold mb-5">Recommend hotel</span>
+            <span className="text-2xl font-bold mb-5">
+              {t("homepage.recommendHotel")}
+            </span>
             <div className="m-5">
               <Stack spacing={2} direction="row">
                 {listLocation.map((loc, idx) => {
@@ -107,7 +111,7 @@ const HomePageScreen = () => {
           </div>
           <div className="mt-5">
             <span className="text-2xl font-bold mb-5">
-              Recommend restaurant
+              {t("homepage.recommendRestaurant")}
             </span>
             <div className="m-5">
               <Stack spacing={2} direction="row">

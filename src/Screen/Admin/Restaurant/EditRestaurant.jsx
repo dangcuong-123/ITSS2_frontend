@@ -11,6 +11,7 @@ import { getRestaurantById } from "../../../services/RestaurantServices";
 import { useEffect } from "react"; 
 import Select from 'react-select'
 import {Snackbar, Alert} from "@mui/material"
+import { useTranslation } from 'react-i18next';
 
 
 const EditRestaurant = ({ handleAddMenu }) => {
@@ -29,6 +30,7 @@ const EditRestaurant = ({ handleAddMenu }) => {
   const options = [
     { value: 'none', label: 'None', id: '0' },
   ]
+  const { t } = useTranslation()
 
   const options_province = [
     { value: 'ha noi', label: 'Ha noi' },
@@ -185,15 +187,15 @@ const EditRestaurant = ({ handleAddMenu }) => {
   return (
     <LayoutAdmin>
       <div>
-        <AdminTitle>Add/Edit Restaurant</AdminTitle>
+        <AdminTitle>{t('editRest.title')}</AdminTitle>
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
-            <label className="text-black font-bold">Name*</label>
+            <label className="text-black font-bold">{t('editRest.name')}</label>
           </div>
           <div className="w-3/5 items-center">
             <Input
               type="text"
-              placeholder="Name restaurant"
+              placeholder={t('editRest.name')}
               value={restaurant_name}
               onChange={(e) => setRestaurantName(e.target.value)}
             />
@@ -202,12 +204,12 @@ const EditRestaurant = ({ handleAddMenu }) => {
 
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
-            <label className="text-black font-bold">Address*</label>
+            <label className="text-black font-bold">{t('editRest.address')}</label>
           </div>
           <div className="w-3/5 items-center">
             <Input
               type="text"
-              placeholder="Restaurant Address"
+              placeholder={t('editRest.address')}
               value={restaurant_address}
               onChange={(e) => setRestaurant_address(e.target.value)}
             />
@@ -216,7 +218,7 @@ const EditRestaurant = ({ handleAddMenu }) => {
 
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
-            <label className="text-black font-bold">Province*</label>
+            <label className="text-black font-bold">{t('editRest.province')}</label>
           </div>
           <div className="items-center" style={{ padding: '15px' }}>
             <Select options={options_province} onChange={handleTypeProvince} />
@@ -225,12 +227,12 @@ const EditRestaurant = ({ handleAddMenu }) => {
 
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
-            <label className="text-black font-bold">Restaurant fee*</label>
+            <label className="text-black font-bold">{t('editRest.fee')}</label>
           </div>
           <div className="w-3/5 items-center">
             <Input
               type="text"
-              placeholder="Restaurant fee"
+              placeholder={t('editRest.fee')}
               value={restaurant_fee}
               onChange={(e) => setRestaurant_fee(e.target.value)}
             />
@@ -239,7 +241,7 @@ const EditRestaurant = ({ handleAddMenu }) => {
 
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
-            <label className="text-black font-bold">Hotel*</label>
+            <label className="text-black font-bold">{t('editRest.hotel')}</label>
           </div>
           <div className="items-center" style={{ padding: '15px' }}>
             <Select options={options} onChange={handleTypeSelect} />
@@ -248,12 +250,12 @@ const EditRestaurant = ({ handleAddMenu }) => {
 
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
-            <label className="text-black font-bold">Image URL*</label>
+            <label className="text-black font-bold">{t('editRest.url')}</label>
           </div>
           <div className="w-3/5 items-center">
             <Input
               type="text"
-              placeholder="Restaurant's Image"
+              placeholder={t('editRest.url')}
               value={image_url}
               onChange={(e) => setImage_url(e.target.value)}
             />
@@ -262,12 +264,12 @@ const EditRestaurant = ({ handleAddMenu }) => {
 
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
-            <label className="text-black font-bold">Restaurant open time*</label>
+            <label className="text-black font-bold">{t('editRest.openTime')}</label>
           </div>
           <div className="w-3/5 items-center">
             <Input
               type="text"
-              placeholder="Restaurant Open Time"
+              placeholder={t('editRest.openTime')}
               value={restaurant_open_time}
               onChange={(e) => setRestaurant_open_time(e.target.value)}
             />
@@ -276,12 +278,12 @@ const EditRestaurant = ({ handleAddMenu }) => {
 
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
-            <label className="text-black font-bold">Menu introduce*</label>
+            <label className="text-black font-bold">{t('editRest.menu')}</label>
           </div>
           <div className="w-3/5 items-center">
             <Input
               type="text"
-              placeholder="Menu introduction"
+              placeholder={t('editRest.menu')}
               value={menu_description}
               onChange={(e) => setMenu_description(e.target.value)}
             />
@@ -290,12 +292,12 @@ const EditRestaurant = ({ handleAddMenu }) => {
 
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
-            <label className="text-black font-bold">Menu Image URL*</label>
+            <label className="text-black font-bold">{t('editRest.menuURL')}</label>
           </div>
           <div className="w-3/5 items-center">
             <Input
               type="text"
-              placeholder="Menu image url"
+              placeholder={t('editRest.menuURL')}
               value={menu_image_url}
               onChange={(e) => setMenu_image_url(e.target.value)}
             />
@@ -304,12 +306,12 @@ const EditRestaurant = ({ handleAddMenu }) => {
 
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
-            <label className="text-black font-bold">Restaurant's description*</label>
+            <label className="text-black font-bold">{t('editRest.description')}</label>
           </div>
           <div className="w-3/5 items-center">
             <Input
               type="text"
-              placeholder="Description"
+              placeholder={t('editRest.description')}
               value={restaurant_description}
               onChange={(e) => setRestaurant_description(e.target.value)}
             />
@@ -318,16 +320,16 @@ const EditRestaurant = ({ handleAddMenu }) => {
         <div>
           <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
             <Alert severity={severity} onClose={handleClose}>
-              Edit Restaurant completely!
+            {t('editRest.success')}
             </Alert>
           </Snackbar>
         </div>
       </div>
       <div className="w-4/5 flex ml-4 justify-end">
         <Button color="from-[#961919] to-[#f6646e] font-bold">
-          <Link to="/list-restaurant">Cancel</Link>
+          <Link to="/list-restaurant">{t('editRest.cancel')}</Link>
         </Button>
-        <Button color="font-bold mr-0" onClick={editRestaurant}>Saved Edit</Button>
+        <Button color="font-bold mr-0" onClick={editRestaurant}>{t('editRest.save')}</Button>
       </div>
     </LayoutAdmin>
   );

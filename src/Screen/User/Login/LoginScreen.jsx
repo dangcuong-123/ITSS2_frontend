@@ -8,9 +8,11 @@ import Input from "../../../components/Input";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../../services/UserServices";
 import accountStore from "../../../store/AccountInfoStore";
+import { useTranslation } from "react-i18next";
 
 const LoginScreen = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");

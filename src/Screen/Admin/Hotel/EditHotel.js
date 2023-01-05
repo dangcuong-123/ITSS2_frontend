@@ -9,6 +9,7 @@ import Select from 'react-select'
 import { useParams } from 'react-router-dom'
 import { getHotelById } from "../../../services/HotelServices";
 import { Snackbar, Alert } from "@mui/material"
+import { useTranslation } from 'react-i18next';
 
 const EditHotel = () => {
   const { id } = useParams();
@@ -27,6 +28,7 @@ const EditHotel = () => {
   const [description, setDescription] = useState("")
   const [image, setImage] = useState("")
   const [province, setProvince] = useState("")
+  const { t } = useTranslation()
 
   const handleClose = () => {
     setOpen(false);
@@ -183,19 +185,19 @@ const EditHotel = () => {
   return (
     <LayoutAdmin>
       <div>
-        <AdminTitle>Edit Hotel</AdminTitle>
+        <AdminTitle>{t('editHotel.title')}</AdminTitle>
 
               <div className="flex items-center">
                 <div className="w-1/5 self-center text-end">
                   <label className="text-black font-bold">
-                    Name
+                  {t('editHotel.name')}
                     <span className="text-red-700"> *</span>
                   </label>
                 </div>
                 <div className="w-3/5 items-center">
                   <Input
                     type="text"
-                    placeholder="Name hotel"
+                    placeholder={t('editHotel.name')}
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                   />
@@ -204,7 +206,7 @@ const EditHotel = () => {
               <div className="flex items-center">
                 <div className="w-1/5 self-center text-end">
                   <label className="text-black font-bold">
-                    Address
+                  {t('editHotel.address')}
                     <span className="text-red-700"> *</span>
                   </label>
                 </div>
@@ -212,7 +214,7 @@ const EditHotel = () => {
                 <div className="w-3/5 items-center">
                   <Input
                     type="text"
-                    placeholder="Address's hotel"
+                    placeholder={t('editHotel.address')}
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
                   />
@@ -223,7 +225,7 @@ const EditHotel = () => {
               <div className="flex items-center">
                 <div className="w-1/5 self-center text-end">
                   <label className="text-black font-bold">
-                    Province
+                  {t('editHotel.province')}
                     <span className="text-red-700"> *</span>
                   </label>
                 </div>
@@ -235,14 +237,14 @@ const EditHotel = () => {
               <div className="flex items-center">
                 <div className="w-1/5 self-center text-end">
                   <label className="text-black font-bold">
-                    Description
+                  {t('editHotel.description')}
                     <span className="text-red-700"> *</span>
                   </label>
                 </div>
                 <div className="w-3/5 items-center">
                   <Input
                     type="text"
-                    placeholder="Write something about your hotel"
+                    placeholder={t('editHotel.description')}
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                   />
@@ -252,14 +254,14 @@ const EditHotel = () => {
               <div className="flex items-center">
                 <div className="w-1/5 self-center text-end">
                   <label className="text-black font-bold">
-                    Image URL
+                  {t('editHotel.url')}
                     <span className="text-red-700"> *</span>
                   </label>
                 </div>
                 <div className="w-3/5 items-center">
                   <Input
                     type="text"
-                    placeholder="Link to image"
+                    placeholder={t('editHotel.url')}
                     value={image}
                     onChange={(e) => setImage(e.target.value)}
                   />
@@ -269,14 +271,14 @@ const EditHotel = () => {
               <div className="flex items-center">
                 <div className="w-1/5 self-center text-end">
                   <label className="text-black font-bold">
-                    Price per day
+                  {t('editHotel.price')}
                     <span className="text-red-700"> *</span>
                   </label>
                 </div>
                 <div className="w-3/5 items-center">
                   <Input
                     type="text"
-                    placeholder="Price per day"
+                    placeholder={t('editHotel.price')}
                     value={price}
                     onChange={(e) => setPrice(e.target.value)}
                   />
@@ -285,7 +287,7 @@ const EditHotel = () => {
               <div>
                 <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
                   <Alert severity={severity} onClose={handleClose}>
-                    Edit Hotel completely!
+                  {t('editHotel.success')}
                   </Alert>
                 </Snackbar>
               </div>
@@ -295,13 +297,13 @@ const EditHotel = () => {
       <div className="w-4/5 flex ml-4 justify-end">
         <Button color="from-[#961919] to-[#f6646e] font-bold">
           <Link to="/list-hotel">
-            Cancel
+          {t('editHotel.cancel')}
           </Link>
         </Button>
         <Button color="font-bold mr-0" onClick={handleClick}>
           <Link to='/list-hotel'>
           </Link>
-          Edit Hotel
+          {t('editHotel.title')}
         </Button>
       </div>
     </LayoutAdmin>

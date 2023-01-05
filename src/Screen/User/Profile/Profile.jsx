@@ -5,6 +5,7 @@ import LayoutAdmin from "../../../components/Sidebar/AdminContainer";
 import { AdminTitle } from "../../../style";
 import accountStore from "../../../store/AccountInfoStore";
 import { editProfile } from "../../../services/UserServices";
+import { useTranslation } from 'react-i18next';
 
 const Profile = () => {
   const [isEdit, setIsEdit] = useState(false);
@@ -14,6 +15,7 @@ const Profile = () => {
   const [email, setEmail] = useState(accountStore.AccountInfo.email);
   const [imageURL, setImageURL] = useState();
   const [password, setPassword] = useState();
+  const { t } = useTranslation()
 
   const handleEdit = () => {
     setIsEdit(!isEdit);
@@ -34,7 +36,7 @@ const Profile = () => {
       <CssBaseline />
       <Container fixed>
         <LayoutAdmin>
-          <AdminTitle>PROFILE</AdminTitle>
+          <AdminTitle>{t('profile.title')}</AdminTitle>
           <div class="columns-3xs mt-5">
             <img
               class="w-full aspect-square "
@@ -48,7 +50,7 @@ const Profile = () => {
                 </span>
               </div>
               <div className="mb-3">
-                <span className="text-xl font-bold">Username: </span>
+                <span className="text-xl font-bold">{t('profile.name')}: </span>
                 {isEdit ? (
                   <span className="text-xl">
                     {accountStore.AccountInfo.accountname}
@@ -68,7 +70,7 @@ const Profile = () => {
               </div>
               {!isEdit && (
                 <div>
-                  <span className="text-xl font-bold">Password: </span>
+                  <span className="text-xl font-bold">{t('profile.password')}: </span>
                   <div>
                     <input
                       value={password}
@@ -85,14 +87,14 @@ const Profile = () => {
                   className="bg-yellow-500 text-black p-2 rounded-xl active:bg-yellow-700 mt-5"
                   onClick={handleEdit}
                 >
-                  EDIT
+                  {t('profile.edit')}
                 </button>
               ) : (
                 <button
                   className="bg-yellow-500 text-black p-2 rounded-xl active:bg-yellow-700 mt-5"
                   onClick={handleSave}
                 >
-                  SAVE
+                  {t('profile.save')}
                 </button>
               )}
             </div>

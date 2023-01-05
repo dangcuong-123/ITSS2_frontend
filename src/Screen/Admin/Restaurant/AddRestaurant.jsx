@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import Select from 'react-select'
 import { Snackbar, Alert } from "@mui/material"
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
+import { useTranslation } from 'react-i18next';
 
 
 const AddRestaurant = ({ handleCancelClick, handleDeleteClick }) => {
@@ -29,6 +30,7 @@ const AddRestaurant = ({ handleCancelClick, handleDeleteClick }) => {
   const options = [
     { value: 'none', label: 'None', id: '0' },
   ]
+  const { t } = useTranslation()
 
   const options_province = [
     { value: 'ha noi', label: 'Ha noi' },
@@ -132,15 +134,15 @@ const AddRestaurant = ({ handleCancelClick, handleDeleteClick }) => {
   return (
     <LayoutAdmin>
       <div>
-        <AdminTitle>Add Restaurant</AdminTitle>
+        <AdminTitle>{t('addRest.title')}</AdminTitle>
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
-            <label className="text-black font-bold">Name*</label>
+            <label className="text-black font-bold">{t('addRest.name')}</label>
           </div>
           <div className="w-3/5 items-center">
             <Input
               type="text"
-              placeholder="Name restaurant"
+              placeholder={t('addRest.name')}
               value={restaurant_name}
               onChange={(e) => setRestaurantName(e.target.value)}
             />
@@ -149,12 +151,12 @@ const AddRestaurant = ({ handleCancelClick, handleDeleteClick }) => {
 
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
-            <label className="text-black font-bold">Address*</label>
+            <label className="text-black font-bold">{t('addRest.address')}</label>
           </div>
           <div className="w-3/5 items-center">
             <Input
               type="text"
-              placeholder="Restaurant Address"
+              placeholder={t('addRest.address')}
               value={restaurant_address}
               onChange={(e) => setRestaurant_address(e.target.value)}
             />
@@ -163,7 +165,7 @@ const AddRestaurant = ({ handleCancelClick, handleDeleteClick }) => {
 
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
-            <label className="text-black font-bold">Province*</label>
+            <label className="text-black font-bold">{t('addRest.province')}</label>
           </div>
           <div className="items-center" style={{padding: '15px'}}>
             <Select options={options_province} onChange={handleTypeProvince} />
@@ -172,12 +174,12 @@ const AddRestaurant = ({ handleCancelClick, handleDeleteClick }) => {
 
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
-            <label className="text-black font-bold">Restaurant fee*</label>
+            <label className="text-black font-bold">{t('addRest.fee')}</label>
           </div>
           <div className="w-3/5 items-center">
             <Input
               type="text"
-              placeholder="Restaurant fee"
+              placeholder={t('addRest.fee')}
               value={restaurant_fee}
               onChange={(e) => setRestaurant_fee(e.target.value)}
             />
@@ -186,7 +188,7 @@ const AddRestaurant = ({ handleCancelClick, handleDeleteClick }) => {
 
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
-            <label className="text-black font-bold">Hotel*</label>
+            <label className="text-black font-bold">{t('addRest.hotel')}</label>
           </div>
           <div className="items-center" style={{ padding: '15px' }}>
             <Select options={options} onChange={handleTypeSelect} />
@@ -195,12 +197,12 @@ const AddRestaurant = ({ handleCancelClick, handleDeleteClick }) => {
 
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
-            <label className="text-black font-bold">Image URL*</label>
+            <label className="text-black font-bold">{t('addRest.url')}</label>
           </div>
           <div className="w-3/5 items-center">
             <Input
               type="text"
-              placeholder="Restaurant's Image"
+              placeholder={t('addRest.url')}
               value={image_url}
               onChange={(e) => setImage_url(e.target.value)}
             />
@@ -209,12 +211,12 @@ const AddRestaurant = ({ handleCancelClick, handleDeleteClick }) => {
 
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
-            <label className="text-black font-bold">Restaurant open time*</label>
+            <label className="text-black font-bold">{t('addRest.openTime')}</label>
           </div>
           <div className="w-3/5 items-center">
             <Input
               type="text"
-              placeholder="Restaurant Open Time"
+              placeholder={t('addRest.openTime')}
               value={restaurant_open_time}
               onChange={(e) => setRestaurant_open_time(e.target.value)}
             />
@@ -223,12 +225,12 @@ const AddRestaurant = ({ handleCancelClick, handleDeleteClick }) => {
 
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
-            <label className="text-black font-bold">Menu introduce*</label>
+            <label className="text-black font-bold">{t('addRest.menu')}</label>
           </div>
           <div className="w-3/5 items-center">
             <Input
               type="text"
-              placeholder="Menu introduction"
+              placeholder={t('addRest.menu')}
               value={menu_description}
               onChange={(e) => setMenu_description(e.target.value)}
             />
@@ -237,12 +239,12 @@ const AddRestaurant = ({ handleCancelClick, handleDeleteClick }) => {
 
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
-            <label className="text-black font-bold">Menu Image URL*</label>
+            <label className="text-black font-bold">{t('addRest.menuURL')}</label>
           </div>
           <div className="w-3/5 items-center">
             <Input
               type="text"
-              placeholder="Menu image url"
+              placeholder={t('addRest.menuURL')}
               value={menu_image_url}
               onChange={(e) => setMenu_image_url(e.target.value)}
             />
@@ -251,12 +253,12 @@ const AddRestaurant = ({ handleCancelClick, handleDeleteClick }) => {
 
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
-            <label className="text-black font-bold">Restaurant's description*</label>
+            <label className="text-black font-bold">{t('addRest.description')}</label>
           </div>
           <div className="w-3/5 items-center">
             <Input
               type="text"
-              placeholder="Description"
+              placeholder={t('addRest.description')}
               value={restaurant_description}
               onChange={(e) => setRestaurant_description(e.target.value)}
             />
@@ -265,7 +267,7 @@ const AddRestaurant = ({ handleCancelClick, handleDeleteClick }) => {
         <div>
           <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
             <Alert severity={severity} onClose={handleClose}>
-              Add restaurant completely!
+            {t('addRest.success')}
             </Alert>
           </Snackbar>
         </div>
@@ -273,9 +275,9 @@ const AddRestaurant = ({ handleCancelClick, handleDeleteClick }) => {
       <div className="w-4/5 flex ml-4" style={{ justifyContent: "end" }}>
         <Button color="from-[#961919] to-[#f6646e] font-bold">
           <Link to="/list-restaurant"></Link>
-          Cancel
+          {t('addRest.cancel')}
         </Button>
-        <Button color="font-bold mr-0" onClick={addRestaurant}>Add Restaurant</Button>
+        <Button color="font-bold mr-0" onClick={addRestaurant}>{t('addRest.addRest')}</Button>
       </div>
     </LayoutAdmin>
   );
