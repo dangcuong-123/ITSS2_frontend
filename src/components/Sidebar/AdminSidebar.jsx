@@ -21,7 +21,10 @@ const AdminSidebar = () => {
           <SidebarFirstContent icon={HotelListIcon} link="/admin/list-hotel">
             Hotel List
           </SidebarFirstContent>
-          <SidebarFirstContent icon={RestaurantIcon} link="/admin/list-restaurant">
+          <SidebarFirstContent
+            icon={RestaurantIcon}
+            link="/admin/list-restaurant"
+          >
             Restaurant List
           </SidebarFirstContent>
           <SidebarFirstContent icon={DownloadIcon} link="/admin/saved">

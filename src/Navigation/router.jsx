@@ -14,6 +14,7 @@ import accountStore from "../store/AccountInfoStore";
 import Customer from "./customer";
 
 const Router = () => {
+  console.log(accountStore.email);
   return (
     <BrowserRouter>
       <Header />
@@ -22,7 +23,7 @@ const Router = () => {
         <Route path="register" element={<RegisterScreen />} />
         <Route path="password_forgot" element={<PasswordForgotScreen />} />
         <Route path="/*" element={<Customer />} />
-        {accountStore?.AccountInfo?.email === "admin@gmail.com" ? (
+        {accountStore?.email === "admin@gmail.com" ? (
           <Route path="admin/*" element={<Admin />} />
         ) : (
           <Route path="user/*" element={<User />} />

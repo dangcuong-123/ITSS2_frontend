@@ -108,7 +108,7 @@ const CardHomeTick = ({ hotel }) => {
             >
               you have chosen hotel!
             </span>
-            <Link to={"/search-plan-restaurant"} state={{ hotelSelect }}>
+            <Link to={"/user/search-plan-restaurant"} state={{ hotelSelect }}>
               <Button variant="contained" color="success">
                 Next
               </Button>

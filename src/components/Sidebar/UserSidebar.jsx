@@ -12,16 +12,16 @@ const UserSidebar = () => {
           <li className="font-bold text-xl text-white pt-[93px] pl-5">
             CONTENTS
           </li>
-          <SidebarFirstContent icon={HomeIcon} link="/home">
+          <SidebarFirstContent icon={HomeIcon} link="home">
             Home page
           </SidebarFirstContent>
-          <SidebarFirstContent icon={SearchIcon} link="/search-plan">
+          <SidebarFirstContent icon={SearchIcon} link="search-plan">
             Search plan
           </SidebarFirstContent>
-          <SidebarFirstContent icon={accountIcon} link="/profile">
+          <SidebarFirstContent icon={accountIcon} link="profile">
             Account
           </SidebarFirstContent>
-          <SidebarFirstContent icon={DownloadIcon} link="/saved">
+          <SidebarFirstContent icon={DownloadIcon} link="saved">
             Saved
           </SidebarFirstContent>
         </ul>

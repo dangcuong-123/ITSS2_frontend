@@ -95,7 +95,9 @@ const SearchPlanRestaurant = () => {
             <ButtonSearch color="font-bold mr-0">Search</ButtonSearch>
           </div>
           <div>
-            <span className="text-2xl font-bold mb-5">Recommend hotel</span>
+            <span className="text-2xl font-bold mb-5">
+              Recommend Restaurant
+            </span>
             <div className="m-5">
               <Stack spacing={2} direction="row">
                 <Button variant="text" component={Link} to={"/search-plan"}>

@@ -49,7 +49,7 @@ const DetailPlan = ({ hotel, restaurant }) => {
     createPlan(data)
       .then((res) => {
         if (res.status === 200) {
-          navigate("/home");
+          navigate("/user/home");
         }
       })
       .catch((err) => {
