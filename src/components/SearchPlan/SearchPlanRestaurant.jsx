@@ -26,11 +26,7 @@ const SearchPlanRestaurant = () => {
   const [finalPrice, setFinalPrice] = useState(2000000);
   const [restaurant, setRestaurant] = useState();
   const location = useLocation();
-  const { hotel } = location.state;
-  console.log(
-    "🚀 ~ file: SearchPlanRestaurant.jsx:30 ~ SearchPlanRestaurant ~ hotel",
-    hotel
-  );
+  const { hotelSelect } = location.state;
 
   const marks = [
     {
@@ -161,7 +157,10 @@ const SearchPlanRestaurant = () => {
             </Stack>
           </div>
           <div>
-            <CardRestaurentTick restaurant={restaurant} />
+            <CardRestaurentTick
+              restaurant={restaurant}
+              hotelSelect={hotelSelect}
+            />
           </div>
         </LayoutAdmin>
       </Container>

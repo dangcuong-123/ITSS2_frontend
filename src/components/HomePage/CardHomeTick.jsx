@@ -7,12 +7,9 @@ import { Link } from "react-router-dom";
 const CardHomeTick = ({ hotel }) => {
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
   const [isShown, setIsShown] = useState(false);
+  const [hotelSelect, setHotelSelect] = useState();
   const handleTickClick = (event) => {
-    console.log(
-      "🚀 ~ file: CardHomeTick.jsx:11 ~ handleTickClick ~ event",
-      event
-    );
-
+    setHotelSelect(event.target.value);
     setIsShown(true);
   };
 
@@ -33,9 +30,9 @@ const CardHomeTick = ({ hotel }) => {
                   </div>
                   <div onClick={handleTickClick}>
                     {isShown ? (
-                      <Checkbox {...label} disabled />
+                      <Checkbox {...label} value={card.hotel_name} disabled />
                     ) : (
-                      <Checkbox {...label} />
+                      <Checkbox {...label} value={card.hotel_name} />
                     )}
                   </div>
 
@@ -111,18 +108,14 @@ const CardHomeTick = ({ hotel }) => {
             >
               you have chosen hotel!
             </span>
-            <Link to={"/search-plan-restaurant"} state={{ hotel }}>
+            <Link to={"/search-plan-restaurant"} state={{ hotelSelect }}>
               <Button variant="contained" color="success">
                 Next
               </Button>
             </Link>
           </div>
         ) : (
-          <div>
-            <Button variant="contained" color="error">
-              Next
-            </Button>
-          </div>
+          <div></div>
         )}
       </div>
     </div>
