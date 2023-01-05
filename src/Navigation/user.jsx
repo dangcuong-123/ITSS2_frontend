@@ -10,6 +10,7 @@ import DetailRestaurant from "../Screen/Admin/Restaurant/DetailRestaurant";
 import DetailHotel from "../Screen/Admin/Hotel/DetailHotel";
 import DetailPlan from "../Screen/Admin/Plan/PlanDetail";
 import Profile from "../Screen/User/Profile/Profile";
+import ListPlan from "../Screen/Admin/Plan/ListPlan";
 
 const User = () => {
   return (
@@ -37,6 +38,7 @@ const User = () => {
         ></Route>
         <Route path="detail-plan" element={<DetailPlan></DetailPlan>}></Route>
         <Route path="profile" element={<Profile></Profile>}></Route>
+        <Route path="saved" element={<ListPlan></ListPlan>}></Route>
       </Routes>
     </div>
   );
