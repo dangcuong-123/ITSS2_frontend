@@ -13,35 +13,35 @@ import Profile from "../Screen/User/Profile/Profile";
 import ListPlan from "../Screen/Admin/Plan/ListPlan";
 
 const User = () => {
-  return (
-    <div className="relative">
-      <UserSidebar />
-      <Routes>
-        <Route path="*" element={<HomePageScreen />} />
-        <Route path="search-plan" element={<SearchPlan />} />
-        <Route
-          path="search-plan-restaurant"
-          element={<SearchPlanRestaurant />}
-        />
-        <Route path="list-hotel" element={<ListHotel></ListHotel>}></Route>
-        <Route
-          path="detail-hotel/:id"
-          element={<DetailHotel></DetailHotel>}
-        ></Route>
-        <Route
-          path="detail-restaurant/:id"
-          element={<DetailRestaurant></DetailRestaurant>}
-        ></Route>
-        <Route
-          path="list-restaurant"
-          element={<ListRestaurant></ListRestaurant>}
-        ></Route>
-        <Route path="detail-plan" element={<DetailPlan></DetailPlan>}></Route>
-        <Route path="profile" element={<Profile></Profile>}></Route>
-        <Route path="saved" element={<ListPlan></ListPlan>}></Route>
-      </Routes>
-    </div>
-  );
+	return (
+		<div className="relative">
+			<UserSidebar />
+			<Routes>
+				<Route path="*" element={<HomePageScreen />} />
+				<Route path="search-plan" element={<SearchPlan />} />
+				<Route
+					path="search-plan-restaurant"
+					element={<SearchPlanRestaurant />}
+				/>
+				<Route path="list-hotel" element={<ListHotel></ListHotel>}></Route>
+				<Route
+					path="detail-hotel/:id"
+					element={<DetailHotel></DetailHotel>}
+				></Route>
+				<Route
+					path="detail-restaurant/:id"
+					element={<DetailRestaurant></DetailRestaurant>}
+				></Route>
+				<Route
+					path="list-restaurant"
+					element={<ListRestaurant></ListRestaurant>}
+				></Route>
+				<Route path="detail-plan" element={<DetailPlan></DetailPlan>}></Route>
+				<Route path="profile" element={<Profile></Profile>}></Route>
+				<Route path="saved" element={<ListPlan></ListPlan>}></Route>
+			</Routes>
+		</div>
+	);
 };
 
 export default User;
