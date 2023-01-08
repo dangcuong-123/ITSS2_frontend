@@ -27,6 +27,8 @@ const EditRestaurant = ({ handleAddMenu }) => {
   const [restaurant_description, setRestaurant_description] = useState("")
   const [province, setProvince] = useState('')
   const [hotelList, setHotelList] = useState([])
+
+  
   const options = [
     { value: 'none', label: 'None', id: '0' },
   ]
@@ -146,7 +148,15 @@ const EditRestaurant = ({ handleAddMenu }) => {
     setContacts(newContacts);
     alert("1");
   };
-  const [open, setOpen] = useState(false)
+  // state handle show error message
+	const [errorMessage, setErrorMessage] = useState("");
+	const [open, setOpen] = useState('')
+
+	// state handle show success message
+	const [successMessage, setSuccessMessage] = useState("");
+	const [openSuccess, setOpenSuccess] = useState(null);
+
+  
   const [severity, setSeverity] = useState('')
   const handleClose = () => {
     setOpen(false);
@@ -174,12 +184,12 @@ const EditRestaurant = ({ handleAddMenu }) => {
     }).then(() => {
       console.log("Edit restaurant complete");
       // alert("Edit restaurant complete");
-      setOpen(true);
-      setSeverity('success')
+      setOpenSuccess(true);
+			setSuccessMessage("Edit restaurant success!");
     }).catch((err) => {
       console.log(err)
-      setSeverity('error')
       setOpen(true)
+      setErrorMessage("Error")
     })
 
   }
@@ -188,6 +198,32 @@ const EditRestaurant = ({ handleAddMenu }) => {
     <LayoutAdmin>
       <div>
         <AdminTitle>{t('editRest.title')}</AdminTitle>
+
+        {open && (
+				    <Snackbar
+					    open={open}
+					    autoHideDuration={6000}
+					    onClose={() => setOpen(false)}
+					    anchorOrigin={{ vertical: "top", horizontal: "right" }}
+				    >
+					    <Alert onClose={() => setOpen(false)} severity="error">
+						    {errorMessage}
+					    </Alert>
+				    </Snackbar>
+			  )}
+			  {openSuccess && (
+				    <Snackbar
+					    open={openSuccess}
+					    autoHideDuration={6000}
+					    onClose={() => setOpenSuccess(false)}
+					    anchorOrigin={{ vertical: "top", horizontal: "right" }}
+				    >
+					    <Alert onClose={() => setOpenSuccess(false)} severity="success">
+						    {successMessage}
+					    </Alert>
+				    </Snackbar>
+			  )}
+
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
             <label className="text-black font-bold">{t('editRest.name')}</label>
