@@ -4,6 +4,7 @@ import HomeIcon from "../../assets/HomePage/Home.svg";
 import DownloadIcon from "../../assets/HomePage/Download.svg";
 import HotelListIcon from "../../assets/HomePage/hotel_list.svg";
 import RestaurantIcon from "../../assets/HomePage/restaurant.svg";
+import SitesIcon from "../../assets/HomePage/gate.svg";
 import AccountIcon from "../../assets/HomePage/account-box.svg";
 import { useTranslation } from "react-i18next";
 
@@ -22,6 +23,9 @@ const AdminSidebar = () => {
 					</SidebarFirstContent>
 					<SidebarFirstContent icon={SearchIcon} link="/search-plan">
 						{t("adminSidebar.search")}
+					</SidebarFirstContent>
+					<SidebarFirstContent icon={SitesIcon} link="/sites">
+						{t("adminSidebar.sites")}
 					</SidebarFirstContent>
 					<SidebarFirstContent icon={HotelListIcon} link="/list-hotel">
 						{t("adminSidebar.hotel")}

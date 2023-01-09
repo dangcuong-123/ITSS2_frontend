@@ -31,7 +31,8 @@
         "hotel": "Danh sách khách sạn",
         "restaurant": "Danh sách nhà hàng",
         "saved": "Plan đã lưu",
-        "account": "Tài khoản"
+        "account": "Tài khoản",
+        "sites": "Địa danh"
     },
     "login": {
         "login": "Đăng nhập",
@@ -143,5 +144,24 @@
         "alert": "Hãy đặt thời gian checkout lớn hơn checkin",
         "cash": "Tiền mặt",
         "apply": "Đặt"
+    },
+    "sites": {
+        "title": "Địa danh",
+        "search": "Tìm kiếm địa danh",
+        "description": "Mô tả địa danh",
+        "url": "URL"
+    },
+    "addSite": {
+        "title": "Thêm địa danh",
+        "name": "Tên địa danh",
+        "address": "Địa chỉ",
+        "province": "Thành phố",
+        "description": "Mô tả",
+        "url": "URL",
+        "price": "Giá một ngày",
+        "success": "Thêm địa danh thành công",
+        "cancel": "Hủy",
+        "type": "Phân loại",
+        "transportation": "Phương tiện"
     }
 }
