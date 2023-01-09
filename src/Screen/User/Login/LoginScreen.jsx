@@ -8,7 +8,7 @@ import Input from "../../../components/Input";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../../services/UserServices";
 import accountStore from "../../../store/AccountInfoStore";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 const LoginScreen = () => {
 	const navigate = useNavigate();
@@ -52,10 +52,12 @@ const LoginScreen = () => {
 				if (res.status === 200) {
 					// accountStore.setIsAuthenticated();
 					// accountStore.updateAccountInfo(data);
-					
+
 					// use session storage to store user info
+					accountStore.email = email;
+
 					sessionStorage.setItem("accountInfo", JSON.stringify(data));
-					navigate("/home");
+					navigate("/");
 				}
 			})
 			.catch((err) => {
@@ -87,23 +89,23 @@ const LoginScreen = () => {
 					<div className="flex items-center my-3">
 						<div className="flex-grow h-px bg-[#2286C3]"></div>
 						<span className="text-[#2286C3] text-sm font-medium px-4">
-						{t('login.login')}
+							LOGIN
 						</span>
 						<div className="flex-grow h-px bg-[#2286C3]"></div>
 					</div>
-					<label className="text-[#2286C3]">Email</label>
+					<label className="text-[#2286C3]">E-mail</label>
 					<Input
 						type={"text"}
 						leftIcon={EmailIcon}
-						placeholder={t('login.placeEmail')}
+						placeholder="Please enter e-mail"
 						onChange={handleEmailChange}
 					/>
 					<span className="ml-6 text-red-500 text-xs">{emailError}</span>
-					<label className="text-[#2286C3]">{t('login.password')}</label>
+					<label className="text-[#2286C3]">Password</label>
 					<Input
 						type={"password"}
 						leftIcon={PasswordIcon}
-						placeholder={t('login.placePass')}
+						placeholder="Please enter password"
 						onChange={handlePasswordChange}
 					/>
 					<div>
@@ -111,7 +113,7 @@ const LoginScreen = () => {
 							to="/password_forgot"
 							className="text-center text-[#64B5F6] mt-5 text-lg font-medium"
 						>
-							<u>{t('login.forgot')}</u>
+							<u>Forgot password ?</u>
 						</Link>
 					</div>
 					<Link
@@ -120,7 +122,7 @@ const LoginScreen = () => {
 						className="bg-gradient-to-r p-5 m-5 from-[#64B5F6] to-[#2286C3] py-3 text-white shadow-lg text-center"
 						onClick={handleLogin}
 					>
-						{t('login.login')}
+						Login
 					</Link>
 				</div>
 			</Card>
@@ -129,7 +131,7 @@ const LoginScreen = () => {
 				to="/register"
 				className="text-center text-[#64B5F6] mt-6 text-lg font-medium"
 			>
-				{t('login.create')}
+				Create a new account
 			</Link>
 		</div>
 	);

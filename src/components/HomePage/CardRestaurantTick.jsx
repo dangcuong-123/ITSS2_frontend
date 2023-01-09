@@ -4,10 +4,12 @@ import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 
-const CardRestaurantTick = ({ restaurant }) => {
+const CardRestaurantTick = ({ restaurant, hotelSelect }) => {
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
   const [isShown, setIsShown] = useState(false);
+  const [restaurantSelect, setRestaurantSelect] = useState();
   const handleTickClick = (event) => {
+    setRestaurantSelect(event.target.value);
     setIsShown(true);
   };
 
@@ -28,9 +30,13 @@ const CardRestaurantTick = ({ restaurant }) => {
                   </div>
                   <div onClick={handleTickClick}>
                     {isShown ? (
-                      <Checkbox {...label} disabled />
+                      <Checkbox
+                        {...label}
+                        value={card.restaurant_name}
+                        disabled
+                      />
                     ) : (
-                      <Checkbox {...label} />
+                      <Checkbox {...label} value={card.restaurant_name} />
                     )}
                   </div>
                   <div className="p-4">
@@ -106,7 +112,7 @@ const CardRestaurantTick = ({ restaurant }) => {
           component={Link}
           to={"/search-plan"}
         >
-          Back
+          Quay Lại
         </Button>
         <span
           className="text-2xl font-bold mb-5 ml-3"
@@ -114,16 +120,24 @@ const CardRestaurantTick = ({ restaurant }) => {
             padding: "10px 20px 0 0",
           }}
         >
-          Please choose restaurant to complete your plan!
+          Hãy chọn nhà hàng để hoàn thành kế hoạch của bạn!
         </span>
-        <Button
+        {/* <Button
           variant="contained"
           color="success"
           component={Link}
           to={"/detail-plan"}
         >
           Next
-        </Button>
+        </Button> */}
+        <Link
+          to={"/user/detail-plan"}
+          state={{ hotelSelect, restaurantSelect }}
+        >
+          <Button variant="contained" color="success">
+            Tiếp
+          </Button>
+        </Link>
       </div>
     </div>
   );

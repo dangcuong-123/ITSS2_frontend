@@ -14,11 +14,13 @@ import {
 } from "../../services/HomeServices";
 import accountStore from "../../store/AccountInfoStore";
 import { Snackbar, Alert } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 const listLocation = ["All", "Quang Ninh", "Ha Noi"];
 
 const HomePageScreen = () => {
+	const navigate = useNavigate();
 	const [locations, setlocation] = useState("All");
 
 	// get restaurant and hotel
@@ -32,14 +34,14 @@ const HomePageScreen = () => {
 	const handleSearch = (new_value) => {
 		setlocation("");
 	};
-	const { t } = useTranslation()
+	const { t } = useTranslation();
 
 	const handleChangeTab = (location) => {
 		setlocation(location);
 	};
 
 	useEffect(() => {
-		if (accountStore.isAuthenticated) {
+		if (sessionStorage.getItem("accountInfo")) {
 			setOpenSuccess(true);
 			setSuccessMessage("Login successfully");
 		}
@@ -67,12 +69,16 @@ const HomePageScreen = () => {
 		}
 	}, [locations]);
 
+	// if (sessionStorage.getItem("accountInfo")) {
+	// 	navigate("/home");
+	// }
+
 	return (
 		<React.Fragment>
 			<CssBaseline />
 			<Container fixed>
 				<LayoutAdmin>
-					<AdminTitle>{t('homepage.title')}</AdminTitle>
+					<AdminTitle>{t("homepage.title")}</AdminTitle>
 					<div>
 						<Search onSearchChange={handleSearch} />
 					</div>
@@ -89,7 +95,9 @@ const HomePageScreen = () => {
 								</Alert>
 							</Snackbar>
 						)}
-						<span className="text-2xl font-bold mb-5">{t('homepage.recommendHotel')}</span>
+						<span className="text-2xl font-bold mb-5">
+							{t("homepage.recommendHotel")}
+						</span>
 						<div className="m-5">
 							<Stack spacing={2} direction="row">
 								{listLocation.map((loc, idx) => {
@@ -109,7 +117,7 @@ const HomePageScreen = () => {
 					</div>
 					<div className="mt-5">
 						<span className="text-2xl font-bold mb-5">
-						{t('homepage.recommendRestaurant')}
+							{t("homepage.recommendRestaurant")}
 						</span>
 						<div className="m-5">
 							<Stack spacing={2} direction="row">

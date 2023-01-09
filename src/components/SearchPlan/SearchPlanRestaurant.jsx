@@ -26,11 +26,7 @@ const SearchPlanRestaurant = () => {
   const [finalPrice, setFinalPrice] = useState(2000000);
   const [restaurant, setRestaurant] = useState();
   const location = useLocation();
-  const { hotel } = location.state;
-  console.log(
-    "🚀 ~ file: SearchPlanRestaurant.jsx:30 ~ SearchPlanRestaurant ~ hotel",
-    hotel
-  );
+  const { hotelSelect } = location.state;
 
   const marks = [
     {
@@ -90,16 +86,16 @@ const SearchPlanRestaurant = () => {
       <CssBaseline />
       <Container fixed>
         <LayoutAdmin>
-          <AdminTitle>Search Plan</AdminTitle>
+          <AdminTitle>Tìm Kiếm Plan</AdminTitle>
           <div className="flex justify-between ml-2 mr-7">
             <Input
               placeholder="Where do you want to go ?"
               onChange={handleSearch}
             />
-            <ButtonSearch color="font-bold mr-0">Search</ButtonSearch>
+            <ButtonSearch color="font-bold mr-0">Tìm Kiếm</ButtonSearch>
           </div>
           <div>
-            <span className="text-2xl font-bold mb-5">Recommend hotel</span>
+            <span className="text-2xl font-bold mb-5">Gợi ý Nhà Hàng</span>
             <div className="m-5">
               <Stack spacing={2} direction="row">
                 <Button variant="text" component={Link} to={"/search-plan"}>
@@ -142,7 +138,7 @@ const SearchPlanRestaurant = () => {
             </div> */}
           </div>
           <div>
-            <span className="text-2xl font-bold mb-3">Cash</span>
+            <span className="text-2xl font-bold mb-3">Giá Tiền</span>
             <Stack direction="row" alignItems="flex-start" spacing={6}>
               <Box width={"80vh"}>
                 <Slider
@@ -156,12 +152,15 @@ const SearchPlanRestaurant = () => {
                 />
               </Box>
               <Button variant="outlined" onClick={handleApplyPrice}>
-                Apply
+                Áp Dụng
               </Button>
             </Stack>
           </div>
           <div>
-            <CardRestaurentTick restaurant={restaurant} />
+            <CardRestaurentTick
+              restaurant={restaurant}
+              hotelSelect={hotelSelect}
+            />
           </div>
         </LayoutAdmin>
       </Container>
