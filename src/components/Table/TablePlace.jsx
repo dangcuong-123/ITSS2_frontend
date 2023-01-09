@@ -1,21 +1,23 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import { useDemoData } from '@mui/x-data-grid-generator';
+import {getColumns} from './ColumnTablePlace';
+import PropTypes from 'prop-types';
 
-export default function FlexLayoutGrid() {
-  const { data } = useDemoData({
-    dataSet: 'Commodity',
-    rowLength: 5,
-    maxColumns: 6,
-  });
+export default function TablePlace(props) {
+  const { listPlaces } = props;
 
   return (
-    <div style={{ height: 400, width: '100%' }}>
-      <div style={{ display: 'flex', height: '100%' }}>
-        <div style={{ flexGrow: 1 }}>
-          <DataGrid {...data} />
-        </div>
-      </div>
+    <div style={{ height: 250, width: '100%' }}>
+      <DataGrid
+        columns={getColumns}
+        rows={listPlaces}
+        getRowId={(row) => row.id}
+        disableSelectionOnClick={true}
+      />
     </div>
   );
 }
+
+TablePlace.propTypes = {
+  listPlaces: PropTypes.array.isRequired,
+};

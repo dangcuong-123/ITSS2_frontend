@@ -14,6 +14,7 @@ import SearchPlan from "../components/SearchPlan/SearchPlan";
 import SearchPlanRestaurant from "../components/SearchPlan/SearchPlanRestaurant";
 import DetailPlan from "../Screen/Admin/Plan/PlanDetail";
 import ListPlace from "../Screen/Admin/Place/ListPlace";
+import AddPlace from "../Screen/Admin/Place/AddPlace";
 
 const Admin = () => {
   return (
@@ -46,6 +47,7 @@ const Admin = () => {
           element={<DetailHotel></DetailHotel>}
         ></Route>
         <Route path="add-hotel" element={<AddHotel></AddHotel>}></Route>
+        <Route path="list-places/add-place" element={<AddPlace></AddPlace>}></Route>
         <Route path="edit-hotel" element={<EditHotel></EditHotel>}></Route>
         <Route path="detail-plan" element={<DetailPlan></DetailPlan>}></Route>
       </Routes>

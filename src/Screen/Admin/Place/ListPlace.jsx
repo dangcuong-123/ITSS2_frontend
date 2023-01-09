@@ -11,25 +11,27 @@ import TablePlace from "../../../components/Table/TablePlace";
 
 const ListPlace = () => {
   const handleSearch = (e) => {
+    console.log("SEARCH: ", e.target.value);
+    setPlaces(searchListPlaces);
     // searchPlace(e.target.value)
     //   .then((res) => {
-    //     setPlace(res.data);
+    //     setPlaces(res.data);
     //   })
     //   .catch((err) => {});
   };
-  const [place, setPlace] = useState();
-  const [placeLength, setPlaceLength] = useState();
+  const [places, setPlaces] = useState(listPlaces);
 
-//   useEffect(() => {
-//     getPlace()
-//       .then((res) => {
-//         setPlace(res.data);
-//         setPlaceLength(res.data.length);
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-//   }, []);
+  useEffect(() => {
+    setPlaces(listPlaces);
+    // getPlace()
+    //   .then((res) => {
+        // setPlaces(res.data);
+    //     setPlacesLength(res.data.length);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+  }, []);
 
   return (
     <React.Fragment>
@@ -40,10 +42,10 @@ const ListPlace = () => {
           <div className="flex justify-between ml-2 mr-7">
             <Input placeholder="Place's name" onChange={handleSearch} />
             <Button color="font-bold mr-0">
-              <Link to="/add-place">Add Place</Link>
+              <Link to="add-place">Add Place</Link>
             </Button>
           </div>
-          <TablePlace/>
+          <TablePlace listPlaces={places}/>
         </LayoutAdmin>
       </Container>
     </React.Fragment>
@@ -51,3 +53,12 @@ const ListPlace = () => {
 };
 
 export default ListPlace;
+
+const searchListPlaces = [
+  { id: 1, nameOfPlace: 'Côn Sơn Kiếp Bạc', province: 'Hải Dương', address: 'Chùa Côn Sơn Cộng Hòa Chí Linh', classify: 'Núi/Chùa/Danh lam thắng cảnh', transport: 'Xe máy/oto'},
+]
+
+const listPlaces = [
+  { id: 1, nameOfPlace: 'Côn Sơn Kiếp Bạc', province: 'Hải Dương', address: 'Chùa Côn Sơn Cộng Hòa Chí Linh', classify: 'Núi/Chùa/Danh lam thắng cảnh', transport: 'Xe máy/oto'},
+  { id: 2, nameOfPlace: 'ABC', province: 'Hải Dương', address: 'Chùa Côn Sơn Cộng Hòa Chí Linh', classify: 'Núi/Chùa/Danh lam thắng cảnh', transport: 'Xe máy/oto'},
+]
