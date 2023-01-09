@@ -11,6 +11,7 @@ import EditHotel from "../Screen/Admin/Hotel/EditHotel";
 import AddRestaurant from "../Screen/Admin/Restaurant/AddRestaurant";
 import EditRestaurant from "../Screen/Admin/Restaurant/EditRestaurant";
 import Customer from "./customer";
+import Sites from "../Screen/Admin/Sites/Sites";
 
 const Home = () => {
 	return !sessionStorage.getItem("accountInfo") ? (
@@ -45,6 +46,7 @@ const Router = () => {
 					path="edit-restaurant/:id"
 					element={<EditRestaurant></EditRestaurant>}
 				/>
+				
 			</Routes>
 		</BrowserRouter>
 	);

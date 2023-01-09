@@ -13,7 +13,8 @@ import EditHotel from "../Screen/Admin/Hotel/EditHotel";
 import SearchPlan from "../components/SearchPlan/SearchPlan";
 import SearchPlanRestaurant from "../components/SearchPlan/SearchPlanRestaurant";
 import DetailPlan from "../Screen/Admin/Plan/PlanDetail";
-
+import Sites from "../Screen/Admin/Sites/Sites";
+import AddSite from "../Screen/Admin/Sites/AddSite";
 const Admin = () => {
 	return (
 		<div className="relative">
@@ -46,6 +47,9 @@ const Admin = () => {
 				<Route path="add-hotel" element={<AddHotel></AddHotel>}></Route>
 				<Route path="edit-hotel" element={<EditHotel></EditHotel>}></Route>
 				<Route path="detail-plan" element={<DetailPlan></DetailPlan>}></Route>
+				<Route path="sites" element={<Sites></Sites>}></Route>
+				<Route path="add-site" element={<AddSite></AddSite>}></Route>
+
 			</Routes>
 		</div>
 	);
