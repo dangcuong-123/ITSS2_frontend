@@ -5,24 +5,21 @@ import Input from "../../../components/Input";
 import EmailIcon from "../../../assets/User/Login/EmailIcon.svg";
 import PasswordIcon from "../../../assets/User/Login/Password.svg";
 import user from "../../../assets/User/Login/user.svg";
-import { useNavigate } from "react-router-dom";
 import { register } from "../../../services/UserServices";
 // import ShowPassword from "../../../assets/User/Login/show.svg";
 import { Link } from "react-router-dom";
 import { Button } from "antd";
-import accountStore from "../../../store/AccountInfoStore";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 const RegisterScreen = () => {
-	const navigate = useNavigate();
-	const { t } = useTranslation()
+	const { t } = useTranslation();
 
 	const [email, setEmail] = useState("");
 	const [emailError, setEmailError] = useState("");
 
 	const [password, setPassword] = useState("");
 
-	const [userName, setUserName] = useState("");
+	const [name, setUserName] = useState("");
 
 	const [passwordError, setPasswordError] = useState("");
 
@@ -71,7 +68,7 @@ const RegisterScreen = () => {
 		const data = {
 			email,
 			password,
-			userName,
+			name,
 		};
 
 		register(data)
@@ -118,31 +115,33 @@ const RegisterScreen = () => {
 				</Snackbar>
 			)}
 			<Card>
-				<span className="text-sm text-[#2286C3] mb-4">{t('register.register')}</span>
+				<span className="text-sm text-[#2286C3] mb-4">
+					{t("register.register")}
+				</span>
 				<div className="w-4/5 flex flex-col justify-center">
 					<Input
 						type={"text"}
 						leftIcon={user}
-						placeholder={t('register.name')}
+						placeholder={t("register.name")}
 						onChange={handleUserNameChange}
 					/>
 					<Input
 						type={"text"}
 						leftIcon={EmailIcon}
-						placeholder={t('register.email')}
+						placeholder={t("register.email")}
 						onChange={handleEmailChange}
 					/>
 					<span className="ml-6 text-red-500 text-xs">{emailError}</span>
 					<Input
 						type={"password"}
 						leftIcon={PasswordIcon}
-						placeholder={t('register.password')}
+						placeholder={t("register.password")}
 						onChange={handlePasswordChange}
 					/>
 					<Input
 						type="password"
 						leftIcon={PasswordIcon}
-						placeholder={t('register.passConfirm')}
+						placeholder={t("register.passConfirm")}
 						onChange={handleConfirmPasswordChange}
 					/>
 					<span className="ml-6 text-red-500 text-xs">{passwordError}</span>
@@ -151,7 +150,7 @@ const RegisterScreen = () => {
 						className="bg-gradient-to-r p-5 m-5 from-[#64B5F6] to-[#2286C3] py-3 text-white shadow-lg text-center"
 						onClick={handleRegister}
 					>
-						{t('register.register')}
+						{t("register.register")}
 					</Button>
 				</div>
 			</Card>
@@ -159,7 +158,7 @@ const RegisterScreen = () => {
 				to="/login"
 				className="text-center text-[#64B5F6] mt-6 text-lg font-medium"
 			>
-				{t('register.login')}
+				{t("register.login")}
 			</Link>
 		</div>
 	);

@@ -24,6 +24,7 @@ const Header = () => {
 
 	const handleLogoutRoute = () => {
 		sessionStorage.removeItem("accountInfo");
+		sessionStorage.removeItem("username");
 		setLogoutMessage("Logout successfully");
 		setLogout(true);
 		navigate("/");
@@ -63,7 +64,8 @@ const Header = () => {
 							/>
 							<div class="font-medium dark:text-white">
 								<div className="font-bold">
-									{accountStore?.AccountInfo.accountname}
+									{/* {accountStore?.AccountInfo.accountname} */}
+									{sessionStorage.getItem("username")}
 								</div>
 							</div>
 							<div className="w-32 ml-4">

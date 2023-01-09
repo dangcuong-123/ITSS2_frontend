@@ -55,7 +55,7 @@ const LoginScreen = () => {
 
 					// use session storage to store user info
 					accountStore.email = email;
-
+					sessionStorage.setItem("username", res.data[0][0]);
 					sessionStorage.setItem("accountInfo", JSON.stringify(data));
 					navigate("/");
 				}
