@@ -148,6 +148,7 @@
     "sites": {
         "title": "Địa danh",
         "search": "Tìm kiếm địa danh",
+        "add": "Thêm địa danh",
         "description": "Mô tả địa danh",
         "url": "URL"
     },
