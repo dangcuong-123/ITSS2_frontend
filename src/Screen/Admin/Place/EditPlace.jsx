@@ -13,17 +13,32 @@ import ListItemText from "@mui/material/ListItemText";
 import Checkbox from "@mui/material/Checkbox";
 import {
   createPlace,
+  editPlace,
+  getPlace,
   getTags,
   PROVINCE_OPTIONS,
   TAG_OPTIONS,
   TRANSPORT_OPTIONS,
 } from "../../../services/PlaceServices";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-const AddPlace = () => {
+const EditPlace = () => {
+  const { id } = useParams();
   const [tagOptions, setTags] = useState([]);
   const [province, setProvince] = useState(PROVINCE_OPTIONS[0]);
   const navigate = useNavigate();
+  const [place, setPlace] = useState({});
+
+  useEffect(() => {
+    getPlace()
+      .then((res) => {
+        var arr = res.data.filter((pl) => pl.location_id === Number(id));
+        setPlace(arr[0]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [id]);
 
   useEffect(() => {
     getTags()
@@ -44,7 +59,7 @@ const AddPlace = () => {
       });
   }, []);
 
-  const AddPlaceSchema = Yup.object().shape({
+  const EditPlaceSchema = Yup.object().shape({
     locationName: Yup.string().required("Bắt buộc"),
     locationAddress: Yup.string().required("Bắt buộc"),
     locationDescription: Yup.string().required("Bắt buộc"),
@@ -53,18 +68,17 @@ const AddPlace = () => {
 
   const formik = useFormik({
     initialValues: {
-      locationName: "",
-      locationAddress: "",
-      locationDescription: "",
-      image_url: "",
+      locationName: place.location_name,
+      locationAddress: place.location_address,
+      locationDescription: place.location_description,
+      image_url: place.image_url,
       tags: [],
       transports: [],
     },
-    validationSchema: AddPlaceSchema,
+    validationSchema: EditPlaceSchema,
     onSubmit: (values) => {
-      console.log("Add place", values);
-
       var new_place = {
+        location_id: place.location_id,
         location_name: values.locationName,
         location_description: values.locationDescription,
         location_address: values.locationAddress,
@@ -76,14 +90,15 @@ const AddPlace = () => {
         motorbike: isTransport(values.transports, "motorbike"),
         tags: values.tags.join(", "),
       };
+      console.log("Edit place", new_place);
 
-      createPlace(new_place)
-        .then((res) => {
-          navigate.push("/admin/list-places");
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+      //   editPlace(new_place)
+      //     .then((res) => {
+      //       navigate.push("/admin/list-places");
+      //     })
+      //     .catch((e) => {
+      //       console.log(e);
+      //     });
     },
   });
 
@@ -104,7 +119,7 @@ const AddPlace = () => {
       <CssBaseline />
       <Container fixed>
         <LayoutAdmin>
-          <AdminTitle>Thêm địa danh</AdminTitle>
+          <AdminTitle>Sửa địa danh</AdminTitle>
           <div>
             <form onSubmit={formik.handleSubmit}>
               <div className="flex items-center">
@@ -332,4 +347,4 @@ const AddPlace = () => {
   );
 };
 
-export default AddPlace;
+export default EditPlace;

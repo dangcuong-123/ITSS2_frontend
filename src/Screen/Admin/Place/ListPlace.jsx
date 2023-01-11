@@ -6,31 +6,28 @@ import { AdminTitle } from "../../../style";
 import Button from "../../../components/Button";
 import Input from "../../../components/Input";
 import { Link } from "react-router-dom";
-import TablePlace from "../../../components/Table/TablePlace";
-// import { getPlace, searchPlace } from "../../../services/PlaceServices";
+import TablePlace from "../../../components/Table/TablePlaces/TablePlace";
+import { getPlace, searchPlace } from "../../../services/PlaceServices";
 
 const ListPlace = () => {
   const handleSearch = (e) => {
     console.log("SEARCH: ", e.target.value);
-    setPlaces(searchListPlaces);
     // searchPlace(e.target.value)
     //   .then((res) => {
     //     setPlaces(res.data);
     //   })
     //   .catch((err) => {});
   };
-  const [places, setPlaces] = useState(listPlaces);
+  const [places, setPlaces] = useState([]);
 
   useEffect(() => {
-    setPlaces(listPlaces);
-    // getPlace()
-    //   .then((res) => {
-        // setPlaces(res.data);
-    //     setPlacesLength(res.data.length);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+    getPlace()
+      .then((res) => {
+        setPlaces(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   return (
@@ -45,7 +42,7 @@ const ListPlace = () => {
               <Link to="add-place">Add Place</Link>
             </Button>
           </div>
-          <TablePlace listPlaces={places}/>
+          <TablePlace listPlaces={places} />
         </LayoutAdmin>
       </Container>
     </React.Fragment>
@@ -53,12 +50,3 @@ const ListPlace = () => {
 };
 
 export default ListPlace;
-
-const searchListPlaces = [
-  { id: 1, nameOfPlace: 'Côn Sơn Kiếp Bạc', province: 'Hải Dương', address: 'Chùa Côn Sơn Cộng Hòa Chí Linh', classify: 'Núi/Chùa/Danh lam thắng cảnh', transport: 'Xe máy/oto'},
-]
-
-const listPlaces = [
-  { id: 1, nameOfPlace: 'Côn Sơn Kiếp Bạc', province: 'Hải Dương', address: 'Chùa Côn Sơn Cộng Hòa Chí Linh', classify: 'Núi/Chùa/Danh lam thắng cảnh', transport: 'Xe máy/oto'},
-  { id: 2, nameOfPlace: 'ABC', province: 'Hải Dương', address: 'Chùa Côn Sơn Cộng Hòa Chí Linh', classify: 'Núi/Chùa/Danh lam thắng cảnh', transport: 'Xe máy/oto'},
-]

@@ -11,7 +11,7 @@ export default function TablePlace(props) {
       <DataGrid
         columns={getColumns}
         rows={listPlaces}
-        getRowId={(row) => row.id}
+        getRowId={(row) => row.location_id}
         disableSelectionOnClick={true}
       />
     </div>

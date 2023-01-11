@@ -15,6 +15,7 @@ import SearchPlanRestaurant from "../components/SearchPlan/SearchPlanRestaurant"
 import DetailPlan from "../Screen/Admin/Plan/PlanDetail";
 import ListPlace from "../Screen/Admin/Place/ListPlace";
 import AddPlace from "../Screen/Admin/Place/AddPlace";
+import EditPlace from "../Screen/Admin/Place/EditPlace";
 
 const Admin = () => {
   return (
@@ -47,7 +48,14 @@ const Admin = () => {
           element={<DetailHotel></DetailHotel>}
         ></Route>
         <Route path="add-hotel" element={<AddHotel></AddHotel>}></Route>
-        <Route path="list-places/add-place" element={<AddPlace></AddPlace>}></Route>
+        <Route
+          path="list-places/add-place"
+          element={<AddPlace></AddPlace>}
+        ></Route>
+        <Route
+          path="list-places/edit-place/:id"
+          element={<EditPlace></EditPlace>}
+        ></Route>
         <Route path="edit-hotel" element={<EditHotel></EditHotel>}></Route>
         <Route path="detail-plan" element={<DetailPlan></DetailPlan>}></Route>
       </Routes>
