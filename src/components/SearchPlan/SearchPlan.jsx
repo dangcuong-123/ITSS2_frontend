@@ -21,6 +21,7 @@ import {
   getHotelLowerEqualPrice,
   searchHotel,
 } from "../../services/HotelServices";
+import { useTranslation } from 'react-i18next';
 
 const marks = [
   {
@@ -84,6 +85,7 @@ const SearchPlan = () => {
   const handleClose = () => {
     setOpen(false);
   };
+	const { t } = useTranslation()
 
   useEffect(() => {
     getHotelLowerEqualPrice(finalPrice)

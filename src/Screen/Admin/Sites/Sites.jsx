@@ -14,16 +14,28 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Icon from "react-crud-icons";
+import { Link } from "react-router-dom";
 // import "react-crud-icons/dist/react-crud-icons.css";
 import "./icon.css";
+import { getSite } from "../../../services/SiteServices";
 const Sites = () => {
     function createData(sites, province, address, type, transportation, action) {
         return { sites, province, address, type, transportation, action };
     }
-    const [hotel, setHotel] = useState();
-    const [hotelLength, setHotelLength] = useState();
-    const { t } = useTranslation()
-
+    const { t } = useTranslation() ;
+    function returnVehicle(vehicle, value) {
+        if (value == 1) return vehicle ;
+        return ;
+    }
+    const [site, setSite] = useState([]);
+    console.log(site)
+    useEffect(() => {
+      getSite()
+        .then((res) => {    
+          setSite(res.data);
+        })
+        .catch((err) => {});
+    }, []);
     const rows = [
         createData('Biển Cát Bà', "Hải Phòng", "address", "Biển", "Ô tô", 1),
         createData('Biển Cát Bà', "Hải Phòng", "address", "Biển", "Ô tô", 1),
@@ -42,32 +54,37 @@ const Sites = () => {
                         <Button color="font-bold mr-0">
                             {t('sites.search')}
                         </Button>
+                        <Button color="font-bold mr-0">
+                        <Link to="/add-site">{t('sites.add')}</Link>
+                        </Button>
                     </div>
                     <div>
                         <TableContainer component={Paper}>
                             <Table sx={{ minWidth: 10}} aria-label="simple table">
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell align="left">Sites</TableCell>
-                                        <TableCell align="left">Province</TableCell>
-                                        <TableCell align="left">Address</TableCell>
+                                        <TableCell align="left">ID</TableCell>
+                                        <TableCell align="left">Tên địa danh</TableCell>
+                                        <TableCell align="left">Địa chỉ</TableCell>
+                                        <TableCell align="left">Mô tả </TableCell>
                                         <TableCell align="left">Type</TableCell>
-                                        <TableCell align="left">Transportation</TableCell>
-                                        <TableCell align="left">Action</TableCell>
+                                        <TableCell align="left">Phương tiện</TableCell>
+                                        <TableCell align="left">Hành động</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {rows.map((row) => (
+                                    {site.map((row, id) => (
                                         <TableRow
-                                            key={row.name}
+                                            key={id}
                                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                         >
                                             
-                                            <TableCell align="left">{row.sites}</TableCell>
-                                            <TableCell align="left">{row.province}</TableCell>
-                                            <TableCell align="left">{row.address}</TableCell>
-                                            <TableCell align="left">{row.type}</TableCell>
-                                            <TableCell align="left">{row.transportation}</TableCell>
+                                            <TableCell align="left">{row.location_id}</TableCell>
+                                            <TableCell align="left">{row.location_name}</TableCell>
+                                            <TableCell align="left">{row.location_address}</TableCell>
+                                            <TableCell align="left">{row.location_description}</TableCell>
+                                            <TableCell align="left">{row.tags}</TableCell>
+                                            <TableCell align="left">{returnVehicle("Thuyền",row.ship)} {returnVehicle("Ô tô",row.car)} {returnVehicle("Tàu hỏa",row.train)} {returnVehicle("Xe máy",row.motorbike)}</TableCell>
                                             <TableCell align="left">
                                                 <div className="icon">
                                                     <div>

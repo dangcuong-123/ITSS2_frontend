@@ -135,9 +135,20 @@
         "edit": "Chỉnh sửa", 
         "save": "Lưu lại"
     },
+    "userSearchPlan": {
+        "title": "Tìm kiếm Plan",
+        "search": "Tìm kiếm",
+        "hotelRecommend": "Khách sạn gợi ý",
+        "hotel": "Khách sạn", 
+        "restaurant": "Nhà hàng",
+        "alert": "Hãy đặt thời gian checkout lớn hơn checkin",
+        "cash": "Tiền mặt",
+        "apply": "Đặt"
+    },
     "sites": {
         "title": "Địa danh",
         "search": "Tìm kiếm địa danh",
+        "add": "Thêm địa danh",
         "description": "Mô tả địa danh",
         "url": "URL"
     },
