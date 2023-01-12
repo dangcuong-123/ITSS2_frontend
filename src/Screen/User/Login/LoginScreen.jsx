@@ -8,9 +8,11 @@ import Input from "../../../components/Input";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../../services/UserServices";
 import accountStore from "../../../store/AccountInfoStore";
+import { useTranslation } from "react-i18next";
 
 const LoginScreen = () => {
 	const navigate = useNavigate();
+	const { t } = useTranslation();
 
 	const [email, setEmail] = useState("");
 	const [emailError, setEmailError] = useState("");
@@ -50,10 +52,12 @@ const LoginScreen = () => {
 				if (res.status === 200) {
 					// accountStore.setIsAuthenticated();
 					// accountStore.updateAccountInfo(data);
-					
+
 					// use session storage to store user info
+					accountStore.email = email;
+					sessionStorage.setItem("username", res.data[0][0]);
 					sessionStorage.setItem("accountInfo", JSON.stringify(data));
-					navigate("/home");
+					navigate("/");
 				}
 			})
 			.catch((err) => {
