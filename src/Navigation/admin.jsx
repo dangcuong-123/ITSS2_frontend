@@ -15,6 +15,9 @@ import SearchPlanRestaurant from "../components/SearchPlan/SearchPlanRestaurant"
 import DetailPlan from "../Screen/Admin/Plan/PlanDetail";
 import Sites from "../Screen/Admin/Sites/Sites";
 import AddSite from "../Screen/Admin/Sites/AddSite";
+import ListPlace from "../Screen/Admin/Place/ListPlace";
+import AddPlace from "../Screen/Admin/Place/AddPlace";
+import EditPlace from "../Screen/Admin/Place/EditPlace";
 const Admin = () => {
 	return (
 		<div className="relative">
@@ -49,7 +52,15 @@ const Admin = () => {
 				<Route path="detail-plan" element={<DetailPlan></DetailPlan>}></Route>
 				<Route path="sites" element={<Sites></Sites>}></Route>
 				<Route path="add-site" element={<AddSite></AddSite>}></Route>
-
+        <Route path="list-places" element={<ListPlace></ListPlace>}></Route>
+        <Route
+          path="list-places/add-place"
+          element={<AddPlace></AddPlace>}
+        ></Route>
+        <Route
+          path="list-places/edit-place/:id"
+          element={<EditPlace></EditPlace>}
+        ></Route>
 			</Routes>
 		</div>
 	);

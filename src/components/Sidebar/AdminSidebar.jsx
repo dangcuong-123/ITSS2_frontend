@@ -7,6 +7,7 @@ import RestaurantIcon from "../../assets/HomePage/restaurant.svg";
 import SitesIcon from "../../assets/HomePage/gate.svg";
 import AccountIcon from "../../assets/HomePage/account-box.svg";
 import { useTranslation } from "react-i18next";
+import PlacesListIcon from "../../assets/HomePage/places.svg";
 
 const AdminSidebar = () => {
 	const { t } = useTranslation();
@@ -24,6 +25,9 @@ const AdminSidebar = () => {
 					<SidebarFirstContent icon={SearchIcon} link="/search-plan">
 						{t("adminSidebar.search")}
 					</SidebarFirstContent>
+          <SidebarFirstContent icon={PlacesListIcon} link="/list-places">
+            Places List
+          </SidebarFirstContent>
 					<SidebarFirstContent icon={SitesIcon} link="/sites">
 						{t("adminSidebar.sites")}
 					</SidebarFirstContent>
