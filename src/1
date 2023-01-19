@@ -1,0 +1,40 @@
+  // state handle show error message
+	const [errorMessage, setErrorMessage] = useState("");
+	const [open, setOpen] = useState(false)
+
+	// state handle show success message
+	const [successMessage, setSuccessMessage] = useState("");
+	const [openSuccess, setOpenSuccess] = useState(null);
+
+
+    setOpenSuccess(true);
+	setSuccessMessage("Add hotel success!");
+
+    setOpen(true)
+      setErrorMessage("Error")
+
+
+    {open && (
+        <Snackbar
+            open={open}
+            autoHideDuration={6000}
+            onClose={() => setOpen(false)}
+            anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        >
+            <Alert onClose={() => setOpen(false)} severity="error">
+                {errorMessage}
+            </Alert>
+        </Snackbar>
+    )}
+    {openSuccess && (
+        <Snackbar
+            open={openSuccess}
+            autoHideDuration={6000}
+            onClose={() => setOpenSuccess(false)}
+            anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        >
+            <Alert onClose={() => setOpenSuccess(false)} severity="success">
+                {successMessage}
+            </Alert>
+        </Snackbar>
+    )}

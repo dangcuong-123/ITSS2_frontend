@@ -24,7 +24,13 @@ const AddHotel = () => {
     { value: 'ha long', label: 'Ha long' },
     { value: 'hai phong', label: 'Hai phong' }
   ]
-  const [open, setOpen] = useState(false)
+    // state handle show error message
+	const [errorMessage, setErrorMessage] = useState("");
+	const [open, setOpen] = useState(false)
+
+	// state handle show success message
+	const [successMessage, setSuccessMessage] = useState("");
+	const [openSuccess, setOpenSuccess] = useState(null);
   const [severity, setSeverity] = useState('')
   const { t } = useTranslation()
 
@@ -81,12 +87,12 @@ const AddHotel = () => {
         }).then(()=>{
             console.log("Add hotel complete");
             // alert("Add hotel complete");
-            setOpen(true);
-            setSeverity('success')
+            setOpenSuccess(true);
+	          setSuccessMessage("Thêm khách sạn thành công!");
     }).catch((err) =>{
       console.log(err)
-      setSeverity('error')
       setOpen(true)
+      setErrorMessage("Error")
     })
 
   }
@@ -95,6 +101,32 @@ const AddHotel = () => {
     <LayoutAdmin>
       <div>
         <AdminTitle>{t('addHotel.title')}</AdminTitle>
+
+        {open && (
+          <Snackbar
+            open={open}
+            autoHideDuration={6000}
+            onClose={() => setOpen(false)}
+            anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          >
+            <Alert onClose={() => setOpen(false)} severity="error">
+                {errorMessage}
+            </Alert>
+          </Snackbar>
+        )}
+        {openSuccess && (
+          <Snackbar
+            open={openSuccess}
+            autoHideDuration={6000}
+            onClose={() => setOpenSuccess(false)}
+            anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          >
+            <Alert onClose={() => setOpenSuccess(false)} severity="success">
+                {successMessage}
+            </Alert>
+          </Snackbar>
+        )}
+
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
             <label className="text-black font-bold">
