@@ -1,6 +1,7 @@
 import React from "react";
 import Input from "../../components/Input";
 import Button from "../Button";
+import "./Comment.css";
 
 export const Comment = () => {
 	return (
@@ -14,11 +15,11 @@ export const Comment = () => {
 							<time dateTime="2020-03-16">Comment date</time>
 						</div>
 						<div>
-							<span class="fa fa-star"></span>
-							<span class="fa fa-star"></span>
-							<span class="fa fa-star"></span>
-							<span class="fa fa-star"></span>
-							<span class="fa fa-star"></span>
+							<span className="fa fa-star checked"></span>
+							<span className="fa fa-star"></span>
+							<span className="fa fa-star"></span>
+							<span className="fa fa-star"></span>
+							<span className="fa fa-star"></span>
 						</div>
 					</div>
 				</div>
