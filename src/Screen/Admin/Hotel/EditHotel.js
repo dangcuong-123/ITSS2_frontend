@@ -14,7 +14,14 @@ import { useTranslation } from 'react-i18next';
 const EditHotel = () => {
   const { id } = useParams();
   // console.log(id)
-  const [open, setOpen] = useState(false)
+  // state handle show error message
+	const [errorMessage, setErrorMessage] = useState("");
+	const [open, setOpen] = useState(false)
+
+	// state handle show success message
+	const [successMessage, setSuccessMessage] = useState("");
+	const [openSuccess, setOpenSuccess] = useState(null);
+
   const [severity, setSeverity] = useState('')
   const [hotelID, setHotelID] = useState([]);
   const [editContactId1, setEditContactId1] = useState(null);
@@ -173,12 +180,12 @@ const EditHotel = () => {
     }).then(() => {
       console.log("Edit hotel complete");
       // alert("Edit hotel complete");
-      setOpen(true);
-      setSeverity('success')
+      setOpenSuccess(true);
+	    setSuccessMessage("Sửa khách sạn thành công!");
     }).catch((err) => {
       console.log(err)
-      setSeverity('error')
       setOpen(true)
+      setErrorMessage("Error")
     })
 
   }
@@ -187,6 +194,30 @@ const EditHotel = () => {
       <div>
         <AdminTitle>{t('editHotel.title')}</AdminTitle>
 
+        {open && (
+          <Snackbar
+            open={open}
+            autoHideDuration={6000}
+            onClose={() => setOpen(false)}
+            anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          >
+            <Alert onClose={() => setOpen(false)} severity="error">
+                {errorMessage}
+            </Alert>
+          </Snackbar>
+        )}
+        {openSuccess && (
+          <Snackbar
+            open={openSuccess}
+            autoHideDuration={6000}
+            onClose={() => setOpenSuccess(false)}
+            anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          >
+            <Alert onClose={() => setOpenSuccess(false)} severity="success">
+                {successMessage}
+            </Alert>
+          </Snackbar>
+        )}
               <div className="flex items-center">
                 <div className="w-1/5 self-center text-end">
                   <label className="text-black font-bold">
