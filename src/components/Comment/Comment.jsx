@@ -13,6 +13,13 @@ export const Comment = () => {
 						<div className="flex space-x-1 text-sm text-gray-500">
 							<time dateTime="2020-03-16">Comment date</time>
 						</div>
+						<div>
+							<span class="fa fa-star"></span>
+							<span class="fa fa-star"></span>
+							<span class="fa fa-star"></span>
+							<span class="fa fa-star"></span>
+							<span class="fa fa-star"></span>
+						</div>
 					</div>
 				</div>
 			</div>
