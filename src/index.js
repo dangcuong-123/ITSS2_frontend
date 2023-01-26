@@ -6,7 +6,12 @@ import reportWebVitals from './reportWebVitals';
 import CssBaseline from '@mui/material/CssBaseline';
 import i18n from './translation/i18n';
 import { I18nextProvider } from 'react-i18next';
+// import { initializeApp, storage } from "firebase/app";
+// import { firebaseConfig } from './services/firebase/config';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
+// const app = initializeApp(firebaseConfig);
+
 root.render(
   <React.StrictMode>
     <CssBaseline />

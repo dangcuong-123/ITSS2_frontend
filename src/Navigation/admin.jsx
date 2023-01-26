@@ -18,6 +18,7 @@ import AddSite from "../Screen/Admin/Sites/AddSite";
 import ListPlace from "../Screen/Admin/Place/ListPlace";
 import AddPlace from "../Screen/Admin/Place/AddPlace";
 import EditPlace from "../Screen/Admin/Place/EditPlace";
+import MyForm from "../Screen/Admin/Sites/MyForm";
 const Admin = () => {
 	return (
 		<div className="relative">
