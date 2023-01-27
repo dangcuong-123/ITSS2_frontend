@@ -62,7 +62,7 @@ const Header = () => {
 								src={accountStore?.AccountInfo.imageUrl}
 								alt="avatar"
 							/>
-							<div class="font-medium dark:text-white">
+							<div className="font-medium dark:text-white">
 								<div className="font-bold">
 									{/* {accountStore?.AccountInfo.accountname} */}
 									{sessionStorage.getItem("username")}

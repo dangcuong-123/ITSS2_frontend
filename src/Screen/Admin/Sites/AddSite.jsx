@@ -6,19 +6,21 @@ import { AdminTitle } from "../../../style";
 import Button from "../../../components/Button";
 import Input from "../../../components/Input";
 import { useTranslation } from 'react-i18next';
-import { Link, useAsyncError } from "react-router-dom";
+import { Link, useAsyncError, useNavigate } from "react-router-dom";
 import { Snackbar, Alert } from "@mui/material"
 import Select from 'react-select'
 import { MultiSelect } from "react-multi-select-component";
+import { uploadImage } from "../../../services/firebase/uploadImage";
 
 const AddSite = () => {
+    const navigation = useNavigate()
     const { t } = useTranslation()
     const [name, setName] = useState("")
     const [address, setAddress] = useState("")
     const [intro, setIntro] = useState("")
     const [type, setType] = useState([])
     const [transportation, setTransportation] = useState([])
-    const [image, setImage] = useState("")
+    const [image, setImage] = useState([])
     const [province, setProvince] = useState("")
     const [description, setDescription] = useState("")
     const [open, setOpen] = useState(false)
@@ -68,46 +70,151 @@ const AddSite = () => {
     const types = type.map(function(item) {
         return item['value'];
       });
-      console.log(province.value)
+    // console.log(province.value)
     // console.log(types)
-    const handleClick = (e) =>{
+    const [openGlobalError, setOpenGlobalError] = useState()
+    const [globalError, setGlobalError] = useState()
+    const handleClick = async (e) =>{
         e.preventDefault();
-        const addSite = { 
-          "location_name": name, 
-          "location_address": address, 
-          "location_description": description,
-          "image_url": image,
-          "loc_province": province.value,
-          "tags": JSON.stringify(types),
-          "train": train,
-          "motorbike": bike,
-          "car": car,
-          "ship": ship
+        // e.currentTarget.disabled = true;
+        let check = false
+        let emptyArray = []
+        if(name.length == 0){
+            emptyArray.push("name")
+        }
+        if(address.length == 0){
+            emptyArray.push("address")
+        }
+        if(description.length == 0){
+            emptyArray.push("description")
+        }
+        if(image.length == 0){
+            emptyArray.push("image")
+        }
+        if(province.length == 0){
+            emptyArray.push("province")
+        }
+        if(transportation.length == 0){
+            emptyArray.push("transportation")
+        }
+        if(type.length == 0){
+            emptyArray.push("type")
+        }
+        
+        // if(emptyArray.length == 0) {
+        //     setOpenGlobalError(false)
+        // }
+        // else{
+        //     setOpenGlobalError(true)
+        // }
+        
+        // console.log("1")
+        // console.log("openGlobalError",openGlobalError)
+        // console.log("emptyArray",emptyArray.length)
+        
+        if(1){
+            console.log(image)
+            const image_url = await uploadImage(image[0])
+            const addSite = {
+                "location_name": name,
+                "location_address": address,
+                "location_description": description,
+                "image_url": image_url,
+                "loc_province": province.value,
+                "tags": JSON.stringify(types),
+                "train": train,
+                "motorbike": bike,
+                "car": car,
+                "ship": ship
 
-        //   "location_description": description,
-        //   "location_fee":price
-        };
-        console.log(addSite);
-        fetch("http://13.230.246.62:8080/location/create",{
-          method:"POST",
-                headers:{"Content-Type" : "application/json"},
-                body:JSON.stringify(addSite)
-            }).then(()=>{
-                console.log("Add location complete");
-                alert("Add location complete");
+                //   "location_description": description,
+                //   "location_fee":price
+            };
+            // console.log(addSite);
+            fetch("http://13.230.246.62:8080/location/create", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(addSite)
+            }).then(() => {
+
+                // alert("Add location complete");
                 setOpen(true);
                 setSeverity('success')
-        }).catch((err) =>{
-          console.log(err)
-          setSeverity('error')
-          setOpen(true)
-        })
-    
+            }).catch((err) => {
+                console.log(err)
+                setSeverity('error')
+                setOpen(true)
+            })
+        }
+        navigation('/sites')
       }
+    
+    const [errorSiteName, setErrorSiteName] = useState("")
+    const handleSiteName = (e) => {
+        if(e.target.value){
+            setName(e.target.value)
+            setErrorSiteName("")
+        }
+        else{
+            setErrorSiteName("Empty Site's name")
+            setName("")
+        }
+    }
+
+    const [errorAddress, setErroAddress] = useState("")
+    const handleAddress = (e) => {
+        if (e.target.value) {
+            setAddress(e.target.value)
+            setErroAddress("")
+        }
+        else {
+            setErrorSiteName("Empty Address")
+            setAddress("")
+        }
+    }
+
+    const [errorProvince, setErrorProvince] = useState("")
+    const handleProvince = (e) => {
+        if(e.target.value){
+            setProvince(e.target.value)
+            setErrorProvince("")
+        }
+        else{
+            setErrorProvince("Please select province")
+            setProvince("")
+        }
+    }
+
+    const [errorDescription, setErrorDescription] = useState("")
+    const handleDescription = (e) => {
+        if (e.target.value) {
+            setDescription(e.target.value)
+            setErrorDescription("")
+        }
+        else {
+            setErrorDescription("Empty Description")
+            setDescription("")
+        }
+    }
     return (
         <LayoutAdmin>
             <div>
                 <AdminTitle>{t('sites.title')}</AdminTitle>
+                {
+                    openGlobalError && (
+                        <Snackbar
+                            open={openGlobalError}
+                            autoHideDuration={6000}
+                            onClose={() => setOpenGlobalError(false)}
+                            anchorOrigin={{ vertical: "top", horizontal: "right" }}
+                        >
+                            <Alert onClose={() => setOpenGlobalError(false)} severity="error">
+                                {globalError}
+                            </Alert>
+                        </Snackbar>
+                    )
+                }
+                <form onSubmit={handleClick}>
                 <div className="flex items-center">
                     <div className="w-1/5 self-center text-end">
                         <label className="text-black font-bold">
@@ -120,9 +227,17 @@ const AddSite = () => {
                             type="text"
                             placeholder={t('addSite.name')}
                             value={name}
-                            onChange={(e) => setName(e.target.value)}
+                            onChange={handleSiteName}
+                            required={true}
                         />
+                        {
+                            errorSiteName.length !== 0 && 
+                            (
+                                <span style={{ padding: '15px', color: 'red', fontStyle: 'italic', fontSize: '15px' }}>{errorSiteName}</span>
+                            )
+                        }
                     </div>
+                    
                 </div>
 
                 <div className="flex items-center">
@@ -138,12 +253,18 @@ const AddSite = () => {
                             type="text"
                             placeholder={t('addSite.address')}
                             value={address}
-                            onChange={(e) => setAddress(e.target.value)}
+                            onChange={handleAddress}
+                            required={true}
                         />
+                        
                     </div>
-
                 </div>
-                
+                {/* {
+                    errorAddress.length !== 0 &&
+                    (
+                        <span style={{ padding: '15px', color: 'red', fontStyle: 'italic', fontSize: '15px' }}>{errorAddress}</span>
+                    )
+                } */}
                 {/* province  */}
                 <div className="flex items-center">
                     <div className="w-1/5 self-center text-end">
@@ -152,7 +273,7 @@ const AddSite = () => {
                             <span className="text-red-700"> *</span>
                         </label>
                     </div>
-                    <div className="items-center" style={{ padding: '10px' }}>
+                    <div className="items-center" style={{ padding: '10px', width: '150px'}}>
                         <Select options={provinceOptions} onChange={setProvince} />
                     </div>
                 </div >
@@ -170,9 +291,17 @@ const AddSite = () => {
                             type="text"
                             placeholder="Mô tả"
                             value={description}
-                            onChange={(e) => setDescription(e.target.value)}
+                            onChange={handleDescription}
+                            required={true}
                         />
+                        {
+                            errorDescription.length !== 0 &&
+                            (
+                                <span style={{ padding: '15px', color: 'red', fontStyle: 'italic', fontSize: '15px' }}>{errorDescription}</span>
+                            )
+                        }
                     </div>
+                    
                 </div>
 
                 <div className="flex items-center">
@@ -182,7 +311,7 @@ const AddSite = () => {
                             <span className="text-red-700"> *</span>
                         </label>
                     </div>
-                    <div className="items-center" style={{ padding: '10px' , width: '400px'}}>
+                    <div className="items-center" style={{ padding: '10px' , width: '150px'}}>
                         <MultiSelect options={typeOptions} value={type} onChange={setType} labelledBy="Select" />
                     </div>
                 </div >
@@ -194,7 +323,7 @@ const AddSite = () => {
                             <span className="text-red-700"> *</span>
                         </label>
                     </div>
-                    <div className="items-center" style={{ padding: '10px', width: '400px' }}>
+                    <div className="items-center" style={{ padding: '10px', width: '150px' }}>
                         <MultiSelect options={transportationOptions} value={transportation} onChange={setTransportation} labelledBy="Select" />
                     </div>
                 </div >
@@ -208,26 +337,28 @@ const AddSite = () => {
                     </div>
 
                     <div className="w-3/5 items-center">
-                        <Input
-                            type="text"
-                            placeholder={t('addSite.url')}
-                            value={image}
-                            onChange={(e) => setImage(e.target.value)}
+                        <input
+                            type="file"
+                            onChange={(e) => {
+                                console.log(e.target.files)
+                                setImage(e.target.files)
+                            }}
+                            required={true}
+                            style={{padding: '10px'}}
                         />
                     </div>
                 </div>
                 <div className="w-4/5 flex ml-4 justify-end">
-                    <Button color="from-[#961919] to-[#f6646e] font-bold">
-                        <Link to="/list-hotel">
+                    <Button color="from-[#961919] to-[#f6646e] font-bold" >
+                        <Link to="/sites">
                             {t('addSite.cancel')}
                         </Link>
                     </Button>
-                    <Button color="font-bold mr-0" onClick={handleClick}>
-                        <Link to='/list-hotel'>
-                        </Link>
+                    <Button color="font-bold mr-0"  type='submit'>
                         Thêm địa danh
                     </Button>
                 </div>
+            </form>
             </div>
         </LayoutAdmin>
     );
