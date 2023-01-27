@@ -1,4 +1,4 @@
-const Input = ({ custom, placeholder, onChange, value, type }) => {
+const Input = ({ custom, placeholder, onChange, value, type, required }) => {
   return (
     <div
       className={`relative flex w-full items-center m-4
@@ -11,6 +11,7 @@ const Input = ({ custom, placeholder, onChange, value, type }) => {
 						rounded-lg shadow outline-nonefocus:outline-none focus:ring w-full "
         onChange={onChange}
         value={value}
+        required={required}
       />
     </div>
   );
