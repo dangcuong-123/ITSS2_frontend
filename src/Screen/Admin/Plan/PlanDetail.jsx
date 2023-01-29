@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import LayoutAdmin from "../../../components/Sidebar/AdminContainer";
 import { AdminTitle } from "../../../style";
 import Button from "../../../components/Button";
 import { Link } from "react-router-dom";
+import { getRecommendTransport } from "../../../services/PlanServices";
 
 const DetailPlan = ({ hotel, restaurant }) => {
+  const [transports, setTransports] = useState([]);
   const listCardPlan = {
     plan_name: "Cat Ba Trip",
     hotel_name: "Highlight",
@@ -20,6 +22,15 @@ const DetailPlan = ({ hotel, restaurant }) => {
     location_restaurant: "So9, Ta Quang Buu, Hai Ba Trung, Ha Noi",
     cost_restaurant: "450000 VND",
   };
+  useEffect(() => {
+    getRecommendTransport("ha long") //TODO
+      .then((res) => {
+        setTransports(res.data.transport_list);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -95,7 +106,12 @@ const DetailPlan = ({ hotel, restaurant }) => {
         </div>
       </div>
       <div className="mb-10">{listCardPlan.hotel_detail}</div>
-
+      <div className="font-bold text-2xl mt-4">Phương tiện di chuyển</div>
+      <ul>
+        {transports.map((transport) => (
+          <li key={transport}>{transport}</li>
+        ))}
+      </ul>
       <div className="flex justify-between">
         <Button color="from-[#961919] to-[#f6646e] font-bold ml-0 py-1">
           <Link to="/search-plan-restaurant">Back</Link>
