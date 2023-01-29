@@ -12,18 +12,26 @@ import { useFormik } from "formik";
 import ListItemText from "@mui/material/ListItemText";
 import Checkbox from "@mui/material/Checkbox";
 import {
-  createPlace,
   getTags,
   PROVINCE_OPTIONS,
   TAG_OPTIONS,
   TRANSPORT_OPTIONS,
 } from "../../../services/PlaceServices";
 import { useNavigate } from "react-router-dom";
+import { uploadImage } from "../../../services/firebase/uploadImage";
+import { useTranslation } from "react-i18next";
+import { Snackbar, Alert } from "@mui/material";
 
 const AddPlace = () => {
   const [tagOptions, setTags] = useState([]);
   const [province, setProvince] = useState(PROVINCE_OPTIONS[0]);
   const navigate = useNavigate();
+  const [image, setImage] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [severity, setSeverity] = useState("");
+  const { t } = useTranslation();
+  const [openGlobalError, setOpenGlobalError] = useState();
+  const [globalError, setGlobalError] = useState();
 
   useEffect(() => {
     getTags()
@@ -48,7 +56,6 @@ const AddPlace = () => {
     locationName: Yup.string().required("Bắt buộc"),
     locationAddress: Yup.string().required("Bắt buộc"),
     locationDescription: Yup.string().required("Bắt buộc"),
-    image_url: Yup.string().required("Bắt buộc"),
   });
 
   const formik = useFormik({
@@ -61,29 +68,38 @@ const AddPlace = () => {
       transports: [],
     },
     validationSchema: AddPlaceSchema,
-    onSubmit: (values) => {
-      console.log("Add place", values);
+    onSubmit: async (values) => {
+      const image_url = await uploadImage(image[0]);
 
       var new_place = {
         location_name: values.locationName,
         location_description: values.locationDescription,
         location_address: values.locationAddress,
         loc_province: province,
-        image_url: values.image_url,
+        image_url: image_url,
         train: isTransport(values.transports, "train"),
         car: isTransport(values.transports, "car"),
         ship: isTransport(values.transports, "ship"),
         motorbike: isTransport(values.transports, "motorbike"),
-        tags: values.tags.join(", "),
+        tags: JSON.stringify(values.tags),
       };
-
-      createPlace(new_place)
-        .then((res) => {
-          navigate.push("/admin/list-places");
+      console.log("Add place", new_place);
+      fetch("http://13.230.246.62:8080/location/create", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(new_place),
+      })
+        .then(() => {
+          // alert("Add location complete");
+          setOpen(true);
+          setSeverity("success");
         })
-        .catch((e) => {
-          console.log(e);
+        .catch((err) => {
+          console.log(err);
+          setSeverity("error");
+          setOpen(true);
         });
+      navigate.push("/list-places");
     },
   });
 
@@ -104,8 +120,23 @@ const AddPlace = () => {
       <CssBaseline />
       <Container fixed>
         <LayoutAdmin>
-          <AdminTitle>Thêm địa danh</AdminTitle>
           <div>
+            <AdminTitle>{t("sites.title")}</AdminTitle>
+            {openGlobalError && (
+              <Snackbar
+                open={openGlobalError}
+                autoHideDuration={6000}
+                onClose={() => setOpenGlobalError(false)}
+                anchorOrigin={{ vertical: "top", horizontal: "right" }}
+              >
+                <Alert
+                  onClose={() => setOpenGlobalError(false)}
+                  severity="error"
+                >
+                  {globalError}
+                </Alert>
+              </Snackbar>
+            )}
             <form onSubmit={formik.handleSubmit}>
               <div className="flex items-center">
                 <div className="w-1/5 self-center text-end">
@@ -295,22 +326,18 @@ const AddPlace = () => {
                   </label>
                 </div>
                 <div className="w-3/5 items-center relative flex w-full items-center m-4 border-1 border-[#2286C3]">
-                  <TextField
-                    className="px-3 py-3 placeholder-[#21212180] text-slate-600 relative bg-white text-sm border-2 border-[#2286C3] 
-                                 rounded-lg shadow outline-nonefocus:outline-none focus:ring w-full"
-                    placeholder="Đường dẫn đến ảnh"
-                    id="image_url"
-                    name="image_url"
-                    value={formik.values.image_url}
-                    onChange={formik.handleChange}
-                    error={
-                      formik.touched.image_url &&
-                      Boolean(formik.errors.image_url)
-                    }
-                    helperText={
-                      formik.touched.image_url && formik.errors.image_url
-                    }
-                  />
+                  <div className="w-3/5 items-center">
+                    <input
+                      required={true}
+                      style={{ padding: "10px" }}
+                      accept="image/*"
+                      type="file"
+                      onChange={(e) => {
+                        console.log(e.target.files);
+                        setImage(e.target.files);
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
               <div className="w-4/5 flex ml-4 justify-end">
@@ -318,7 +345,7 @@ const AddPlace = () => {
                   color="from-[#961919] to-[#f6646e] font-bold"
                   type="button"
                 >
-                  <Link to="/admin/list-places">Hủy</Link>
+                  <Link to="/list-places">Hủy</Link>
                 </Button>
                 <Button color="font-bold mr-0" type="submit" autoFocus>
                   Lưu lại

@@ -12,8 +12,6 @@ import { useFormik } from "formik";
 import ListItemText from "@mui/material/ListItemText";
 import Checkbox from "@mui/material/Checkbox";
 import {
-  createPlace,
-  editPlace,
   getPlace,
   getTags,
   PROVINCE_OPTIONS,
@@ -21,6 +19,9 @@ import {
   TRANSPORT_OPTIONS,
 } from "../../../services/PlaceServices";
 import { useNavigate, useParams } from "react-router-dom";
+import { uploadImage } from "../../../services/firebase/uploadImage";
+import { useTranslation } from "react-i18next";
+import { Snackbar, Alert } from "@mui/material";
 
 const EditPlace = () => {
   const { id } = useParams();
@@ -28,12 +29,19 @@ const EditPlace = () => {
   const [province, setProvince] = useState(PROVINCE_OPTIONS[0]);
   const navigate = useNavigate();
   const [place, setPlace] = useState({});
+  const [image, setImage] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [severity, setSeverity] = useState("");
+  const { t } = useTranslation();
+  const [openGlobalError, setOpenGlobalError] = useState();
+  const [globalError, setGlobalError] = useState();
 
   useEffect(() => {
     getPlace()
       .then((res) => {
         var arr = res.data.filter((pl) => pl.location_id === Number(id));
         setPlace(arr[0]);
+        console.log();
       })
       .catch((err) => {
         console.log(err);
@@ -63,7 +71,6 @@ const EditPlace = () => {
     locationName: Yup.string().required("Bắt buộc"),
     locationAddress: Yup.string().required("Bắt buộc"),
     locationDescription: Yup.string().required("Bắt buộc"),
-    image_url: Yup.string().required("Bắt buộc"),
   });
 
   const formik = useFormik({
@@ -71,34 +78,43 @@ const EditPlace = () => {
       locationName: place.location_name,
       locationAddress: place.location_address,
       locationDescription: place.location_description,
-      image_url: place.image_url,
       tags: [],
       transports: [],
     },
     validationSchema: EditPlaceSchema,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
+      const image_url = await uploadImage(image[0]);
       var new_place = {
         location_id: place.location_id,
         location_name: values.locationName,
         location_description: values.locationDescription,
         location_address: values.locationAddress,
         loc_province: province,
-        image_url: values.image_url,
+        image_url: image_url,
         train: isTransport(values.transports, "train"),
         car: isTransport(values.transports, "car"),
         ship: isTransport(values.transports, "ship"),
         motorbike: isTransport(values.transports, "motorbike"),
-        tags: values.tags.join(", "),
+        tags: JSON.stringify(values.tags),
       };
       console.log("Edit place", new_place);
 
-      //   editPlace(new_place)
-      //     .then((res) => {
-      //       navigate.push("/admin/list-places");
-      //     })
-      //     .catch((e) => {
-      //       console.log(e);
-      //     });
+      fetch("http://13.230.246.62:8080/location/edit", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(new_place),
+      })
+        .then(() => {
+          // alert("Edit location complete");
+          setOpen(true);
+          setSeverity("success");
+        })
+        .catch((err) => {
+          console.log(err);
+          setSeverity("error");
+          setOpen(true);
+        });
+      navigate.push("/list-places");
     },
   });
 
@@ -119,8 +135,23 @@ const EditPlace = () => {
       <CssBaseline />
       <Container fixed>
         <LayoutAdmin>
-          <AdminTitle>Sửa địa danh</AdminTitle>
           <div>
+            <AdminTitle>{t("sites.title")}</AdminTitle>
+            {openGlobalError && (
+              <Snackbar
+                open={openGlobalError}
+                autoHideDuration={6000}
+                onClose={() => setOpenGlobalError(false)}
+                anchorOrigin={{ vertical: "top", horizontal: "right" }}
+              >
+                <Alert
+                  onClose={() => setOpenGlobalError(false)}
+                  severity="error"
+                >
+                  {globalError}
+                </Alert>
+              </Snackbar>
+            )}
             <form onSubmit={formik.handleSubmit}>
               <div className="flex items-center">
                 <div className="w-1/5 self-center text-end">
@@ -310,22 +341,18 @@ const EditPlace = () => {
                   </label>
                 </div>
                 <div className="w-3/5 items-center relative flex w-full items-center m-4 border-1 border-[#2286C3]">
-                  <TextField
-                    className="px-3 py-3 placeholder-[#21212180] text-slate-600 relative bg-white text-sm border-2 border-[#2286C3] 
-                                 rounded-lg shadow outline-nonefocus:outline-none focus:ring w-full"
-                    placeholder="Đường dẫn đến ảnh"
-                    id="image_url"
-                    name="image_url"
-                    value={formik.values.image_url}
-                    onChange={formik.handleChange}
-                    error={
-                      formik.touched.image_url &&
-                      Boolean(formik.errors.image_url)
-                    }
-                    helperText={
-                      formik.touched.image_url && formik.errors.image_url
-                    }
-                  />
+                  <div className="w-3/5 items-center">
+                    <input
+                      required={true}
+                      style={{ padding: "10px" }}
+                      accept="image/*"
+                      type="file"
+                      onChange={(e) => {
+                        console.log(e.target.files);
+                        setImage(e.target.files);
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
               <div className="w-4/5 flex ml-4 justify-end">
@@ -333,7 +360,7 @@ const EditPlace = () => {
                   color="from-[#961919] to-[#f6646e] font-bold"
                   type="button"
                 >
-                  <Link to="/admin/list-places">Hủy</Link>
+                  <Link to="/list-places">Hủy</Link>
                 </Button>
                 <Button color="font-bold mr-0" type="submit" autoFocus>
                   Lưu lại
