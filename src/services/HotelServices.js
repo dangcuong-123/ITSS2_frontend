@@ -17,9 +17,3 @@ export const getHotelLowerEqualPrice = async (price) => {
     `/hotel/search_hotel_lower_equal_price?price=${price}`
   );
 };
-
-export const getCommentsHotelById = async (id) => {
-  return await apiService.get(
-    `/comment/get_comments_by_hotel_id?hotel_id=${id}`
-  );
-};

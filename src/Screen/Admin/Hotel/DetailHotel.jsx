@@ -6,10 +6,9 @@ import { Comment } from "../../../components/Comment/Comment";
 // import Input from "../../../components/Input";
 import Button from "../../../components/Button";
 import { useParams } from "react-router-dom";
-import {
-  getHotelById,
-  getCommentsHotelById,
-} from "../../../services/HotelServices";
+import { getHotelById } from "../../../services/HotelServices";
+import { getCommentsHotelById } from "../../../services/CommentServices";
+
 import { useTranslation } from "react-i18next";
 
 const DetailHotel = (props) => {

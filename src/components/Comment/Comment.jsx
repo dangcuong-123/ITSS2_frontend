@@ -1,18 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import Input from "../../components/Input";
 import Button from "../Button";
 import "./Comment.css";
+import Box from "@mui/material/Box";
+import Rating from "@mui/material/Rating";
+import { createComment } from "../../services/CommentServices";
 
 export const Comment = (props) => {
+  const [star, setStar] = useState(4);
+  const [comment, setComment] = useState();
+
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "long", day: "numeric" };
     return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+
+  const handleSend = () => {
+    const data = {
+      hotel_id: 1,
+      comment_content: comment,
+      username: "admin",
+      star_number: star,
+    };
   };
   return (
     <div>
       {props.comments?.map((comment, idx) => {
         return (
-          <div keys={idx} className="flex justify-between m-2">
+          <div
+            keys={idx}
+            className="flex justify-between m-2 bg-slate-200 p-2 rounded-lg"
+          >
             <div className="flex items-center">
               {/* <img className="w-10 h-10 rounded-full" src="" alt="" /> */}
               <div className="ml-3">
@@ -38,11 +56,24 @@ export const Comment = (props) => {
           </div>
         );
       })}
-      <p className="mt-3 text-sm text-gray-700">Comment</p>
-      <hr className="mb-8" />
+      <p className="mt-3 text-lg font-bold text-gray-700">Bình luận</p>
       <div className="pb-8">
-        <Input type="text" placeholder="Comment" />
-        <Button>Send</Button>
+        <Input
+          type="text"
+          placeholder="Bình luận"
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
+        />
+        <Box className="ml-4">
+          <Rating
+            name="simple-controlled"
+            value={star}
+            onChange={(event, newValue) => {
+              setStar(newValue);
+            }}
+          />
+        </Box>
+        <Button onClick={handleSend}>Gửi</Button>
       </div>
     </div>
   );

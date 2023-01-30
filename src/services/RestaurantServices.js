@@ -19,9 +19,3 @@ export const getRestaurantLowerEqualPrice = async (price) => {
     `/restaurant/search_restaurant_lower_equal_price?price=${price}`
   );
 };
-
-export const getCommentsRestaurantById = async (id) => {
-  return await apiService.get(
-    `/comment/get_comments_by_restaurant_id?hotel_id=${id}`
-  );
-};

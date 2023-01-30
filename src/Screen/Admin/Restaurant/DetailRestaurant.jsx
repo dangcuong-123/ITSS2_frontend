@@ -4,12 +4,10 @@ import { AdminTitle } from "../../../style";
 import { Comment } from "../../../components/Comment/Comment";
 import Button from "../../../components/Button";
 import { useParams } from "react-router-dom";
-import {
-  getRestaurantById,
-  getCommentsRestaurantById,
-} from "../../../services/RestaurantServices";
+import { getRestaurantById } from "../../../services/RestaurantServices";
+import { getCommentsRestaurantById } from "../../../services/CommentServices";
+
 import { useTranslation } from "react-i18next";
-import { comment } from "postcss";
 
 const DetailRestaurant = () => {
   const listCardRestaurant = {
