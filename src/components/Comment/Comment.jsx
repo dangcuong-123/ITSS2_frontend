@@ -5,6 +5,7 @@ import "./Comment.css";
 import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
 import { createComment } from "../../services/CommentServices";
+import accountStore from "../../store/AccountInfoStore";
 
 export const Comment = (props) => {
   const [star, setStar] = useState(4);
@@ -16,12 +17,18 @@ export const Comment = (props) => {
   };
 
   const handleSend = () => {
-    const data = {
-      hotel_id: 1,
+    var data = {
       comment_content: comment,
-      username: "admin",
+      username: sessionStorage.getItem("username"),
       star_number: star,
     };
+    if (props.hotelId) {
+      data.hotel_id = props.hotelId;
+    }
+    if (props.restaurantId) {
+      data.restaurand_id = props.restaurantId;
+    }
+    console.log("🚀 ~ file: Comment.jsx:25 ~ handleSend ~ data", data);
   };
   return (
     <div>

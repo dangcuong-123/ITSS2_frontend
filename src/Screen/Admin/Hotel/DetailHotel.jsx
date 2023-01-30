@@ -87,7 +87,7 @@ const DetailHotel = (props) => {
       <div className="font-bold text-2xl mt-4">
         {t("detailHotel.review")} - {`[${listCardHome.star}]`}
       </div>
-      <Comment comments={comments} />
+      <Comment comments={comments} hotelId={id} />
     </LayoutAdmin>
   );
 };
