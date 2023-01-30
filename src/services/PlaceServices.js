@@ -25,9 +25,7 @@ export const editPlace = async (place) => {
 };
 
 export const deletePlace = async (id) => {
-  return await apiService.delete("/location/delete", {
-    id,
-  });
+  return await apiService.delete(`/location/delete?id=${id}`);
 };
 
 export const TRANSPORT_OPTIONS = [
@@ -43,6 +41,7 @@ export const TAG_OPTIONS = [
   { key: "hang dong", value: "Hang động" },
   { key: "chua", value: "Chùa" },
   { key: "danh lam thang canh", value: "Danh lam thắng cảnh" },
+  { key: "di tich lich su", value: "Di tích lịch sử" },
 ];
 
 export const PROVINCE_OPTIONS = [

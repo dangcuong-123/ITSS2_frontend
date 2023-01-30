@@ -1,13 +1,13 @@
-import * as React from 'react';
-import { DataGrid } from '@mui/x-data-grid';
-import {getColumns} from './ColumnTablePlace';
-import PropTypes from 'prop-types';
+import * as React from "react";
+import { DataGrid } from "@mui/x-data-grid";
+import { getColumns } from "./ColumnTablePlace";
+import PropTypes from "prop-types";
 
 export default function TablePlace(props) {
   const { listPlaces } = props;
 
   return (
-    <div style={{ height: 250, width: '100%' }}>
+    <div style={{ height: 700, width: "100%" }}>
       <DataGrid
         columns={getColumns}
         rows={listPlaces}

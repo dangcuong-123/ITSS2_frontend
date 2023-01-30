@@ -5,7 +5,13 @@ import LayoutAdmin from "../../../components/Sidebar/AdminContainer";
 import { AdminTitle } from "../../../style";
 import Button from "../../../components/Button";
 import { Link } from "react-router-dom";
-import { Autocomplete, FormControl, MenuItem, Select } from "@mui/material";
+import {
+  Autocomplete,
+  FormControl,
+  ListItemIcon,
+  MenuItem,
+  Select,
+} from "@mui/material";
 import { TextField } from "@mui/material";
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -18,36 +24,46 @@ import {
   TAG_OPTIONS,
   TRANSPORT_OPTIONS,
 } from "../../../services/PlaceServices";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { uploadImage } from "../../../services/firebase/uploadImage";
 import { useTranslation } from "react-i18next";
-import { Snackbar, Alert } from "@mui/material";
+import { useSnackbar } from "notistack";
 
 const EditPlace = () => {
   const { id } = useParams();
   const [tagOptions, setTags] = useState([]);
-  const [province, setProvince] = useState(PROVINCE_OPTIONS[0]);
-  const navigate = useNavigate();
   const [place, setPlace] = useState({});
   const [image, setImage] = useState([]);
-  const [open, setOpen] = useState(false);
-  const [severity, setSeverity] = useState("");
   const { t } = useTranslation();
-  const [openGlobalError, setOpenGlobalError] = useState();
-  const [globalError, setGlobalError] = useState();
+  const { enqueueSnackbar } = useSnackbar();
+  const [province, setProvince] = useState(PROVINCE_OPTIONS[0]);
 
   useEffect(() => {
-    getPlace()
-      .then((res) => {
+    const fetchData = async () => {
+      const data = await getPlace().then((res) => {
         var arr = res.data.filter((pl) => pl.location_id === Number(id));
-        setPlace(arr[0]);
-        console.log();
-      })
-      .catch((err) => {
-        console.log(err);
+        return arr[0];
       });
-  }, [id]);
+      setPlace(data);
+      setProvince(data.loc_province);
+    };
 
+    fetchData().catch(console.error);
+  }, [id]);
+  const {
+    location_name,
+    location_address,
+    location_description,
+    image_url,
+    train,
+    car,
+    ship,
+    motorbike,
+    tags,
+    loc_province,
+  } = place;
+
+  console.log(loc_province);
   useEffect(() => {
     getTags()
       .then((res) => {
@@ -75,29 +91,31 @@ const EditPlace = () => {
 
   const formik = useFormik({
     initialValues: {
-      locationName: place.location_name,
-      locationAddress: place.location_address,
-      locationDescription: place.location_description,
-      tags: [],
-      transports: [],
+      locationName: location_name,
+      locationAddress: location_address,
+      locationDescription: location_description,
+      transports: getArrayTransports(train, car, ship, motorbike),
+      tags: getArrayTags(tags ?? []),
     },
+    enableReinitialize: true,
     validationSchema: EditPlaceSchema,
     onSubmit: async (values) => {
-      const image_url = await uploadImage(image[0]);
+      const image_url_tmp =
+        image.length > 0 ? await uploadImage(image[0]) : image_url;
       var new_place = {
         location_id: place.location_id,
         location_name: values.locationName,
         location_description: values.locationDescription,
         location_address: values.locationAddress,
         loc_province: province,
-        image_url: image_url,
+        image_url: image_url_tmp,
         train: isTransport(values.transports, "train"),
         car: isTransport(values.transports, "car"),
         ship: isTransport(values.transports, "ship"),
         motorbike: isTransport(values.transports, "motorbike"),
         tags: JSON.stringify(values.tags),
       };
-      console.log("Edit place", new_place);
+      console.log("Edit place", values.transports);
 
       fetch("http://13.230.246.62:8080/location/edit", {
         method: "PUT",
@@ -105,16 +123,16 @@ const EditPlace = () => {
         body: JSON.stringify(new_place),
       })
         .then(() => {
-          // alert("Edit location complete");
-          setOpen(true);
-          setSeverity("success");
+          enqueueSnackbar("Edit Success", {
+            variant: "success",
+          });
         })
         .catch((err) => {
           console.log(err);
-          setSeverity("error");
-          setOpen(true);
+          enqueueSnackbar("Edit Failed", {
+            variant: "error",
+          });
         });
-      navigate.push("/list-places");
     },
   });
 
@@ -137,26 +155,11 @@ const EditPlace = () => {
         <LayoutAdmin>
           <div>
             <AdminTitle>{t("sites.title")}</AdminTitle>
-            {openGlobalError && (
-              <Snackbar
-                open={openGlobalError}
-                autoHideDuration={6000}
-                onClose={() => setOpenGlobalError(false)}
-                anchorOrigin={{ vertical: "top", horizontal: "right" }}
-              >
-                <Alert
-                  onClose={() => setOpenGlobalError(false)}
-                  severity="error"
-                >
-                  {globalError}
-                </Alert>
-              </Snackbar>
-            )}
             <form onSubmit={formik.handleSubmit}>
               <div className="flex items-center">
                 <div className="w-1/5 self-center text-end">
                   <label className="text-black font-bold">
-                    Tên
+                    {t("addSite.name")}
                     <span className="text-red-700"> *</span>
                   </label>
                 </div>
@@ -168,7 +171,7 @@ const EditPlace = () => {
                     name="locationName"
                     value={formik.values.locationName}
                     onChange={formik.handleChange}
-                    placeholder="Tên địa danh"
+                    placeholder={t("addSite.name")}
                     error={
                       formik.touched.locationName &&
                       Boolean(formik.errors.locationName)
@@ -183,7 +186,7 @@ const EditPlace = () => {
               <div className="flex items-center">
                 <div className="w-1/5 self-center text-end">
                   <label className="text-black font-bold">
-                    Địa chỉ
+                    {t("addSite.address")}
                     <span className="text-red-700"> *</span>
                   </label>
                 </div>
@@ -192,7 +195,7 @@ const EditPlace = () => {
                   <TextField
                     className="px-3 py-3 placeholder-[#21212180] text-slate-600 relative bg-white text-sm border-2 border-[#2286C3] 
                                  rounded-lg shadow outline-nonefocus:outline-none focus:ring w-full"
-                    placeholder="Địa chỉ"
+                    placeholder={t("addSite.address")}
                     id="locationAddress"
                     name="locationAddress"
                     value={formik.values.locationAddress}
@@ -212,7 +215,7 @@ const EditPlace = () => {
               <div className="flex items-center">
                 <div className="w-1/5 self-center text-end">
                   <label className="text-black font-bold">
-                    Tỉnh/Thành phố
+                    {t("addSite.province")}
                     <span className="text-red-700"> *</span>
                   </label>
                 </div>
@@ -233,6 +236,7 @@ const EditPlace = () => {
                         className="px-3 py-3 placeholder-[#21212180] text-slate-600 relative bg-white text-sm border-2 border-[#2286C3] 
                                  rounded-lg shadow outline-nonefocus:outline-none focus:ring w-full"
                         name="province"
+                        placeholder={t("addSite.province")}
                       />
                     )}
                   />
@@ -242,35 +246,7 @@ const EditPlace = () => {
               <div className="flex items-center">
                 <div className="w-1/5 self-center text-end">
                   <label className="text-black font-bold">
-                    Mô tả
-                    <span className="text-red-700"> *</span>
-                  </label>
-                </div>
-                <div className="w-3/5 items-center relative flex w-full items-center m-4 border-1 border-[#2286C3]">
-                  <TextField
-                    className="px-3 py-3 placeholder-[#21212180] text-slate-600 relative bg-white text-sm border-2 border-[#2286C3] 
-                                 rounded-lg shadow outline-nonefocus:outline-none focus:ring w-full"
-                    placeholder="Viết mô tả địa danh"
-                    id="locationDescription"
-                    name="locationDescription"
-                    value={formik.values.locationDescription}
-                    onChange={formik.handleChange}
-                    error={
-                      formik.touched.locationAddress &&
-                      Boolean(formik.errors.locationAddress)
-                    }
-                    helperText={
-                      formik.touched.locationAddress &&
-                      formik.errors.locationAddress
-                    }
-                  />
-                </div>
-              </div>
-
-              <div className="flex items-center">
-                <div className="w-1/5 self-center text-end">
-                  <label className="text-black font-bold">
-                    Phân loại
+                    {t("addSite.type")}
                     <span className="text-red-700"> *</span>
                   </label>
                 </div>
@@ -283,10 +259,42 @@ const EditPlace = () => {
                       id="tags"
                       name="tags"
                       value={formik.values.tags}
-                      onChange={formik.handleChange}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        if (value[value.length - 1] === "all") {
+                          formik.setFieldValue(
+                            "tags",
+                            formik.values.tags.length === tagOptions.length
+                              ? []
+                              : tagOptions.map((a) => a.value)
+                          );
+                          return;
+                        }
+                        formik.setFieldValue("tags", value);
+                      }}
                       multiple
-                      renderValue={(selected) => selected.join(", ")}
+                      renderValue={(selected) => {
+                        if (selected.length === 0) {
+                          return <em>{t("addSite.type")}</em>;
+                        }
+                        return selected.join(", ");
+                      }}
                     >
+                      <MenuItem value="all" classes={{}}>
+                        <ListItemIcon>
+                          <Checkbox
+                            checked={
+                              tagOptions.length > 0 &&
+                              formik.values.tags.length === tagOptions.length
+                            }
+                            indeterminate={
+                              formik.values.tags.length > 0 &&
+                              formik.values.tags.length < tagOptions.length
+                            }
+                          />
+                        </ListItemIcon>
+                        <ListItemText primary="Select All" />
+                      </MenuItem>
                       {tagOptions.map(({ value, key }) => (
                         <MenuItem key={key} value={value}>
                           <Checkbox
@@ -302,7 +310,7 @@ const EditPlace = () => {
               <div className="flex items-center">
                 <div className="w-1/5 self-center text-end">
                   <label className="text-black font-bold">
-                    Phương tiện di chuyển
+                    {t("addSite.transportation")}
                     <span className="text-red-700"> *</span>
                   </label>
                 </div>
@@ -315,10 +323,45 @@ const EditPlace = () => {
                       id="transports"
                       name="transports"
                       value={formik.values.transports}
-                      onChange={formik.handleChange}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        if (value[value.length - 1] === "all") {
+                          formik.setFieldValue(
+                            "transports",
+                            formik.values.transports.length ===
+                              TRANSPORT_OPTIONS.length
+                              ? []
+                              : TRANSPORT_OPTIONS.map((a) => a.value)
+                          );
+                          return;
+                        }
+                        formik.setFieldValue("transports", value);
+                      }}
                       multiple
-                      renderValue={(selected) => selected.join(", ")}
+                      renderValue={(selected) => {
+                        if (selected.length === 0) {
+                          return <em>{t("addSite.transportation")}</em>;
+                        }
+                        return selected.join(", ");
+                      }}
                     >
+                      <MenuItem value="all" classes={{}}>
+                        <ListItemIcon>
+                          <Checkbox
+                            checked={
+                              TRANSPORT_OPTIONS.length > 0 &&
+                              formik.values.transports.length ===
+                                TRANSPORT_OPTIONS.length
+                            }
+                            indeterminate={
+                              formik.values.transports.length > 0 &&
+                              formik.values.transports.length <
+                                TRANSPORT_OPTIONS.length
+                            }
+                          />
+                        </ListItemIcon>
+                        <ListItemText primary="Select All" />
+                      </MenuItem>
                       {TRANSPORT_OPTIONS.map(({ key, value }) => (
                         <MenuItem key={key} value={value}>
                           <Checkbox
@@ -336,15 +379,42 @@ const EditPlace = () => {
               <div className="flex items-center">
                 <div className="w-1/5 self-center text-end">
                   <label className="text-black font-bold">
-                    Ảnh
+                    {t("addSite.description")}
+                    <span className="text-red-700"> *</span>
+                  </label>
+                </div>
+                <div className="w-3/5 items-center relative flex w-full items-center m-4 border-1 border-[#2286C3]">
+                  <TextField
+                    className="px-3 py-3 placeholder-[#21212180] text-slate-600 relative bg-white text-sm border-2 border-[#2286C3] 
+                                 rounded-lg shadow outline-nonefocus:outline-none focus:ring w-full"
+                    placeholder={t("addSite.description")}
+                    id="locationDescription"
+                    name="locationDescription"
+                    multiline
+                    rows={4}
+                    value={formik.values.locationDescription}
+                    onChange={formik.handleChange}
+                    error={
+                      formik.touched.locationDescription &&
+                      Boolean(formik.errors.locationDescription)
+                    }
+                    helperText={
+                      formik.touched.locationDescription &&
+                      formik.errors.locationDescription
+                    }
+                  />
+                </div>
+              </div>
+              <div className="flex items-center">
+                <div className="w-1/5 self-center text-end">
+                  <label className="text-black font-bold">
+                    {t("addSite.url")}
                     <span className="text-red-700"> *</span>
                   </label>
                 </div>
                 <div className="w-3/5 items-center relative flex w-full items-center m-4 border-1 border-[#2286C3]">
                   <div className="w-3/5 items-center">
                     <input
-                      required={true}
-                      style={{ padding: "10px" }}
                       accept="image/*"
                       type="file"
                       onChange={(e) => {
@@ -355,12 +425,13 @@ const EditPlace = () => {
                   </div>
                 </div>
               </div>
+
               <div className="w-4/5 flex ml-4 justify-end">
                 <Button
                   color="from-[#961919] to-[#f6646e] font-bold"
                   type="button"
                 >
-                  <Link to="/list-places">Hủy</Link>
+                  <Link to="/list-places">Back</Link>
                 </Button>
                 <Button color="font-bold mr-0" type="submit" autoFocus>
                   Lưu lại
@@ -375,3 +446,27 @@ const EditPlace = () => {
 };
 
 export default EditPlace;
+
+const getArrayTransports = (hasTrain, hasCar, hasShip, hasMotorbike) => {
+  var list = [];
+  if (hasTrain === 1) {
+    list.push("Tàu hỏa");
+  }
+  if (hasCar === 1) {
+    list.push("Ô tô");
+  }
+  if (hasShip === 1) {
+    list.push("Tàu thủy");
+  }
+  if (hasMotorbike === 1) {
+    list.push("Xe máy");
+  }
+  return list;
+};
+
+const getArrayTags = (tags) => {
+  var list = [];
+  tags.map((x) => list.push(x));
+  console.log(tags);
+  return list;
+};
