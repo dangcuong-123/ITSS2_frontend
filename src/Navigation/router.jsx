@@ -14,42 +14,41 @@ import Customer from "./customer";
 import Sites from "../Screen/Admin/Sites/Sites";
 
 const Home = () => {
-	return !sessionStorage.getItem("accountInfo") ? (
-		<Customer />
-	) : JSON.parse(sessionStorage.getItem("accountInfo")).email ===
-	  "admin@gmail.com" ? (
-		<Admin />
-	) : (
-		<User />
-	);
+  return !sessionStorage.getItem("accountInfo") ? (
+    <Customer />
+  ) : JSON.parse(sessionStorage.getItem("accountInfo")).email ===
+    "admin@gmail.com" ? (
+    <Admin />
+  ) : (
+    <User />
+  );
 };
 
 const Router = () => {
-	return (
-		<BrowserRouter>
-			<Header />
-			<Routes>
-				<Route path="login" element={<LoginScreen />} />
-				<Route path="register" element={<RegisterScreen />} />
-				<Route path="password_forgot" element={<PasswordForgotScreen />} />
-				{/* <Route path="/*" element={<Customer />} /> */}
-				<Route path="/*" element={<Home />} />
-				{/* <Route path="user/*" element={<User />} /> */}
-				<Route path="detail-plan" element={<DetailPlan></DetailPlan>}></Route>
-				<Route path="add-hotel" element={<AddHotel></AddHotel>} />
-				<Route path="edit-hotel/:id" element={<EditHotel></EditHotel>} />
-				<Route
-					path="add-restaurant"
-					element={<AddRestaurant></AddRestaurant>}
-				/>
-				<Route
-					path="edit-restaurant/:id"
-					element={<EditRestaurant></EditRestaurant>}
-				/>
-				
-			</Routes>
-		</BrowserRouter>
-	);
+  return (
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path="login" element={<LoginScreen />} />
+        <Route path="register" element={<RegisterScreen />} />
+        <Route path="password_forgot" element={<PasswordForgotScreen />} />
+        {/* <Route path="/*" element={<Customer />} /> */}
+        <Route path="/*" element={<Home />} />
+        {/* <Route path="user/*" element={<User />} /> */}
+        {/* <Route path="detail-plan" element={<DetailPlan></DetailPlan>}></Route> */}
+        {/* <Route path="add-hotel" element={<AddHotel></AddHotel>} />
+        <Route path="edit-hotel/:id" element={<EditHotel></EditHotel>} />
+        <Route
+          path="add-restaurant"
+          element={<AddRestaurant></AddRestaurant>}
+        />
+        <Route
+          path="edit-restaurant/:id"
+          element={<EditRestaurant></EditRestaurant>}
+        /> */}
+      </Routes>
+    </BrowserRouter>
+  );
 };
 
 export default Router;

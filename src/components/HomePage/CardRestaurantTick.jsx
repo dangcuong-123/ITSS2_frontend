@@ -130,10 +130,7 @@ const CardRestaurantTick = ({ restaurant, hotelSelect }) => {
         >
           Next
         </Button> */}
-        <Link
-          to={"/user/detail-plan"}
-          state={{ hotelSelect, restaurantSelect }}
-        >
+        <Link to={"/detail-plan"} state={{ hotelSelect, restaurantSelect }}>
           <Button variant="contained" color="success">
             Tiếp
           </Button>

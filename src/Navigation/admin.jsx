@@ -19,6 +19,10 @@ import ListPlace from "../Screen/Admin/Place/ListPlace";
 import AddPlace from "../Screen/Admin/Place/AddPlace";
 import EditPlace from "../Screen/Admin/Place/EditPlace";
 const Admin = () => {
+  console.log(
+    '🚀 ~ file: router.jsx:20 ~ Home ~ sessionStorage.getItem("accountInfo")',
+    sessionStorage.getItem("accountInfo")
+  );
   return (
     <div className="relative">
       <AdminSidebar />
@@ -26,7 +30,7 @@ const Admin = () => {
         <Route path="/" element={<HomePageScreen />} />
         <Route path="search-plan" element={<SearchPlan />} />
         <Route
-          path="search-plan-restaurant"
+          path="search-plan/search-plan-restaurant"
           element={<SearchPlanRestaurant />}
         />
         <Route
@@ -52,7 +56,10 @@ const Admin = () => {
         <Route path="detail-plan" element={<DetailPlan></DetailPlan>}></Route>
         <Route path="sites" element={<Sites></Sites>}></Route>
         <Route path="add-site" element={<AddSite></AddSite>}></Route>
-        <Route path="list-places" element={<ListPlace></ListPlace>}></Route>
+        <Route
+          path="admin/list-places"
+          element={<ListPlace></ListPlace>}
+        ></Route>
         <Route
           path="list-places/add-place"
           element={<AddPlace></AddPlace>}

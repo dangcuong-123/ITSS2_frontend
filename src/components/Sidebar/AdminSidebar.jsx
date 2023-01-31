@@ -25,16 +25,19 @@ const AdminSidebar = () => {
           <SidebarFirstContent icon={SearchIcon} link="/search-plan">
             {t("adminSidebar.search")}
           </SidebarFirstContent>
-          <SidebarFirstContent icon={PlacesListIcon} link="/list-places">
+          <SidebarFirstContent icon={PlacesListIcon} link="/admin/list-places">
             Places List
           </SidebarFirstContent>
-          <SidebarFirstContent icon={SitesIcon} link="/sites">
+          <SidebarFirstContent icon={SitesIcon} link="/admin/sites">
             {t("adminSidebar.sites")}
           </SidebarFirstContent>
-          <SidebarFirstContent icon={HotelListIcon} link="/list-hotel">
+          <SidebarFirstContent icon={HotelListIcon} link="/admin/list-hotel">
             {t("adminSidebar.hotel")}
           </SidebarFirstContent>
-          <SidebarFirstContent icon={RestaurantIcon} link="/list-restaurant">
+          <SidebarFirstContent
+            icon={RestaurantIcon}
+            link="admin/list-restaurant"
+          >
             {t("adminSidebar.restaurant")}
           </SidebarFirstContent>
           {/* <SidebarFirstContent icon={DownloadIcon} link="/saved">
