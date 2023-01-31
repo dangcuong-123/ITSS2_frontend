@@ -111,7 +111,11 @@ const DetailRestaurant = () => {
       <div className="font-bold text-2xl mt-4">
         {t("detailRest.review")} - {`[${listCardRestaurant.star}]`}
       </div>
-      <Comment comments={comments} restaurantId={id} />
+      <Comment
+        comments={comments}
+        restaurantId={id}
+        setComments={setComments}
+      />
     </LayoutAdmin>
   );
 };

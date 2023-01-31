@@ -4,12 +4,19 @@ import Button from "../Button";
 import "./Comment.css";
 import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
-import { createComment } from "../../services/CommentServices";
-import accountStore from "../../store/AccountInfoStore";
+import {
+  createComment,
+  getCommentsHotelById,
+  getCommentsRestaurantById,
+} from "../../services/CommentServices";
+import { Alert, Snackbar } from "@mui/material";
 
 export const Comment = (props) => {
   const [star, setStar] = useState(4);
   const [comment, setComment] = useState();
+
+  const [errorMessage, setErrorMessage] = useState("");
+  const [open, setOpen] = useState(false);
 
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "long", day: "numeric" };
@@ -28,10 +35,60 @@ export const Comment = (props) => {
     if (props.restaurantId) {
       data.restaurand_id = props.restaurantId;
     }
-    console.log("🚀 ~ file: Comment.jsx:25 ~ handleSend ~ data", data);
+    if (data.username) {
+      if (data.comment_content) {
+        createComment(data)
+          .then((res) => {
+            if (res.status === 200) {
+              if (props?.hotelId) {
+                getCommentsHotelById(props.hotelId)
+                  .then((res) => {
+                    props.setComments(res.data["comments"]);
+                  })
+                  .catch((err) => {
+                    props.setComments([]);
+                  });
+              }
+              if (props?.restaurantId) {
+                getCommentsRestaurantById(props.restaurantId)
+                  .then((res) => {
+                    props.setComments(res.data["comments"]);
+                  })
+                  .catch((err) => {
+                    props.setComments([]);
+                  });
+              }
+            }
+          })
+          .catch((err) => {
+            if (err?.response?.data?.message) {
+              setOpen(true);
+              setErrorMessage(err?.response?.data?.message);
+            }
+          });
+      } else {
+        setOpen(true);
+        setErrorMessage("Bạn chưa bình luận");
+      }
+    } else {
+      setOpen(true);
+      setErrorMessage("Chưa đăng nhập");
+    }
   };
   return (
     <div>
+      {open && (
+        <Snackbar
+          open={open}
+          autoHideDuration={6000}
+          onClose={() => setOpen(false)}
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        >
+          <Alert onClose={() => setOpen(false)} severity="error">
+            {errorMessage}
+          </Alert>
+        </Snackbar>
+      )}
       {props.comments?.map((comment, idx) => {
         return (
           <div
