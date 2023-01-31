@@ -7,6 +7,7 @@ import { searchHotel } from "../../../services/HotelServices";
 import { searchRestaurant } from "../../../services/RestaurantServices";
 import { createPlan } from "../../../services/PlanServices";
 import { useTranslation } from "react-i18next";
+import { Alert, Snackbar } from "@mui/material";
 
 const DetailPlan = ({ hotel, restaurant }) => {
   const location = useLocation();
@@ -14,6 +15,10 @@ const DetailPlan = ({ hotel, restaurant }) => {
   const { hotelSelect, restaurantSelect } = location.state;
   const [cardHotel, setCardHotel] = useState();
   const [cardRestaurant, setCardRestaurant] = useState();
+
+  // Notification
+  const [errorMessage, setErrorMessage] = useState("");
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     searchHotel(hotelSelect)
@@ -40,27 +45,45 @@ const DetailPlan = ({ hotel, restaurant }) => {
   };
 
   const savePlan = (e) => {
-    const data = {
-      location_id: cardHotel?.location_id,
-      hotel_id: cardHotel?.hotel_id,
-      restaurant_id: cardRestaurant?.restaurant_id,
-      user_id: 0,
-    };
-    createPlan(data)
-      .then((res) => {
-        if (res.status === 200) {
-          navigate("/saved");
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (sessionStorage.getItem("username")) {
+      const data = {
+        location_id: cardHotel?.location_id,
+        hotel_id: cardHotel?.hotel_id,
+        restaurant_id: cardRestaurant?.restaurant_id,
+        user_id: 0,
+      };
+      createPlan(data)
+        .then((res) => {
+          if (res.status === 200) {
+            navigate("/saved");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      setOpen(true);
+      setErrorMessage("Bạn chưa đăng nhập");
+    }
   };
   const { t } = useTranslation();
 
   return (
     <LayoutAdmin>
       <AdminTitle>{t("planDetail.title")}</AdminTitle>
+      {open && (
+        <Snackbar
+          open={open}
+          autoHideDuration={6000}
+          onClose={() => setOpen(false)}
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        >
+          <Alert onClose={() => setOpen(false)} severity="error">
+            {errorMessage}
+          </Alert>
+        </Snackbar>
+      )}
+
       <div className="font-bold text-2xl mt-4">KHÁCH SẠN</div>
       <div className="font-bold text-2xl mt-4 my-2">
         Tên Khách Sạn - {`[${cardHotel?.hotel_name}]`}

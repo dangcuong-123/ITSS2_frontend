@@ -33,7 +33,7 @@ export const Comment = (props) => {
       data.hotel_id = props.hotelId;
     }
     if (props.restaurantId) {
-      data.restaurand_id = props.restaurantId;
+      data.restaurant_id = props.restaurantId;
     }
     if (data.username) {
       if (data.comment_content) {

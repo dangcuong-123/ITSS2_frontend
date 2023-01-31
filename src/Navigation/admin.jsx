@@ -18,6 +18,8 @@ import AddSite from "../Screen/Admin/Sites/AddSite";
 import ListPlace from "../Screen/Admin/Place/ListPlace";
 import AddPlace from "../Screen/Admin/Place/AddPlace";
 import EditPlace from "../Screen/Admin/Place/EditPlace";
+import ListPlan from "../Screen/Admin/Plan/ListPlan";
+import Profile from "../Screen/User/Profile/Profile";
 const Admin = () => {
   console.log(
     '🚀 ~ file: router.jsx:20 ~ Home ~ sessionStorage.getItem("accountInfo")',
@@ -56,10 +58,7 @@ const Admin = () => {
         <Route path="detail-plan" element={<DetailPlan></DetailPlan>}></Route>
         <Route path="sites" element={<Sites></Sites>}></Route>
         <Route path="add-site" element={<AddSite></AddSite>}></Route>
-        <Route
-          path="admin/list-places"
-          element={<ListPlace></ListPlace>}
-        ></Route>
+        <Route path="/list-places" element={<ListPlace></ListPlace>}></Route>
         <Route
           path="list-places/add-place"
           element={<AddPlace></AddPlace>}
@@ -68,6 +67,8 @@ const Admin = () => {
           path="list-places/edit-place/:id"
           element={<EditPlace></EditPlace>}
         ></Route>
+        <Route path="saved" element={<ListPlan></ListPlan>}></Route>
+        <Route path="account" element={<Profile></Profile>}></Route>
       </Routes>
     </div>
   );

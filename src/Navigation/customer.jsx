@@ -8,7 +8,7 @@ import ListRestaurant from "../Screen/Admin/Restaurant/ListRestaurant";
 import DetailRestaurant from "../Screen/Admin/Restaurant/DetailRestaurant";
 import DetailHotel from "../Screen/Admin/Hotel/DetailHotel";
 import CustomerSiderbar from "../components/Sidebar/CustomerSiderbar";
-
+import DetailPlan from "../Screen/Admin/Plan/PlanDetail";
 
 const Customer = () => {
   return (
@@ -21,6 +21,11 @@ const Customer = () => {
           path="search-plan-restaurant"
           element={<SearchPlanRestaurant />}
         />
+        <Route
+          path="search-plan/search-plan-restaurant"
+          element={<SearchPlanRestaurant />}
+        />
+        <Route path="detail-plan" element={<DetailPlan></DetailPlan>}></Route>
         <Route path="list-hotel" element={<ListHotel></ListHotel>}></Route>
         <Route
           path="detail-hotel/:id"
@@ -34,7 +39,6 @@ const Customer = () => {
           path="list-restaurant"
           element={<ListRestaurant></ListRestaurant>}
         ></Route>
-        
       </Routes>
     </div>
   );

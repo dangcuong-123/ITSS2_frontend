@@ -3,7 +3,7 @@ import LayoutAdmin from "../../../components/Sidebar/AdminContainer";
 import { AdminTitle } from "../../../style";
 import { Comment } from "../../../components/Comment/Comment";
 import Button from "../../../components/Button";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getRestaurantById } from "../../../services/RestaurantServices";
 import { getCommentsRestaurantById } from "../../../services/CommentServices";
 
@@ -31,6 +31,7 @@ const DetailRestaurant = () => {
   const [comments, setComments] = useState();
   const { id } = useParams();
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (id) {
@@ -102,7 +103,10 @@ const DetailRestaurant = () => {
         </div>
       </div>
       <div className="flex justify-between">
-        <Button color="from-[#961919] to-[#f6646e] font-bold ml-0 py-1">
+        <Button
+          onClick={() => navigate("/")}
+          color="from-[#961919] to-[#f6646e] font-bold ml-0 py-1"
+        >
           {t("detailRest.back")}
         </Button>
         <Button color="font-bold mr-0 py-1">{t("detailRest.makePlan")}</Button>

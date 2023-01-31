@@ -5,7 +5,7 @@ import { AdminTitle } from "../../../style";
 import { Comment } from "../../../components/Comment/Comment";
 // import Input from "../../../components/Input";
 import Button from "../../../components/Button";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getHotelById } from "../../../services/HotelServices";
 import { getCommentsHotelById } from "../../../services/CommentServices";
 
@@ -15,6 +15,7 @@ const DetailHotel = (props) => {
   const [cardHotel, setCardHotel] = useState();
   const [comments, setComments] = useState();
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (id) {
@@ -78,7 +79,10 @@ const DetailHotel = (props) => {
       </div>
       <div className="mb-10">{cardHotel?.hotel_description}</div>
       <div className="flex justify-between">
-        <Button color="from-[#961919] to-[#f6646e] font-bold ml-0 py-1">
+        <Button
+          onClick={() => navigate("/")}
+          color="from-[#961919] to-[#f6646e] font-bold ml-0 py-1"
+        >
           {t("detailHotel.back")}
         </Button>
         <Button color="font-bold mr-0 py-1">{t("detailHotel.bookmark")}</Button>

@@ -25,27 +25,24 @@ const AdminSidebar = () => {
           <SidebarFirstContent icon={SearchIcon} link="/search-plan">
             {t("adminSidebar.search")}
           </SidebarFirstContent>
-          <SidebarFirstContent icon={PlacesListIcon} link="/admin/list-places">
-            Places List
+          <SidebarFirstContent icon={PlacesListIcon} link="/list-places">
+            Danh sách địa danh
           </SidebarFirstContent>
-          <SidebarFirstContent icon={SitesIcon} link="/admin/sites">
+          {/* <SidebarFirstContent icon={SitesIcon} link="/sites">
             {t("adminSidebar.sites")}
-          </SidebarFirstContent>
-          <SidebarFirstContent icon={HotelListIcon} link="/admin/list-hotel">
+          </SidebarFirstContent> */}
+          <SidebarFirstContent icon={HotelListIcon} link="/list-hotel">
             {t("adminSidebar.hotel")}
           </SidebarFirstContent>
-          <SidebarFirstContent
-            icon={RestaurantIcon}
-            link="admin/list-restaurant"
-          >
+          <SidebarFirstContent icon={RestaurantIcon} link="/list-restaurant">
             {t("adminSidebar.restaurant")}
           </SidebarFirstContent>
-          {/* <SidebarFirstContent icon={DownloadIcon} link="/saved">
-						{t("adminSidebar.saved")}
-					</SidebarFirstContent>
-					<SidebarFirstContent icon={AccountIcon} link="/account">
-						{t("adminSidebar.account")}
-					</SidebarFirstContent> */}
+          <SidebarFirstContent icon={DownloadIcon} link="/saved">
+            {t("adminSidebar.saved")}
+          </SidebarFirstContent>
+          <SidebarFirstContent icon={AccountIcon} link="/account">
+            {t("adminSidebar.account")}
+          </SidebarFirstContent>
         </ul>
       </div>
     </div>
