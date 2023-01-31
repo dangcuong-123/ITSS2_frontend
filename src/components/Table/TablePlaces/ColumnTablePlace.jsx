@@ -3,7 +3,8 @@ import { IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import DeletePlace from "../../../Screen/Admin/Place/DeletePlace";
-import { TAG_OPTIONS } from "../../../services/PlaceServices";
+import { GridCellParams } from "@mui/x-data-grid";
+import GridCellExpand, { renderCellExpand } from "../GridCelExpand";
 
 export const getColumns = [
   {
@@ -11,6 +12,7 @@ export const getColumns = [
     headerName: "Địa danh",
     width: 200,
     disableColumnMenu: true,
+    renderCell: (params) => renderCellExpand(params),
   },
   {
     field: "loc_province",
@@ -23,6 +25,7 @@ export const getColumns = [
     headerName: "Địa chỉ",
     width: 400,
     disableColumnMenu: true,
+    renderCell: (params) => renderCellExpand(params),
   },
   {
     field: "classify",
@@ -63,8 +66,7 @@ export const getColumns = [
 const tagsList = (list) => {
   var tags_arr = [];
   list.forEach((element) => {
-    var tag = TAG_OPTIONS.filter((obj) => obj.key === element)[0];
-    tags_arr.push(tag.value);
+    tags_arr.push(element);
   });
   return tags_arr.join("/");
 };
