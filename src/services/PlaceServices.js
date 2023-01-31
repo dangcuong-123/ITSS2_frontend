@@ -28,6 +28,10 @@ export const deletePlace = async (id) => {
   return await apiService.delete(`/location/delete?id=${id}`);
 };
 
+export const getLocationById = async (id) => {
+  return await apiService.get(`/location/get_location_by_id/${id}`);
+};
+
 export const TRANSPORT_OPTIONS = [
   { key: "train", value: "Tàu hỏa" },
   { key: "car", value: "Ô tô" },
