@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState } from "react";
 import data1 from "./mock-data.json";
 import { nanoid } from "nanoid";
 import LayoutAdmin from "../../../components/Sidebar/AdminContainer";
@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import Select from 'react-select'
 import { Snackbar, Alert } from "@mui/material"
 import { useTranslation } from 'react-i18next';
+import { uploadImage } from "../../../services/firebase/uploadImage";
 
 const AddHotel = () => {
   const [contacts1, setContacts1] = useState(data1);
@@ -40,8 +41,10 @@ const AddHotel = () => {
   const [roomInfo, setRoomInfo] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("")
-  const [image, setImage] = useState("")
+  const [image, setImage] = useState([])
   const [province, setProvince] = useState("")
+  const [place, setPlace] = useState("")
+  const [placeList, setPlaceList] =  useState([])
   const handleAddHotel = (e) => {
     e.preventDefault();
     const fielName = e.target.getAttribute("name");
@@ -53,30 +56,47 @@ const AddHotel = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  const handleAddHotelSubmit = (e) => {
-    e.preventDefault();
-    const newContact1 = {
-      id: nanoid(),
-      name: addHotel.name,
-      address: addHotel.address,
-      intro: addHotel.intro,
-      roomInfo: addHotel.roomInfo,
-      price: addHotel.price,
-    };
-    const newContacts1 = [...contacts1, newContact1];
-    setContacts1(newContacts1);
-    alert("1");
-  };
+  // const handleAddHotelSubmit = (e) => {
+  //   e.preventDefault();
+  //   const newContact1 = {
+  //     id: nanoid(),
+  //     name: addHotel.name,
+  //     address: addHotel.address,
+  //     intro: addHotel.intro,
+  //     roomInfo: addHotel.roomInfo,
+  //     price: addHotel.price,
+  //   };
+  //   const newContacts1 = [...contacts1, newContact1];
+  //   setContacts1(newContacts1);
+  //   alert("1");
+  // };
   const handleTypeSelect = e => {
-    setProvince(e.value);
+    setPlace(e.id);
   };
-  const handleClick = (e) =>{
+
+  useEffect(() => {
+    fetch("http://13.230.246.62:8080/location/show", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    }).then(async response => {
+      const data = await response.json()
+      // console.log(data)
+      setPlaceList(data)
+    })
+  }, [])
+  placeList.map((place, id) => {
+    options.push({ value: place.location_name, label: place.location_name })
+  })
+
+  const handleClick = async (e) =>{
     e.preventDefault();
+    const image_url = await uploadImage(image[0]);
     const addHot = { 
       "hotel_name": name, 
       "hotel_address_input": address, 
-      "hotel_address_select": province,
-      "image_url": image,
+      "hotel_address_select": place,
+      // "location_name": place,
+      "image_url": image_url,
       "hotel_description": description,
       "hotel_fee":price};
     console.log(addHot);
@@ -199,13 +219,26 @@ const AddHotel = () => {
               <span className="text-red-700"> *</span>
             </label>
           </div>
-          <div className="w-3/5 items-center">
+          {/* <div className="w-3/5 items-center">
             <Input
               type="text"
               placeholder={t('addHotel.url')}
               value={image}
               onChange={(e) => setImage(e.target.value)}
             />
+          </div> */}
+          <div className="w-3/5 items-center relative flex w-full items-center m-4 border-1 border-[#2286C3]">
+                  <div className="w-3/5 items-center">
+                    <input
+                      required={true}
+                      accept="image/*"
+                      type="file"
+                      onChange={(e) => {
+                        console.log(e.target.files);
+                        setImage(e.target.files);
+                      }}
+                    />
+                  </div>
           </div>
         </div>
 

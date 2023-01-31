@@ -38,3 +38,12 @@
             </Alert>
         </Snackbar>
     )}
+
+
+    const addHot = { 
+        "hotel_name": "Trang An Hotel", 
+        "hotel_address_input": "QL 38B, Ninh Hoa, Hoa Lu", 
+        "hotel_address_select": "Ninh Binh",
+        "image_url": "",
+        "hotel_description": "description",
+        "hotel_fee":600000};
