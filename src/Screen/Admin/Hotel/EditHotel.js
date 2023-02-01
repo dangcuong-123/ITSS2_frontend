@@ -10,6 +10,7 @@ import { useParams } from 'react-router-dom'
 import { getHotelById } from "../../../services/HotelServices";
 import { Snackbar, Alert } from "@mui/material"
 import { useTranslation } from 'react-i18next';
+import { uploadImage } from "../../../services/firebase/uploadImage";
 
 const EditHotel = () => {
   const { id } = useParams();
@@ -33,9 +34,11 @@ const EditHotel = () => {
   const [roomInfo, setRoomInfo] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("")
-  const [image, setImage] = useState("")
+  const [image, setImage] = useState([])
   const [province, setProvince] = useState("")
   const { t } = useTranslation()
+  const [place, setPlace] = useState("")
+  const [placeList, setPlaceList] =  useState([])
 
   const handleClose = () => {
     setOpen(false);
@@ -137,9 +140,9 @@ const EditHotel = () => {
   const [editPrice, setEditPrice] = useState("");
 
 
-  const handleTypeSelect = e => {
-    setProvince(e.value);
-  };
+  // const handleTypeSelect = e => {
+  //   setProvince(e.value);
+  // };
 
 
   const handleEditClick = (e) => {
@@ -161,14 +164,35 @@ const EditHotel = () => {
     //         alert("Edit hotel complete");
     // })
   };
-  const handleClick = (e) => {
+
+  const handleTypeSelect = e => {
+    setPlace(e.id);
+  };
+
+  useEffect(() => {
+    fetch("http://13.230.246.62:8080/location/show", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    }).then(async response => {
+      const data = await response.json()
+      // console.log(data)
+      setPlaceList(data)
+    })
+  }, [])
+  placeList.map((place, id) => {
+    options.push({ value: place.location_name, label: place.location_name })
+  })
+
+  const handleClick = async (e) => {
+    const image_url = await uploadImage(image[0]);
     e.preventDefault();
     const editHot = {
       "hotel_id": id,
       "hotel_name": name,
       "hotel_address_input": address,
-      "hotel_address_select": province,
-      "image_url": image,
+      "hotel_address_select": place,
+      // "location_name": place,
+      "image_url": image_url,
       "hotel_description": description,
       "hotel_fee": price
     };
@@ -289,13 +313,26 @@ const EditHotel = () => {
                     <span className="text-red-700"> *</span>
                   </label>
                 </div>
-                <div className="w-3/5 items-center">
+                {/* <div className="w-3/5 items-center">
                   <Input
                     type="text"
                     placeholder={t('editHotel.url')}
                     value={image}
                     onChange={(e) => setImage(e.target.value)}
                   />
+                </div> */}
+                <div className="w-3/5 items-center relative flex w-full items-center m-4 border-1 border-[#2286C3]">
+                  <div className="w-3/5 items-center">
+                    <input
+                      required={true}
+                      accept="image/*"
+                      type="file"
+                      onChange={(e) => {
+                        console.log(e.target.files);
+                        setImage(e.target.files);
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
 
