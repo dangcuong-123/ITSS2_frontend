@@ -11,16 +11,20 @@ import {
   getRestaurant,
   searchRestaurant,
 } from "../../../services/RestaurantServices";
+// import { getPlace, searchPlace } from "../../../services/PlaceServices";
+import TableRestaurant from "../../../components/Table/TableRestaurants/TableRestaurant"
+
 import { useTranslation } from 'react-i18next';
 
 const ListRestaurant = () => {
-  const [restaurant, setRestaurant] = useState();
+  const [restaurant, setRestaurant] = useState([]);
   const { t } = useTranslation()
 
   useEffect(() => {
     getRestaurant()
       .then((res) => {
         setRestaurant(res.data);
+        console.log(restaurant)
       })
       .catch((err) => {});
   }, []);
@@ -43,7 +47,7 @@ const ListRestaurant = () => {
               <Link to="/add-restaurant">{t('listRest.addRest')}</Link>
             </Button>
           </div>
-          <CardRestaurant data={restaurant} />
+          <TableRestaurant listRestaurants={restaurant} />
         </LayoutAdmin>
       </Container>
     </React.Fragment>

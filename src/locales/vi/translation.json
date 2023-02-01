@@ -67,10 +67,27 @@
         "openTime": "Giờ mở cửa",
         "menu": "Menu",
         "menuURL": "Đường dẫn menu",
-        "description": "Mô tả",
+        "description": "Mô tả nhà hàng",
         "success": "Thêm nhà hàng thành công",
         "cancel": "Hủy",
         "addRest": "Thêm nhà hàng"
+    },
+    "editRest": {
+        "title": "Sửa nhà hàng",
+        "name": "Tên nhà hàng",
+        "address": "Địa chỉ",
+        "province": "Thành phố",
+        "fee": "Phí nhà hàng",
+        "hotel": "khách sạn",
+        "url": "URL",
+        "openTime": "Giờ mở cửa",
+        "menu": "Mô tả Menu",
+        "menuURL": "Đường dẫn menu",
+        "description": "Mô tả nhà hàng",
+        "success": "Thêm nhà hàng thành công",
+        "cancel": "Hủy",
+        "addRest": "Thêm nhà hàng",
+        "save": "Lưu lại"
     },
     "detailRest": {
         "title": "Chi tiết nhà hàng",
