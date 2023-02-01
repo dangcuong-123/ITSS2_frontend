@@ -54,7 +54,7 @@ const Admin = () => {
           element={<DetailHotel></DetailHotel>}
         ></Route>
         <Route path="add-hotel" element={<AddHotel></AddHotel>}></Route>
-        <Route path="edit-hotel" element={<EditHotel></EditHotel>}></Route>
+        <Route path="edit-hotel/:id" element={<EditHotel></EditHotel>}></Route>
         <Route path="detail-plan" element={<DetailPlan></DetailPlan>}></Route>
         <Route path="sites" element={<Sites></Sites>}></Route>
         <Route path="add-site" element={<AddSite></AddSite>}></Route>
