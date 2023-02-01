@@ -12,10 +12,15 @@ import { useEffect } from "react";
 import Select from 'react-select'
 import {Snackbar, Alert} from "@mui/material"
 import { useTranslation } from 'react-i18next';
+import * as Yup from "yup";
+import { useFormik } from "formik";
+import { TextField } from "@mui/material";
+import { uploadImage } from "../../../services/firebase/uploadImage";
+import { Switch, useHistory } from 'react-router';
+
 
 
 const EditRestaurant = ({ handleAddMenu }) => {
-
   const [restaurant_name, setRestaurantName] = useState("")
   const [hotel, setHotel] = useState("")
   const [image_url, setImage_url] = useState("")
@@ -27,11 +32,13 @@ const EditRestaurant = ({ handleAddMenu }) => {
   const [restaurant_description, setRestaurant_description] = useState("")
   const [province, setProvince] = useState('')
   const [hotelList, setHotelList] = useState([])
-  
+  const [image, setImage] = useState([]);
+  const [menuImage, setMenuImage] = useState([]);
   const options = [
     { value: 'none', label: 'None', id: '0' },
   ]
   const { t } = useTranslation()
+  const navigate = useNavigate();
 
   const options_province = [
     { value: 'ha noi', label: 'Ha noi' },
@@ -158,6 +165,73 @@ const EditRestaurant = ({ handleAddMenu }) => {
   const handleClose = () => {
     setOpen(false);
   };
+  const EditRestaurantSchema = Yup.object().shape({
+    restaurantName: Yup.string().required("Bắt buộc"),
+    restaurantAddress: Yup.string().required("Bắt buộc"),
+    restaurantDescription: Yup.string().required("Bắt buộc"),
+    restaurantFee: Yup.string().required("Bắt buộc"),
+    menuDescription: Yup.string().required("Bắt buộc"),
+    restaurantOpenTime: Yup.string().required("Bắt buộc"),
+
+  });
+  const formik = useFormik({
+    initialValues: {
+      restaurantName: restaurant_name,
+      restaurantAddress: restaurant_address,
+      restaurantDescription: restaurant_description,
+      restaurantFee: restaurant_fee,
+      menuDescription: menu_description,
+      restaurantOpenTime: restaurant_open_time
+    },
+    enableReinitialize: true,
+    validationSchema: EditRestaurantSchema,
+    onSubmit: async (values) => {
+      const image_url_tmp =
+        image.length > 0 ? await uploadImage(image[0]) : image_url;
+      console.log(image_url_tmp)
+      const menu_img_url = 
+        menuImage.length > 0 ? await uploadImage(menuImage[0]) : menu_image_url;
+      var new_place = {
+        restaurant_id: id,
+        restaurant_name: values.restaurantName,
+        restaurant_description: values.restaurantDescription,
+        restaurant_address_input: values.restaurantAddress,
+        restaurant_fee:  values.restaurantFee,
+        restaurant_address_select: province,
+        menu_description: values.menuDescription,
+        restaurant_open_time: values.restaurantOpenTime,
+        hotel_id: hotel,
+        image_url: image_url_tmp,
+        menu_img_url: menu_img_url
+
+        // loc_province: province,
+        // image_url: image_url_tmp
+      };
+      console.log("Edit place", values.transports);
+
+      fetch("http://13.230.246.62:8080/restaurant/edit_restaurant", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(new_place),
+      })
+        .then(() => {
+          console.log("Edit restaurant complete");
+          // alert("Edit restaurant complete");
+          setOpenSuccess(true);
+          setTimeout(() => {
+            setSuccessMessage("Sửa nhà hàng thành công!");        
+          }, 2000);
+          setTimeout(() => {
+            navigate("/list-restaurant");
+          }, 4000);
+        })
+        .catch((err) => {
+          console.log(err)
+          setOpen(true)
+          setErrorMessage("Error")
+        });
+    },
+  });
   const editRestaurant = (e) => {
     e.preventDefault();
     const editRes = {
@@ -182,7 +256,11 @@ const EditRestaurant = ({ handleAddMenu }) => {
       console.log("Edit restaurant complete");
       // alert("Edit restaurant complete");
       setOpenSuccess(true);
-	    setSuccessMessage("Sửa nhà hàng thành công!");
+      setTimeout(() => {
+        setSuccessMessage("Sửa nhà hàng thành công!");        
+      }, 1000);
+      navigate("/list-restaurant");
+
     }).catch((err) => {
       console.log(err)
       setOpen(true)
@@ -193,6 +271,7 @@ const EditRestaurant = ({ handleAddMenu }) => {
 
   return (
     <LayoutAdmin>
+      <form onSubmit={formik.handleSubmit}>
       <div>
         <AdminTitle>{t('editRest.title')}</AdminTitle>
 
@@ -223,35 +302,59 @@ const EditRestaurant = ({ handleAddMenu }) => {
 
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
-            <label className="text-black font-bold">{t('editRest.name')}</label>
+            <label className="text-black font-bold">{t('editRest.name')} <span style={{color: "red"}}>*</span></label>
           </div>
-          <div className="w-3/5 items-center">
-            <Input
+          <div className="w-3/5 items-center relative flex w-full items-center m-4 border-1 border-[#2286C3]">
+            <TextField
+              className="px-3 py-3 placeholder-[#21212180] text-slate-600 relative bg-white text-sm border-2 border-[#2286C3] 
+              rounded-lg shadow outline-nonefocus:outline-none focus:ring w-full"
               type="text"
+              id="restaurantName"
+              name="restaurantName"
               placeholder={t('editRest.name')}
-              value={restaurant_name}
-              onChange={(e) => setRestaurantName(e.target.value)}
+              value={formik.values.restaurantName}
+              // onChange={(e) => setRestaurantName(e.target.value)}
+              onChange={formik.handleChange}
+              error={
+                formik.touched.restaurantName &&
+                Boolean(formik.errors.restaurantName)
+              }
+              helperText={
+                formik.touched.restaurantName && formik.errors.restaurantName
+              }
             />
           </div>
         </div>
 
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
-            <label className="text-black font-bold">{t('editRest.address')}</label>
+            <label className="text-black font-bold">{t('editRest.address')} <span style={{color: "red"}}>*</span></label>
           </div>
-          <div className="w-3/5 items-center">
-            <Input
+          <div className="w-3/5 items-center relative flex w-full items-center m-4 border-1 border-[#2286C3]">
+            <TextField
+              className="px-3 py-3 placeholder-[#21212180] text-slate-600 relative bg-white text-sm border-2 border-[#2286C3] 
+              rounded-lg shadow outline-nonefocus:outline-none focus:ring w-full"
               type="text"
+              id="restaurantAddress"
+              name="restaurantAddress"
               placeholder={t('editRest.address')}
-              value={restaurant_address}
-              onChange={(e) => setRestaurant_address(e.target.value)}
+              value={formik.values.restaurantAddress}
+              // onChange={(e) => setRestaurantAddress(e.target.value)}
+              onChange={formik.handleChange}
+              error={
+                formik.touched.restaurantAddress &&
+                Boolean(formik.errors.restaurantAddress)
+              }
+              helperText={
+                formik.touched.restaurantAddress && formik.errors.restaurantAddress
+              }
             />
           </div>
         </div>
 
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
-            <label className="text-black font-bold">{t('editRest.province')}</label>
+            <label className="text-black font-bold">{t('editRest.province')} <span style={{color: "red"}}>*</span></label>
           </div>
           <div className="items-center" style={{ padding: '15px' }}>
             <Select options={options_province} onChange={handleTypeProvince} />
@@ -260,21 +363,33 @@ const EditRestaurant = ({ handleAddMenu }) => {
 
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
-            <label className="text-black font-bold">{t('editRest.fee')}</label>
+            <label className="text-black font-bold">{t('editRest.fee')} <span style={{color: "red"}}>*</span></label>
           </div>
-          <div className="w-3/5 items-center">
-            <Input
+          <div className="w-3/5 items-center relative flex w-full items-center m-4 border-1 border-[#2286C3]">
+            <TextField
+              className="px-3 py-3 placeholder-[#21212180] text-slate-600 relative bg-white text-sm border-2 border-[#2286C3] 
+              rounded-lg shadow outline-nonefocus:outline-none focus:ring w-full"
               type="text"
+              id="restaurantFee"
+              name="restaurantFee"
               placeholder={t('editRest.fee')}
-              value={restaurant_fee}
-              onChange={(e) => setRestaurant_fee(e.target.value)}
+              value={formik.values.restaurantFee}
+              // onChange={(e) => setRestaurantName(e.target.value)}
+              onChange={formik.handleChange}
+              error={
+                formik.touched.restaurantFee &&
+                Boolean(formik.errors.restaurantFee)
+              }
+              helperText={
+                formik.touched.restaurantFee && formik.errors.restaurantFee
+              }
             />
           </div>
         </div>
 
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
-            <label className="text-black font-bold">{t('editRest.hotel')}</label>
+            <label className="text-black font-bold">{t('editRest.hotel')} <span style={{color: "red"}}>*</span></label>
           </div>
           <div className="items-center" style={{ padding: '15px' }}>
             <Select options={options} onChange={handleTypeSelect} />
@@ -283,66 +398,100 @@ const EditRestaurant = ({ handleAddMenu }) => {
 
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
-            <label className="text-black font-bold">{t('editRest.url')}</label>
+            <label className="text-black font-bold">{t('editRest.url')} <span style={{color: "red"}}>*</span></label>
           </div>
-          <div className="w-3/5 items-center">
-            <Input
-              type="text"
-              placeholder={t('editRest.url')}
-              value={image_url}
-              onChange={(e) => setImage_url(e.target.value)}
-            />
+          <div className="w-3/5 items-center relative flex w-full items-center m-4 border-1 border-[#2286C3]">
+            <div className="w-3/5 items-center">
+              <input
+                accept="image/*"
+                type="file"
+                onChange={(e) => {
+                  console.log(e.target.files);
+                  setImage(e.target.files);
+                }}
+              />
+            </div>
           </div>
         </div>
 
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
-            <label className="text-black font-bold">{t('editRest.openTime')}</label>
+            <label className="text-black font-bold">{t('editRest.openTime')} <span style={{color: "red"}}>*</span></label>
           </div>
-          <div className="w-3/5 items-center">
-            <Input
+          <div className="w-3/5 items-center relative flex w-full items-center m-4 border-1 border-[#2286C3]">
+            <TextField
+              className="px-3 py-3 placeholder-[#21212180] text-slate-600 relative bg-white text-sm border-2 border-[#2286C3] 
+              rounded-lg shadow outline-nonefocus:outline-none focus:ring w-full"
               type="text"
+              id="restaurantOpenTime"
+              name="restaurantOpenTime"
               placeholder={t('editRest.openTime')}
-              value={restaurant_open_time}
-              onChange={(e) => setRestaurant_open_time(e.target.value)}
+              value={formik.values.restaurantOpenTime}
+              // onChange={(e) => setRestaurantName(e.target.value)}
+              onChange={formik.handleChange}
+              error={
+                formik.touched.restaurantOpenTime &&
+                Boolean(formik.errors.restaurantOpenTime)
+              }
+              helperText={
+                formik.touched.restaurantOpenTime && formik.errors.restaurantOpenTime
+              }
             />
           </div>
         </div>
 
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
-            <label className="text-black font-bold">{t('editRest.menu')}</label>
+            <label className="text-black font-bold">{t('editRest.menu')} <span style={{color: "red"}}>*</span></label>
           </div>
-          <div className="w-3/5 items-center">
-            <Input
+          <div className="w-3/5 items-center relative flex w-full items-center m-4 border-1 border-[#2286C3]">
+            <TextField
+              className="px-3 py-3 placeholder-[#21212180] text-slate-600 relative bg-white text-sm border-2 border-[#2286C3] 
+              rounded-lg shadow outline-nonefocus:outline-none focus:ring w-full"
               type="text"
+              id="menuDescription"
+              name="menuDescription"
               placeholder={t('editRest.menu')}
-              value={menu_description}
-              onChange={(e) => setMenu_description(e.target.value)}
+              value={formik.values.menuDescription}
+              // onChange={(e) => setRestaurantName(e.target.value)}
+              onChange={formik.handleChange}
+              error={
+                formik.touched.menuDescription &&
+                Boolean(formik.errors.menuDescription)
+              }
+              helperText={
+                formik.touched.menuDescription && formik.errors.menuDescription
+              }
             />
           </div>
         </div>
 
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
-            <label className="text-black font-bold">{t('editRest.menuURL')}</label>
+            <label className="text-black font-bold">{t('editRest.menuURL')} <span style={{color: "red"}}>*</span></label>
           </div>
-          <div className="w-3/5 items-center">
-            <Input
-              type="text"
-              placeholder={t('editRest.menuURL')}
-              value={menu_image_url}
-              onChange={(e) => setMenu_image_url(e.target.value)}
-            />
+          <div className="w-3/5 items-center relative flex w-full items-center m-4 border-1 border-[#2286C3]">
+            <div className="w-3/5 items-center">
+              <input
+                accept="image/*"
+                type="file"
+                onChange={(e) => {
+                  console.log(e.target.files);
+                  setMenuImage(e.target.files);
+                }}
+              />
+            </div>
           </div>
         </div>
 
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
-            <label className="text-black font-bold">{t('editRest.description')}</label>
+            <label className="text-black font-bold">{t('editRest.description')} <span style={{color: "red"}}>*</span></label>
           </div>
-          <div className="w-3/5 items-center">
-            <Input
+          <div className="w-3/5 items-center relative flex w-full items-center m-4 border-1 border-[#2286C3]">
+            <TextField
+              className="px-3 py-3 placeholder-[#21212180] text-slate-600 relative bg-white text-sm border-2 border-[#2286C3] 
+              rounded-lg shadow outline-nonefocus:outline-none focus:ring w-full"
               type="text"
               placeholder={t('editRest.description')}
               value={restaurant_description}
@@ -362,8 +511,11 @@ const EditRestaurant = ({ handleAddMenu }) => {
         <Button color="from-[#961919] to-[#f6646e] font-bold">
           <Link to="/list-restaurant">{t('editRest.cancel')}</Link>
         </Button>
-        <Button color="font-bold mr-0" onClick={editRestaurant}>{t('editRest.save')}</Button>
+        {/* <Button color="font-bold mr-0" onClick={editRestaurant}>{t('editRest.save')}</Button> */}
+        <Button color="font-bold mr-0" type="submit" autoFocus>{t('editRest.save')}</Button>
+
       </div>
+      </form>
     </LayoutAdmin>
   );
 };

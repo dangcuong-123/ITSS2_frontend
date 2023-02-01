@@ -19,3 +19,6 @@ export const getRestaurantLowerEqualPrice = async (price) => {
     `/restaurant/search_restaurant_lower_equal_price?price=${price}`
   );
 };
+export const deleteRestaurant = async (id) => {
+  return await apiService.delete(`/restaurant/delete_restaurant?id=${id}`);
+};

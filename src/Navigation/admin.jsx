@@ -45,7 +45,7 @@ const Admin = () => {
         ></Route>
         <Route path="add-restaurant" element={<AddRestaurant />} />
         <Route
-          path="edit-restaurant/:id"
+          path="list-restaurant/edit-restaurant/:id"
           element={<EditRestaurant></EditRestaurant>}
         />
         <Route path="list-hotel" element={<ListHotel></ListHotel>}></Route>
