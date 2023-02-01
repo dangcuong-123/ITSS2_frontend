@@ -113,3 +113,4 @@ export const PROVINCE_OPTIONS = [
   "Vĩnh Phúc",
   "Yên Bái",
 ];
+export const PROVINCE_OPTIONS_ALL = PROVINCE_OPTIONS.unshift("Tất cả");
