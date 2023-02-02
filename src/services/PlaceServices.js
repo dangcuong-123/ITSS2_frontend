@@ -40,12 +40,11 @@ export const TRANSPORT_OPTIONS = [
 ];
 
 export const TAG_OPTIONS = [
-  { key: "bien", value: "Biển" },
-  { key: "nui", value: "Núi" },
-  { key: "hang dong", value: "Hang động" },
-  { key: "chua", value: "Chùa" },
-  { key: "danh lam thang canh", value: "Danh lam thắng cảnh" },
-  { key: "di tich lich su", value: "Di tích lịch sử" },
+  { key: "bien", value: "bien" },
+  { key: "nui", value: "nui" },
+  { key: "hang dong", value: "hang dong" },
+  { key: "chua", value: "chua" },
+  { key: "danh lam thang canh", value: "danh lam thang canh" },
 ];
 
 export const PROVINCE_OPTIONS = [

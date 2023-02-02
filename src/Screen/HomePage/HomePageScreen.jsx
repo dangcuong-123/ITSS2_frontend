@@ -11,6 +11,7 @@ import { AdminTitle } from "../../style";
 import {
   getHotelAndRestaurantList,
   showHomePage,
+  searchByTags,
 } from "../../services/HomeServices";
 import accountStore from "../../store/AccountInfoStore";
 import {
@@ -51,6 +52,22 @@ const HomePageScreen = () => {
 
   const handleChangeTab = (location) => {
     setlocation(location);
+  };
+
+  const searchTags = (value) => {
+    const data = {
+      tags: JSON.stringify(value),
+    };
+    console.log("🚀 ~ file: HomePageScreen.jsx:59 ~ searchTags ~ data", data);
+    searchByTags(data)
+      .then((res) => {
+        setRestaurant(res.data.restaurants);
+        setHotel(res.data.hotels);
+      })
+      .catch((err) => {
+        setRestaurant([]);
+        setHotel([]);
+      });
   };
 
   useEffect(() => {
@@ -136,6 +153,11 @@ const HomePageScreen = () => {
                       return;
                     }
                     setSelectedTags(value);
+                    console.log(
+                      "🚀 ~ file: HomePageScreen.jsx:153 ~ HomePageScreen ~ value",
+                      value
+                    );
+                    searchTags(value);
                   }}
                   multiple
                   renderValue={(selected) => {
