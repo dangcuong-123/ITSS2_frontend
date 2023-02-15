@@ -279,7 +279,7 @@ const EditHotel = () => {
               <span className="text-red-700"> *</span>
             </label>
           </div>
-          <div className="items-center" style={{ padding: "15px" }}>
+          <div className="items-center w-3/5" style={{ padding: "15px" }}>
             <Select
               options={options}
               placeholder={province}

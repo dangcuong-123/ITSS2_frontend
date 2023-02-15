@@ -306,7 +306,7 @@ const AddRestaurant = ({ handleCancelClick, handleDeleteClick }) => {
                 {t("addRest.province")} <span style={{ color: "red" }}>*</span>
               </label>
             </div>
-            <div className="items-center" style={{ padding: "15px" }}>
+            <div className="items-center w-3/5" style={{ padding: "15px" }}>
               <Select
                 options={options_province}
                 onChange={handleTypeProvince}
@@ -348,7 +348,7 @@ const AddRestaurant = ({ handleCancelClick, handleDeleteClick }) => {
                 {t("addRest.hotel")} <span style={{ color: "red" }}>*</span>
               </label>
             </div>
-            <div className="items-center" style={{ padding: "15px" }}>
+            <div className="items-center w-3/5" style={{ padding: "15px" }}>
               <Select options={options} onChange={handleTypeSelect} />
             </div>
           </div>

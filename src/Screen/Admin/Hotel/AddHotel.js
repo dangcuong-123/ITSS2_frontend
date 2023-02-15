@@ -190,7 +190,7 @@ const AddHotel = () => {
               <span className="text-red-700"> *</span>
             </label>
           </div>
-          <div className="items-center" style={{ padding: "10px" }}>
+          <div className="items-center w-3/5" style={{ padding: "10px" }}>
             <Select options={options} onChange={handleTypeSelect} />
           </div>
         </div>
