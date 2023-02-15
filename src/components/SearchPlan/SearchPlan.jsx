@@ -21,7 +21,7 @@ import {
   getHotelLowerEqualPrice,
   searchHotel,
 } from "../../services/HotelServices";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 const marks = [
   {
@@ -85,7 +85,7 @@ const SearchPlan = () => {
   const handleClose = () => {
     setOpen(false);
   };
-	const { t } = useTranslation()
+  const { t } = useTranslation();
 
   useEffect(() => {
     getHotelLowerEqualPrice(finalPrice)
@@ -107,10 +107,7 @@ const SearchPlan = () => {
         <LayoutAdmin>
           <AdminTitle>Tìm Kiếm Plan</AdminTitle>
           <div className="flex justify-between ml-2 mr-7">
-            <Input
-              placeholder="Where do you want to go ?"
-              onChange={handleSearch}
-            />
+            <Input placeholder="Bạn muốn đi đâu ?" onChange={handleSearch} />
             <ButtonSearch color="font-bold mr-0">Tìm Kiếm</ButtonSearch>
           </div>
           <div>
