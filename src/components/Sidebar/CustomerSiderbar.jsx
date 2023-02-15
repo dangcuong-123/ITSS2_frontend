@@ -8,7 +8,7 @@ const CustomerSiderbar = () => {
       <div>
         <ul className="list-none">
           <li className="font-bold text-xl text-white pt-[93px] pl-5">
-            CONTENTS
+            NỘI DUNG
           </li>
           <SidebarFirstContent icon={HomeIcon} link="/home">
             Trang Chủ
