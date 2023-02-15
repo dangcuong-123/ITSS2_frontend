@@ -91,13 +91,13 @@ const AddPlace = () => {
         body: JSON.stringify(new_place),
       })
         .then(() => {
-          enqueueSnackbar("Success", {
+          enqueueSnackbar("Thành Công", {
             variant: "success",
           });
         })
         .catch((err) => {
           console.log(err);
-          enqueueSnackbar("Failed", {
+          enqueueSnackbar("Thất Bại", {
             variant: "error",
           });
         });

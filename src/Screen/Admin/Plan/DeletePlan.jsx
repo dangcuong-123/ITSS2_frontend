@@ -7,14 +7,14 @@ export default function DeletePlan(id) {
   const { enqueueSnackbar } = useSnackbar();
   const handleClick = () => {
     if (window.confirm("Delete?")) {
-        deletePlan(id.id)
+      deletePlan(id.id)
         .then((res) => {
           console.log("Deleted", id);
           window.location.reload(false);
         })
         .catch((e) => {
           console.log(e);
-          enqueueSnackbar("Delete failed", {
+          enqueueSnackbar("Xóa thất bại", {
             variant: "error",
           });
         });

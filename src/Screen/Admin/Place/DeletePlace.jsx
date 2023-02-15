@@ -6,7 +6,7 @@ import { useSnackbar } from "notistack";
 export default function DeletePlace(id) {
   const { enqueueSnackbar } = useSnackbar();
   const handleClick = () => {
-    if (window.confirm("Delete?")) {
+    if (window.confirm("Xóa nhá ?")) {
       deletePlace(id.id)
         .then((res) => {
           console.log("Deleted", id);
@@ -14,7 +14,7 @@ export default function DeletePlace(id) {
         })
         .catch((e) => {
           console.log(e);
-          enqueueSnackbar("Delete failed", {
+          enqueueSnackbar("Xóa thất bại", {
             variant: "error",
           });
         });

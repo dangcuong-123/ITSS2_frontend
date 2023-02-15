@@ -7,22 +7,22 @@ import React, { useState } from "react";
 export default function DeleteRestaurant(id) {
   const { enqueueSnackbar } = useSnackbar();
   const [successMessage, setSuccessMessage] = useState("");
-	const [openSuccess, setOpenSuccess] = useState(null);
+  const [openSuccess, setOpenSuccess] = useState(null);
   const handleClick = () => {
     if (window.confirm("Delete?")) {
       deleteRestaurant(id.id)
         .then((res) => {
           console.log("Deleted", id);
-          
+
           window.location.reload(false);
           setOpenSuccess(true);
           setTimeout(() => {
-            setSuccessMessage("Xóa nhà hàng thành công!");        
+            setSuccessMessage("Xóa nhà hàng thành công!");
           }, 1000);
         })
         .catch((e) => {
           console.log(e);
-          enqueueSnackbar("Delete failed", {
+          enqueueSnackbar("Xóa thất bại", {
             variant: "error",
           });
         });

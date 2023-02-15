@@ -123,13 +123,13 @@ const EditPlace = () => {
         body: JSON.stringify(new_place),
       })
         .then(() => {
-          enqueueSnackbar("Edit Success", {
+          enqueueSnackbar("Chỉnh sửa thành công", {
             variant: "success",
           });
         })
         .catch((err) => {
           console.log(err);
-          enqueueSnackbar("Edit Failed", {
+          enqueueSnackbar("Chỉnh sửa thất bại", {
             variant: "error",
           });
         });
