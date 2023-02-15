@@ -1,4 +1,4 @@
-import React, {useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import data1 from "./mock-data.json";
 import { nanoid } from "nanoid";
 import LayoutAdmin from "../../../components/Sidebar/AdminContainer";
@@ -6,9 +6,9 @@ import { AdminTitle } from "../../../style";
 import Input from "../../../components/Input";
 import Button from "../../../components/Button";
 import { Link } from "react-router-dom";
-import Select from 'react-select'
-import { Snackbar, Alert } from "@mui/material"
-import { useTranslation } from 'react-i18next';
+import Select from "react-select";
+import { Snackbar, Alert } from "@mui/material";
+import { useTranslation } from "react-i18next";
 import { uploadImage } from "../../../services/firebase/uploadImage";
 
 const AddHotel = () => {
@@ -21,30 +21,30 @@ const AddHotel = () => {
     price: "",
   });
   const options = [
-    { value: 'ha noi', label: 'Ha noi' },
-    { value: 'ha long', label: 'Ha long' },
-    { value: 'hai phong', label: 'Hai phong' }
-  ]
-    // state handle show error message
-	const [errorMessage, setErrorMessage] = useState("");
-	const [open, setOpen] = useState(false)
+    { value: "ha noi", label: "Ha noi" },
+    { value: "ha long", label: "Ha long" },
+    { value: "hai phong", label: "Hai phong" },
+  ];
+  // state handle show error message
+  const [errorMessage, setErrorMessage] = useState("");
+  const [open, setOpen] = useState(false);
 
-	// state handle show success message
-	const [successMessage, setSuccessMessage] = useState("");
-	const [openSuccess, setOpenSuccess] = useState(null);
-  const [severity, setSeverity] = useState('')
-  const { t } = useTranslation()
+  // state handle show success message
+  const [successMessage, setSuccessMessage] = useState("");
+  const [openSuccess, setOpenSuccess] = useState(null);
+  const [severity, setSeverity] = useState("");
+  const { t } = useTranslation();
 
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [intro, setIntro] = useState("");
   const [roomInfo, setRoomInfo] = useState("");
   const [price, setPrice] = useState("");
-  const [description, setDescription] = useState("")
-  const [image, setImage] = useState([])
-  const [province, setProvince] = useState("")
-  const [place, setPlace] = useState("")
-  const [placeList, setPlaceList] =  useState([])
+  const [description, setDescription] = useState("");
+  const [image, setImage] = useState([]);
+  const [province, setProvince] = useState("");
+  const [place, setPlace] = useState("");
+  const [placeList, setPlaceList] = useState([]);
   const handleAddHotel = (e) => {
     e.preventDefault();
     const fielName = e.target.getAttribute("name");
@@ -70,7 +70,7 @@ const AddHotel = () => {
   //   setContacts1(newContacts1);
   //   alert("1");
   // };
-  const handleTypeSelect = e => {
+  const handleTypeSelect = (e) => {
     setPlace(e.id);
   };
 
@@ -78,50 +78,51 @@ const AddHotel = () => {
     fetch("http://13.230.246.62:8080/location/show", {
       method: "GET",
       headers: { "Content-Type": "application/json" },
-    }).then(async response => {
-      const data = await response.json()
+    }).then(async (response) => {
+      const data = await response.json();
       // console.log(data)
-      setPlaceList(data)
-    })
-  }, [])
+      setPlaceList(data);
+    });
+  }, []);
   placeList.map((place, id) => {
-    options.push({ value: place.location_name, label: place.location_name })
-  })
+    options.push({ value: place.location_name, label: place.location_name });
+  });
 
-  const handleClick = async (e) =>{
+  const handleClick = async (e) => {
     e.preventDefault();
     const image_url = await uploadImage(image[0]);
-    const addHot = { 
-      "hotel_name": name, 
-      "hotel_address_input": address, 
-      "hotel_address_select": place,
+    const addHot = {
+      hotel_name: name,
+      hotel_address_input: address,
+      hotel_address_select: place,
       // "location_name": place,
-      "image_url": image_url,
-      "hotel_description": description,
-      "hotel_fee":price};
+      image_url: image_url,
+      hotel_description: description,
+      hotel_fee: price,
+    };
     console.log(addHot);
-    fetch("http://13.230.246.62:8080/hotel/create",{
-      method:"POST",
-            headers:{"Content-Type" : "application/json"},
-            body:JSON.stringify(addHot)
-        }).then(()=>{
-            console.log("Add hotel complete");
-            // alert("Add hotel complete");
-            setOpenSuccess(true);
-	          setSuccessMessage("Thêm khách sạn thành công!");
-    }).catch((err) =>{
-      console.log(err)
-      setOpen(true)
-      setErrorMessage("Error")
+    fetch("http://13.230.246.62:8080/hotel/create", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(addHot),
     })
-
-  }
+      .then(() => {
+        console.log("Add hotel complete");
+        // alert("Add hotel complete");
+        setOpenSuccess(true);
+        setSuccessMessage("Thêm khách sạn thành công!");
+      })
+      .catch((err) => {
+        console.log(err);
+        setOpen(true);
+        setErrorMessage("Error");
+      });
+  };
 
   return (
     <LayoutAdmin>
       <div>
-        <AdminTitle>{t('addHotel.title')}</AdminTitle>
-
+        <AdminTitle>{t("addHotel.title")}</AdminTitle>
         {open && (
           <Snackbar
             open={open}
@@ -130,7 +131,7 @@ const AddHotel = () => {
             anchorOrigin={{ vertical: "top", horizontal: "right" }}
           >
             <Alert onClose={() => setOpen(false)} severity="error">
-                {errorMessage}
+              {errorMessage}
             </Alert>
           </Snackbar>
         )}
@@ -142,7 +143,7 @@ const AddHotel = () => {
             anchorOrigin={{ vertical: "top", horizontal: "right" }}
           >
             <Alert onClose={() => setOpenSuccess(false)} severity="success">
-                {successMessage}
+              {successMessage}
             </Alert>
           </Snackbar>
         )}
@@ -150,14 +151,14 @@ const AddHotel = () => {
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
             <label className="text-black font-bold">
-            {t('addHotel.name')}
+              {t("addHotel.name")}
               <span className="text-red-700"> *</span>
             </label>
           </div>
           <div className="w-3/5 items-center">
             <Input
               type="text"
-              placeholder={t('addHotel.name')}
+              placeholder={t("addHotel.name")}
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
@@ -167,7 +168,7 @@ const AddHotel = () => {
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
             <label className="text-black font-bold">
-            {t('addHotel.address')}
+              {t("addHotel.address")}
               <span className="text-red-700"> *</span>
             </label>
           </div>
@@ -175,37 +176,36 @@ const AddHotel = () => {
           <div className="w-3/5 items-center">
             <Input
               type="text"
-              placeholder={t('addHotel.address')}
+              placeholder={t("addHotel.address")}
               value={address}
               onChange={(e) => setAddress(e.target.value)}
             />
           </div>
-          
         </div>
 
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
             <label className="text-black font-bold">
-            {t('addHotel.province')}
+              {t("addHotel.province")}
               <span className="text-red-700"> *</span>
             </label>
           </div>
-          <div className="items-center" style={{padding: '10px'}}>
+          <div className="items-center" style={{ padding: "10px" }}>
             <Select options={options} onChange={handleTypeSelect} />
           </div>
-        </div >
+        </div>
 
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
             <label className="text-black font-bold">
-            {t('addHotel.description')}
+              {t("addHotel.description")}
               <span className="text-red-700"> *</span>
             </label>
           </div>
           <div className="w-3/5 items-center">
             <Input
               type="text"
-              placeholder={t('addHotel.description')}
+              placeholder={t("addHotel.description")}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
@@ -215,7 +215,7 @@ const AddHotel = () => {
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
             <label className="text-black font-bold">
-            {t('addHotel.url')}
+              {t("addHotel.url")}
               <span className="text-red-700"> *</span>
             </label>
           </div>
@@ -228,31 +228,31 @@ const AddHotel = () => {
             />
           </div> */}
           <div className="w-3/5 items-center relative flex w-full items-center m-4 border-1 border-[#2286C3]">
-                  <div className="w-3/5 items-center">
-                    <input
-                      required={true}
-                      accept="image/*"
-                      type="file"
-                      onChange={(e) => {
-                        console.log(e.target.files);
-                        setImage(e.target.files);
-                      }}
-                    />
-                  </div>
+            <div className="w-3/5 items-center">
+              <input
+                required={true}
+                accept="image/*"
+                type="file"
+                onChange={(e) => {
+                  console.log(e.target.files);
+                  setImage(e.target.files);
+                }}
+              />
+            </div>
           </div>
         </div>
 
         <div className="flex items-center">
           <div className="w-1/5 self-center text-end">
             <label className="text-black font-bold">
-            {t('addHotel.price')}
+              {t("addHotel.price")}
               <span className="text-red-700"> *</span>
             </label>
           </div>
           <div className="w-3/5 items-center">
             <Input
               type="text"
-              placeholder={t('addHotel.price')}
+              placeholder={t("addHotel.price")}
               value={price}
               onChange={(e) => setPrice(e.target.value)}
             />
@@ -261,22 +261,19 @@ const AddHotel = () => {
         <div>
           <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
             <Alert severity={severity} onClose={handleClose}>
-            {t('addHotel.success')}
+              {t("addHotel.success")}
             </Alert>
           </Snackbar>
         </div>
       </div>
       <div className="w-4/5 flex ml-4 justify-end">
         <Button color="from-[#961919] to-[#f6646e] font-bold">
-          <Link to="/list-hotel">
-          {t('addHotel.cancel')}
-          </Link>
+          <Link to="/list-hotel">{t("addHotel.cancel")}</Link>
         </Button>
         <Button color="font-bold mr-0" onClick={handleClick}>
-          <Link to='/list-hotel'>
-          </Link>
-          {t('addHotel.title')}
-          </Button>
+          <Link to="/list-hotel"></Link>
+          {t("addHotel.title")}
+        </Button>
       </div>
     </LayoutAdmin>
   );
