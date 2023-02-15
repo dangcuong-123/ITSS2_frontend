@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../Button";
 import accountStore from "../../store/AccountInfoStore";
 import { useLocation } from "react-router-dom";
@@ -23,13 +23,35 @@ const Header = () => {
 	const [logout, setLogout] = useState(false);
 
 	const handleLogoutRoute = () => {
-		sessionStorage.removeItem("accountInfo");
-		sessionStorage.removeItem("username");
+		// remove local storage
+		localStorage.clear();
+		// sessionStorage.removeItem("accountInfo");
+		// sessionStorage.removeItem("username");
+		sessionStorage.clear();
 		setLogoutMessage("Logout successfully");
 		setLogout(true);
 		navigate("/");
 		window.location.reload();
 	};
+
+	// modify username in header
+	const [username, setUsername] = useState("");
+
+	// shorten username contain more than 10 characters
+	useEffect(() => {
+		function getUserName() {
+			if (sessionStorage.getItem("username")) {
+				if (sessionStorage.getItem("username").length > 10) {
+					setUsername(
+						sessionStorage.getItem("username").substring(0, 10) + "..."
+					);
+				} else {
+					setUsername(sessionStorage.getItem("username"));
+				}
+			}
+		}
+		getUserName();
+	}, [username]);
 
 	return (
 		<div className="fixed w-full z-50 h-16 bg-gradient-to-r from-cyan-500 to-pink-500 flex justify-between items-center">
@@ -62,18 +84,29 @@ const Header = () => {
 								src={accountStore?.AccountInfo.imageUrl}
 								alt="avatar"
 							/>
-							<div className="font-medium dark:text-white">
-								<div className="font-bold">
-									{/* {accountStore?.AccountInfo.accountname} */}
-									{sessionStorage.getItem("username")}
+							{username ? (
+								<div className="font-medium dark:text-white">
+									<div className="font-bold">
+										{/* {accountStore?.AccountInfo.accountname} */}
+										{username}
+									</div>
 								</div>
-							</div>
+							) : (
+								<div className="font-medium dark:text-white">
+									<div className="font-bold">
+										{/* {accountStore?.AccountInfo.accountname} */}
+										{sessionStorage.getItem("username").substring(0, 10) +
+											"..."}
+									</div>
+								</div>
+							)}
+
 							<div className="w-32 ml-4">
 								<p
 									className="font-bold cursor-pointer"
 									onClick={() => handleLogoutRoute()}
 								>
-									Logout
+									{t("login.logout")}
 								</p>
 							</div>
 						</div>
