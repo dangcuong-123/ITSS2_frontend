@@ -50,11 +50,18 @@ const HomePageScreen = () => {
   const [successMessage, setSuccessMessage] = useState("");
 
   const handleSearch = (new_value) => {
-    console.log(
-      "🚀 ~ file: HomePageScreen.jsx:53 ~ handleSearch ~ new_value",
-      new_value
-    );
-    setlocation("");
+    const data = {
+      name: new_value,
+    };
+    searchByTags(data)
+      .then((res) => {
+        setRestaurant(res.data.restaurants);
+        setHotel(res.data.hotels);
+      })
+      .catch((err) => {
+        setRestaurant([]);
+        setHotel([]);
+      });
   };
   const { t } = useTranslation();
 
@@ -64,7 +71,7 @@ const HomePageScreen = () => {
 
   const searchTags = (value) => {
     const data = {
-      tags: JSON.stringify(value),
+      name: JSON.stringify(value),
     };
     searchByTags(data)
       .then((res) => {
@@ -81,10 +88,6 @@ const HomePageScreen = () => {
   };
 
   const handleSelectProvince = (selectedProvince) => {
-    console.log(
-      "🚀 ~ file: HomePageScreen.jsx:84 ~ handleSelectProvince ~ selectedProvince",
-      selectedProvince
-    );
     setSelectedProvince(selectedProvince);
   };
 
@@ -133,7 +136,7 @@ const HomePageScreen = () => {
           tags_arr.push(x);
         });
         setTags(tags_arr);
-        setSelectedTags(tags_arr.map((a) => a.value));
+        // setSelectedTags(tags_arr.map((a) => a.value));
       })
       .catch((err) => {
         console.log(err);
@@ -180,8 +183,7 @@ const HomePageScreen = () => {
                       return;
                     }
                     setSelectedTags(value);
-
-                    searchTags(value);
+                    // searchTags(value);
                   }}
                   multiple
                   renderValue={(selected) => {
