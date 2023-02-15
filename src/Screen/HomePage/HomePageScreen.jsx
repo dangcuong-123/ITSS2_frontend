@@ -13,13 +13,13 @@ import {
   showHomePage,
   searchByTags,
 } from "../../services/HomeServices";
-import accountStore from "../../store/AccountInfoStore";
+// import accountStore from "../../store/AccountInfoStore";
 import {
   Snackbar,
   Alert,
   Select,
   MenuItem,
-  ListItemIcon,
+  // ListItemIcon,
   Checkbox,
   ListItemText,
   FormControl,
@@ -29,7 +29,7 @@ import { useNavigate } from "react-router-dom";
 
 import { useTranslation } from "react-i18next";
 import { getTags, TAG_OPTIONS } from "../../services/PlaceServices";
-import SelectTags from "../../components/Select/SelectTags";
+// import SelectTags from "../../components/Select/SelectTags";
 import SelectProvince from "../../components/Select/SelectProvince";
 import GGLogout from "../User/Logout/GGLogout";
 const listLocation = ["All", "Quang Ninh", "Ha Noi"];
@@ -268,9 +268,9 @@ const HomePageScreen = () => {
             </div>
             <RestaurantCard restaurant={restaurant} />
           </div>
-          <div>
+          {/* <div>
             <GGLogout />
-          </div>
+          </div> */}
         </LayoutAdmin>
       </Container>
     </React.Fragment>

@@ -5,7 +5,6 @@ function GGLogout(){
     const navigate = useNavigate();
 
     const onSuccess = () => {
-        console.log("Log out successfully!")
         navigate("/login")
     }
 

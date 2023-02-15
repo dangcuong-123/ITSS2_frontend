@@ -40,7 +40,8 @@
         "forgot": "Quên mật khẩu ?",
         "create": "Tạo tài khoản mới",
         "placeEmail": "Hãy nhập email",
-        "placePass": "Hãy nhập mật khẩu"
+        "placePass": "Hãy nhập mật khẩu",
+        "logout": "Đăng xuất"
     },
     "register": {
         "register": "Đăng ký",
@@ -106,8 +107,8 @@
         "title": "Chi tiết Plan",
         "name": "Tên Plan",
         "hotel": "Khách sạn",
-        "review": "Đánh giá", 
-        "details": "Xem chi tiết", 
+        "review": "Đánh giá",
+        "details": "Xem chi tiết",
         "rest": "Nhà hàng",
         "back": "Quay lại",
         "save": "Lưu Plan"
@@ -116,8 +117,8 @@
         "title": "Thêm khách sạn",
         "name": "Tên khách sạn",
         "address": "Địa chỉ",
-        "province": "Thành phố", 
-        "description": "Mô tả", 
+        "province": "Thành phố",
+        "description": "Mô tả",
         "url": "URL",
         "price": "Giá một ngày",
         "success": "Thêm khách sạn thành công",
@@ -127,15 +128,15 @@
         "title": "Thêm khách sạn",
         "roomInfor": "Thông tin phòng",
         "bookmark": "Đánh dấu",
-        "back": "Quay lại", 
+        "back": "Quay lại",
         "review": "Đánh giá"
     },
     "editHotel": {
         "title": "Chỉnh sửa khách sạn",
         "name": "Tên khách sạn",
         "address": "Địa chỉ",
-        "province": "Thành phố", 
-        "description": "Mô tả", 
+        "province": "Thành phố",
+        "description": "Mô tả",
         "url": "URL",
         "price": "Giá một ngày",
         "success": "Chỉnh sửa khách sạn thành công",
@@ -149,14 +150,14 @@
         "title": "Profile",
         "name": "Tên người dùng",
         "password": "Mật khẩu",
-        "edit": "Chỉnh sửa", 
+        "edit": "Chỉnh sửa",
         "save": "Lưu lại"
     },
     "userSearchPlan": {
         "title": "Tìm kiếm Plan",
         "search": "Tìm kiếm",
         "hotelRecommend": "Khách sạn gợi ý",
-        "hotel": "Khách sạn", 
+        "hotel": "Khách sạn",
         "restaurant": "Nhà hàng",
         "alert": "Hãy đặt thời gian checkout lớn hơn checkin",
         "cash": "Tiền mặt",

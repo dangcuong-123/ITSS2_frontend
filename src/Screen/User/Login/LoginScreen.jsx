@@ -15,7 +15,8 @@ import { gapi } from "gapi-script";
 import { register } from "../../../services/UserServices";
 import GGLogout from "../Logout/GGLogout";
 const LoginScreen = () => {
-	const client_id = "593679324297-88hvr9r4b2cotl53aisek8v22lohf2es.apps.googleusercontent.com"
+	const client_id =
+		"593679324297-88hvr9r4b2cotl53aisek8v22lohf2es.apps.googleusercontent.com";
 	const navigate = useNavigate();
 	const { t } = useTranslation();
 
@@ -55,9 +56,6 @@ const LoginScreen = () => {
 		login(data)
 			.then((res) => {
 				if (res.status === 200) {
-					// accountStore.setIsAuthenticated();
-					// accountStore.updateAccountInfo(data);
-
 					// use session storage to store user info
 					accountStore.email = email;
 					sessionStorage.setItem("username", res.data[0][0]);
@@ -77,31 +75,35 @@ const LoginScreen = () => {
 
 	const onSuccess = (res) => {
 		// e.preventDefault();
-		console.log("Login successfully ! current user: ", res.profileObj)
-		const email = res.profileObj.email
-		const password = "123456789"
-		const name = res.profileObj.name
+		console.log("Login successfully ! current user: ", res.profileObj);
+		const email = res.profileObj.email;
+		const password = "123456789";
+		const name = res.profileObj.name;
 		const data = {
-			email, password, name
-		}
+			email,
+			password,
+			name,
+		};
 		const data_login = {
-			email, password
-		}
+			email,
+			password,
+		};
 		register(data)
 			.then((res) => {
 				// console.log()
 				if (res.status === 200) {
-					console.log("Sign up successfully")
-					login(data_login).then((res) => {
-						accountStore.email = email;
-						sessionStorage.setItem("username", email);
-						sessionStorage.setItem("accountInfo", JSON.stringify(data_login));
-						navigate("/");
-					})
-					.catch((err) => {
-						// setOpen(true);
-						console.log(err)
-					});
+					console.log("Sign up successfully");
+					login(data_login)
+						.then((res) => {
+							accountStore.email = email;
+							sessionStorage.setItem("username", email);
+							sessionStorage.setItem("accountInfo", JSON.stringify(data_login));
+							navigate("/");
+						})
+						.catch((err) => {
+							// setOpen(true);
+							console.log(err);
+						});
 				}
 			})
 			.catch((err) => {
@@ -112,33 +114,34 @@ const LoginScreen = () => {
 				}
 			});
 
-		login(data_login).then((res) => {
-			accountStore.email = email;
-			sessionStorage.setItem("username", email);
-			sessionStorage.setItem("accountInfo", JSON.stringify(data_login));
-			navigate("/");
-		})
+		login(data_login)
+			.then((res) => {
+				accountStore.email = email;
+				sessionStorage.setItem("username", email);
+				sessionStorage.setItem("accountInfo", JSON.stringify(data_login));
+				navigate("/");
+			})
 			.catch((err) => {
 				// setOpen(true);
-				console.log(err)
+				console.log(err);
 			});
-	
+
 		// navigate("/");
-	}
+	};
 
 	const onFailure = (res) => {
-		console.log("Login failed! res: ", res)
-	}
+		console.log("Login failed! res: ", res);
+	};
 
 	useEffect(() => {
-		function start(){
+		function start() {
 			gapi.client.init({
 				clientId: client_id,
-				scope: ""
-			})
+				scope: "",
+			});
 		}
-		gapi.load('client:auth2', start)
-	})
+		gapi.load("client:auth2", start);
+	});
 	return (
 		<div className="flex flex-col justify-center items-center">
 			<Card>
@@ -200,13 +203,12 @@ const LoginScreen = () => {
 						buttonText="Login"
 						onSuccess={onSuccess}
 						onFailure={onFailure}
-						cookiePolicy={'single_host_origin'}
-						isSignedIn={true}
+						cookiePolicy={"single_host_origin"}
+						// isSignedIn={true}
 					/>
 				</div>
-				
 			</Card>
-			
+
 			<Link
 				to="/register"
 				className="text-center text-[#64B5F6] mt-6 text-lg font-medium"
