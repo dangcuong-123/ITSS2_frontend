@@ -29,6 +29,8 @@ import { useNavigate } from "react-router-dom";
 
 import { useTranslation } from "react-i18next";
 import { getTags, TAG_OPTIONS } from "../../services/PlaceServices";
+import SelectTags from "../../components/Select/SelectTags";
+import SelectProvince from "../../components/Select/SelectProvince";
 const listLocation = ["All", "Quang Ninh", "Ha Noi"];
 
 const HomePageScreen = () => {
@@ -36,6 +38,7 @@ const HomePageScreen = () => {
   const [locations, setlocation] = useState("All");
   const [tagOptions, setTags] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
+  const [selectedProvince, setSelectedProvince] = useState("");
 
   // get restaurant and hotel
   const [restaurant, setRestaurant] = useState([]);
@@ -68,6 +71,13 @@ const HomePageScreen = () => {
         setRestaurant([]);
         setHotel([]);
       });
+  };
+  const handleSelectTags = (selectedTags) => {
+    setSelectedTags(selectedTags);
+  };
+
+  const handleSelectProvince = (selectedProvince) => {
+    setSelectedProvince(selectedProvince);
   };
 
   useEffect(() => {
@@ -136,6 +146,15 @@ const HomePageScreen = () => {
                 className="px-3 py-3 placeholder-[#21212180] text-slate-600 relative bg-white text-sm border-2 border-[#2286C3] 
                                  rounded-lg shadow outline-nonefocus:outline-none focus:ring w-full"
               >
+                <SelectProvince handleSelectProvince={handleSelectProvince} />
+              </FormControl>
+            </div>
+            <div className="w-1/4 relative flex w-full ml-6 mb-3 border-1 border-[#2286C3]">
+              <FormControl
+                size="small"
+                className="px-3 py-3 placeholder-[#21212180] text-slate-600 relative bg-white text-sm border-2 border-[#2286C3] 
+                                 rounded-lg shadow outline-nonefocus:outline-none focus:ring w-full"
+              >
                 <InputLabel id="label">Phân loại</InputLabel>
                 <Select
                   id="tags"
@@ -184,6 +203,10 @@ const HomePageScreen = () => {
                     </MenuItem>
                   ))}
                 </Select>
+                <SelectTags
+                  tagOptions={tagOptions}
+                  handleSelectTags={handleSelectTags}
+                />
               </FormControl>
             </div>
           </div>
