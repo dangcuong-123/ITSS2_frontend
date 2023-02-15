@@ -431,7 +431,7 @@ const EditPlace = () => {
                   color="from-[#961919] to-[#f6646e] font-bold"
                   type="button"
                 >
-                  <Link to="/list-places">Back</Link>
+                  <Link to="/list-places">Quay lại</Link>
                 </Button>
                 <Button color="font-bold mr-0" type="submit" autoFocus>
                   Lưu lại

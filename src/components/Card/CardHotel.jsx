@@ -72,16 +72,18 @@ const CardHotel = ({ data }) => {
                   </div>
                   <div className="flex justify-end">
                     <Button color="from-[#7CFC00] to-[#008000] font-bold mx-1 px-1 py-1">
-                      <Link to="/admin/detail-hotel">Detail</Link>
+                      <Link to={`/detail-hotel/${card.hotel_id}`}>
+                        Chi Tiết
+                      </Link>
                     </Button>
                     <Button color="from-[#64B5F6] to-[#2286C3] mx-1 font-bold px-1 py-1">
-                      <Link to={`/edit-hotel/${card.hotel_id}`}>Edit</Link>
+                      <Link to={`/edit-hotel/${card.hotel_id}`}>Chỉnh sửa</Link>
                     </Button>
                     <Button
                       onClick={handleClickOpen}
                       color="from-[#f6646e] to-[#961919] mx-1 font-bold px-1 py-1"
                     >
-                      Delete
+                      Xóa
                     </Button>
                     <Dialog
                       open={open}
@@ -90,20 +92,20 @@ const CardHotel = ({ data }) => {
                       aria-describedby="alert-dialog-description"
                     >
                       <DialogTitle id="alert-dialog-title">
-                        {"You want to delete the hotel!"}
+                        {"Bạn muốn xóa khách sạn"}
                       </DialogTitle>
                       <DialogContent>
                         <DialogContentText id="alert-dialog-description">
-                          You want to delete the hotel!!
+                          Bạn muốn xóa khách sạn
                         </DialogContentText>
                       </DialogContent>
                       <DialogActions>
-                        <Button onClick={handleClose}>No</Button>
+                        <Button onClick={handleClose}>Không</Button>
                         <Button
                           onClick={() => handleClickDelete(card.hotel_id)}
                           autoFocus
                         >
-                          Yes
+                          Có
                         </Button>
                       </DialogActions>
                     </Dialog>

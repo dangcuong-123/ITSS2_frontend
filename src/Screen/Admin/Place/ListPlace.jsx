@@ -35,11 +35,11 @@ const ListPlace = () => {
       <CssBaseline />
       <Container fixed>
         <LayoutAdmin>
-          <AdminTitle>Place List</AdminTitle>
+          <AdminTitle>Danh sách địa điểm</AdminTitle>
           <div className="flex justify-between ml-2 mr-7">
-            <Input placeholder="Place's name" onChange={handleSearch} />
+            <Input placeholder="Địa điểm" onChange={handleSearch} />
             <Button color="font-bold mr-0">
-              <Link to="add-place">Add Place</Link>
+              <Link to="add-place">Thêm địa điểm</Link>
             </Button>
           </div>
           <TablePlace listPlaces={places} />

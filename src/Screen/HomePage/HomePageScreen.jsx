@@ -65,13 +65,11 @@ const HomePageScreen = () => {
   };
   const { t } = useTranslation();
 
-  const handleChangeTab = (location) => {
-    setlocation(location);
-  };
-
   const searchTags = (value) => {
+    setSelectedProvince("Tất cả");
+
     const data = {
-      name: JSON.stringify(value),
+      tags: JSON.stringify(value),
     };
     searchByTags(data)
       .then((res) => {
@@ -83,11 +81,36 @@ const HomePageScreen = () => {
         setHotel([]);
       });
   };
-  const handleSelectTags = (selectedTags) => {
-    setSelectedTags(selectedTags);
-  };
 
   const handleSelectProvince = (selectedProvince) => {
+    if (selectedProvince === "Tất cả") {
+      showHomePage()
+        .then((res) => {
+          setRestaurant(res.data.restaurants);
+          setHotel(res.data.hotels);
+        })
+        .catch((err) => {
+          setRestaurant([]);
+          setHotel([]);
+        });
+    } else {
+      const data = {
+        name: selectedProvince,
+      };
+      if (selectedTags.length) {
+        data["tags"] = JSON.stringify(selectedTags);
+      }
+
+      searchByTags(data)
+        .then((res) => {
+          setRestaurant(res.data.restaurants);
+          setHotel(res.data.hotels);
+        })
+        .catch((err) => {
+          setRestaurant([]);
+          setHotel([]);
+        });
+    }
     setSelectedProvince(selectedProvince);
   };
 
@@ -120,9 +143,6 @@ const HomePageScreen = () => {
     }
   }, [locations]);
 
-  // if (sessionStorage.getItem("accountInfo")) {
-  // 	navigate("/home");
-  // }
   useEffect(() => {
     getTags()
       .then((res) => {
@@ -151,7 +171,24 @@ const HomePageScreen = () => {
           <AdminTitle>{t("homepage.title")}</AdminTitle>
           <div>
             <Search onSearchChange={handleSearch} />
-            <div className="w-1/4 relative flex w-full ml-6 mb-3 border-1 border-[#2286C3]">
+          </div>
+          <div>
+            {openSuccess && (
+              <Snackbar
+                open={openSuccess}
+                autoHideDuration={10000}
+                onClose={() => setOpenSuccess(false)}
+                anchorOrigin={{ vertical: "top", horizontal: "right" }}
+              >
+                <Alert onClose={() => setOpenSuccess(false)} severity="success">
+                  {successMessage}
+                </Alert>
+              </Snackbar>
+            )}
+            <span className="text-2xl font-bold mb-5">
+              {t("homepage.recommendHotel")}
+            </span>
+            <div className="w-1/4 relative flex w-full ml-6 mb-3 mt-3 border-1 border-[#2286C3]">
               <FormControl
                 size="small"
                 className="px-3 py-3 placeholder-[#21212180] text-slate-600 relative bg-white text-sm border-2 border-[#2286C3] 
@@ -183,7 +220,7 @@ const HomePageScreen = () => {
                       return;
                     }
                     setSelectedTags(value);
-                    // searchTags(value);
+                    searchTags(value);
                   }}
                   multiple
                   renderValue={(selected) => {
@@ -212,24 +249,7 @@ const HomePageScreen = () => {
                 </Select>
               </FormControl>
             </div>
-          </div>
-          <div>
-            {openSuccess && (
-              <Snackbar
-                open={openSuccess}
-                autoHideDuration={10000}
-                onClose={() => setOpenSuccess(false)}
-                anchorOrigin={{ vertical: "top", horizontal: "right" }}
-              >
-                <Alert onClose={() => setOpenSuccess(false)} severity="success">
-                  {successMessage}
-                </Alert>
-              </Snackbar>
-            )}
-            <span className="text-2xl font-bold mb-5">
-              {t("homepage.recommendHotel")}
-            </span>
-            <div className="m-5">
+            {/* <div className="m-5">
               <Stack spacing={2} direction="row">
                 {listLocation.map((loc, idx) => {
                   return (
@@ -243,7 +263,7 @@ const HomePageScreen = () => {
                   );
                 })}
               </Stack>
-            </div>
+            </div> */}
             <HotelCard hotel={hotel} />
           </div>
 
@@ -251,7 +271,7 @@ const HomePageScreen = () => {
             <span className="text-2xl font-bold mb-5">
               {t("homepage.recommendRestaurant")}
             </span>
-            <div className="m-5">
+            {/* <div className="m-5">
               <Stack spacing={2} direction="row">
                 {listLocation.map((loc, idx) => {
                   return (
@@ -265,7 +285,7 @@ const HomePageScreen = () => {
                   );
                 })}
               </Stack>
-            </div>
+            </div> */}
             <RestaurantCard restaurant={restaurant} />
           </div>
           {/* <div>
