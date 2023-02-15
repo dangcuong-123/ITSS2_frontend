@@ -12,19 +12,19 @@ import {
   searchRestaurant,
 } from "../../../services/RestaurantServices";
 // import { getPlace, searchPlace } from "../../../services/PlaceServices";
-import TableRestaurant from "../../../components/Table/TableRestaurants/TableRestaurant"
+import TableRestaurant from "../../../components/Table/TableRestaurants/TableRestaurant";
 
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 const ListRestaurant = () => {
   const [restaurant, setRestaurant] = useState([]);
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   useEffect(() => {
     getRestaurant()
       .then((res) => {
         setRestaurant(res.data);
-        console.log(restaurant)
+        console.log(restaurant);
       })
       .catch((err) => {});
   }, []);
@@ -40,11 +40,11 @@ const ListRestaurant = () => {
       <CssBaseline />
       <Container fixed>
         <LayoutAdmin>
-          <AdminTitle>{t('listRest.title')}</AdminTitle>
+          <AdminTitle>{t("listRest.title")}</AdminTitle>
           <div className="flex justify-between ml-2 mr-7">
-            <Input placeholder="Restaurant's name" onChange={handleSearch} />
+            <Input placeholder="Tên nhà hàng" onChange={handleSearch} />
             <Button color="font-bold mr-0">
-              <Link to="/add-restaurant">{t('listRest.addRest')}</Link>
+              <Link to="/add-restaurant">{t("listRest.addRest")}</Link>
             </Button>
           </div>
           <TableRestaurant listRestaurants={restaurant} />
