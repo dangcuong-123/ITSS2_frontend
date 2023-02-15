@@ -23,7 +23,7 @@ const CardHotel = ({ data }) => {
 
   const handleClickDelete = (id) => {
     console.log(id);
-    const deleteHotel = { 'id': id };
+    const deleteHotel = { id: id };
     fetch(`http://13.230.246.62:8080/hotel/delete_hotel`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },

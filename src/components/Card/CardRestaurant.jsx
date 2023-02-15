@@ -75,7 +75,10 @@ const CardRestaurant = ({ data }) => {
                       </Link>
                     </Button>
                     <PopupUpdateMenu nameBtn="Edit" styleBtn="mx-1 px-1 py-1" />
-                    <Button color="from-[#f6646e] to-[#961919] mx-1 font-bold px-1 py-1" onClick={handleClickOpen}>
+                    <Button
+                      color="from-[#f6646e] to-[#961919] mx-1 font-bold px-1 py-1"
+                      onClick={handleClickOpen}
+                    >
                       Delete
                     </Button>
                     <Dialog

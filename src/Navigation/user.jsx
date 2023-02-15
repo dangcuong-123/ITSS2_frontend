@@ -20,7 +20,7 @@ const User = () => {
 				<Route path="*" element={<HomePageScreen />} />
 				<Route path="search-plan" element={<SearchPlan />} />
 				<Route
-					path="search-plan-restaurant"
+					path="search-plan/search-plan-restaurant"
 					element={<SearchPlanRestaurant />}
 				/>
 				<Route path="list-hotel" element={<ListHotel></ListHotel>}></Route>

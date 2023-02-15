@@ -104,7 +104,7 @@ const SearchPlanRestaurant = () => {
                 <Button
                   variant="contained"
                   component={Link}
-                  to={"/search-plan-restaurant"}
+                  to={"search-plan-restaurant"}
                 >
                   Restaurant
                 </Button>
