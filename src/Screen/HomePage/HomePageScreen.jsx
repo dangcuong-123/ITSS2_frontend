@@ -31,6 +31,7 @@ import { useTranslation } from "react-i18next";
 import { getTags, TAG_OPTIONS } from "../../services/PlaceServices";
 import SelectTags from "../../components/Select/SelectTags";
 import SelectProvince from "../../components/Select/SelectProvince";
+import GGLogout from "../User/Logout/GGLogout";
 const listLocation = ["All", "Quang Ninh", "Ha Noi"];
 
 const HomePageScreen = () => {
@@ -243,6 +244,7 @@ const HomePageScreen = () => {
             </div>
             <HotelCard hotel={hotel} />
           </div>
+
           <div className="mt-5">
             <span className="text-2xl font-bold mb-5">
               {t("homepage.recommendRestaurant")}
@@ -263,6 +265,9 @@ const HomePageScreen = () => {
               </Stack>
             </div>
             <RestaurantCard restaurant={restaurant} />
+          </div>
+          <div>
+            <GGLogout />
           </div>
         </LayoutAdmin>
       </Container>
