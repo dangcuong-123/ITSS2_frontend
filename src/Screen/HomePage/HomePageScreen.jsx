@@ -50,6 +50,10 @@ const HomePageScreen = () => {
   const [successMessage, setSuccessMessage] = useState("");
 
   const handleSearch = (new_value) => {
+    console.log(
+      "🚀 ~ file: HomePageScreen.jsx:53 ~ handleSearch ~ new_value",
+      new_value
+    );
     setlocation("");
   };
   const { t } = useTranslation();
@@ -62,7 +66,6 @@ const HomePageScreen = () => {
     const data = {
       tags: JSON.stringify(value),
     };
-    console.log("🚀 ~ file: HomePageScreen.jsx:59 ~ searchTags ~ data", data);
     searchByTags(data)
       .then((res) => {
         setRestaurant(res.data.restaurants);
@@ -78,13 +81,17 @@ const HomePageScreen = () => {
   };
 
   const handleSelectProvince = (selectedProvince) => {
+    console.log(
+      "🚀 ~ file: HomePageScreen.jsx:84 ~ handleSelectProvince ~ selectedProvince",
+      selectedProvince
+    );
     setSelectedProvince(selectedProvince);
   };
 
   useEffect(() => {
     if (sessionStorage.getItem("accountInfo")) {
       setOpenSuccess(true);
-      setSuccessMessage("Login successfully");
+      setSuccessMessage("Đăng nhập thành công");
     }
 
     if (locations === "All") {
@@ -173,10 +180,7 @@ const HomePageScreen = () => {
                       return;
                     }
                     setSelectedTags(value);
-                    console.log(
-                      "🚀 ~ file: HomePageScreen.jsx:153 ~ HomePageScreen ~ value",
-                      value
-                    );
+
                     searchTags(value);
                   }}
                   multiple
@@ -204,10 +208,6 @@ const HomePageScreen = () => {
                     </MenuItem>
                   ))}
                 </Select>
-                <SelectTags
-                  tagOptions={tagOptions}
-                  handleSelectTags={handleSelectTags}
-                />
               </FormControl>
             </div>
           </div>
