@@ -15,16 +15,16 @@ const UserSidebar = () => {
           <li className="font-bold text-xl text-white pt-[93px] pl-5">
             {t("userSidebar.content")}
           </li>
-          <SidebarFirstContent icon={HomeIcon} link="home">
+          <SidebarFirstContent icon={HomeIcon} link="/home">
             {t("userSidebar.home")}
           </SidebarFirstContent>
-          <SidebarFirstContent icon={SearchIcon} link="search-plan">
+          <SidebarFirstContent icon={SearchIcon} link="/search-plan">
             {t("userSidebar.search")}
           </SidebarFirstContent>
-          <SidebarFirstContent icon={accountIcon} link="profile">
+          <SidebarFirstContent icon={accountIcon} link="/profile">
             {t("userSidebar.account")}
           </SidebarFirstContent>
-          <SidebarFirstContent icon={DownloadIcon} link="saved">
+          <SidebarFirstContent icon={DownloadIcon} link="/saved">
             {t("userSidebar.saved")}
           </SidebarFirstContent>
         </ul>

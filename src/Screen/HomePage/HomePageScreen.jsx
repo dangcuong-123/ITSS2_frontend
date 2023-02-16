@@ -172,6 +172,69 @@ const HomePageScreen = () => {
           <div>
             <Search onSearchChange={handleSearch} />
           </div>
+          <div className="flex">
+            <div className="w-1/4 relative flex w-full ml-6 mb-6 mt-3 border-1 border-[#2286C3]">
+              <FormControl
+                size="small"
+                className="px-1 py-1 placeholder-[#21212180] text-slate-600 relative bg-white text-sm border-2 border-[#2286C3] 
+                                 rounded-lg shadow outline-nonefocus:outline-none focus:ring w-full"
+              >
+                <SelectProvince handleSelectProvince={handleSelectProvince} />
+              </FormControl>
+            </div>
+            <div className="w-1/4 relative flex w-full ml-24 mb-6 mt-5 border-1 border-[#2286C3]">
+              <FormControl
+                size="small"
+                className="px-3 py-3 placeholder-[#21212180] text-slate-600 relative bg-white text-sm border-2 border-[#2286C3] 
+                                 rounded-lg shadow outline-nonefocus:outline-none focus:ring w-full"
+              >
+                <InputLabel id="label">Phân loại</InputLabel>
+                <Select
+                  id="tags"
+                  name="tags"
+                  value={selectedTags}
+                  label="Phân loại"
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    if (value[value.length - 1] === "all") {
+                      setSelectedTags(
+                        selectedTags.length === tagOptions.length
+                          ? []
+                          : tagOptions.map((a) => a.value)
+                      );
+                      return;
+                    }
+                    setSelectedTags(value);
+                    searchTags(value);
+                  }}
+                  multiple
+                  renderValue={(selected) => {
+                    if (selected.length === tagOptions.length) {
+                      return <em>Tất cả</em>;
+                    }
+                    return selected.join(", ");
+                  }}
+                  className="py-1"
+                >
+                  <MenuItem key="all" value="all">
+                    <Checkbox
+                      checked={
+                        tagOptions.length > 0 &&
+                        selectedTags.length === tagOptions.length
+                      }
+                    />
+                    <ListItemText primary="All" />
+                  </MenuItem>
+                  {tagOptions.map(({ value, key }) => (
+                    <MenuItem key={key} value={value}>
+                      <Checkbox checked={selectedTags.indexOf(value) > -1} />
+                      <ListItemText primary={value} />
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </div>
+          </div>
           <div>
             {openSuccess && (
               <Snackbar
@@ -188,69 +251,7 @@ const HomePageScreen = () => {
             <span className="text-2xl font-bold mb-5">
               {t("homepage.recommendHotel")}
             </span>
-            <div className="flex">
-              <div className="w-1/4 relative flex w-full ml-6 mb-6 mt-3 border-1 border-[#2286C3]">
-                <FormControl
-                  size="small"
-                  className="px-1 py-1 placeholder-[#21212180] text-slate-600 relative bg-white text-sm border-2 border-[#2286C3] 
-                                 rounded-lg shadow outline-nonefocus:outline-none focus:ring w-full"
-                >
-                  <SelectProvince handleSelectProvince={handleSelectProvince} />
-                </FormControl>
-              </div>
-              <div className="w-1/4 relative flex w-full ml-24 mb-6 mt-5 border-1 border-[#2286C3]">
-                <FormControl
-                  size="small"
-                  className="px-3 py-3 placeholder-[#21212180] text-slate-600 relative bg-white text-sm border-2 border-[#2286C3] 
-                                 rounded-lg shadow outline-nonefocus:outline-none focus:ring w-full"
-                >
-                  <InputLabel id="label">Phân loại</InputLabel>
-                  <Select
-                    id="tags"
-                    name="tags"
-                    value={selectedTags}
-                    label="Phân loại"
-                    onChange={(e) => {
-                      const value = e.target.value;
-                      if (value[value.length - 1] === "all") {
-                        setSelectedTags(
-                          selectedTags.length === tagOptions.length
-                            ? []
-                            : tagOptions.map((a) => a.value)
-                        );
-                        return;
-                      }
-                      setSelectedTags(value);
-                      searchTags(value);
-                    }}
-                    multiple
-                    renderValue={(selected) => {
-                      if (selected.length === tagOptions.length) {
-                        return <em>Tất cả</em>;
-                      }
-                      return selected.join(", ");
-                    }}
-                    className="py-1"
-                  >
-                    <MenuItem key="all" value="all">
-                      <Checkbox
-                        checked={
-                          tagOptions.length > 0 &&
-                          selectedTags.length === tagOptions.length
-                        }
-                      />
-                      <ListItemText primary="All" />
-                    </MenuItem>
-                    {tagOptions.map(({ value, key }) => (
-                      <MenuItem key={key} value={value}>
-                        <Checkbox checked={selectedTags.indexOf(value) > -1} />
-                        <ListItemText primary={value} />
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </div>
-            </div>
+
             {/* <div className="m-5">
               <Stack spacing={2} direction="row">
                 {listLocation.map((loc, idx) => {
